@@ -1,0 +1,34 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                          http://maven.apache.org/xsd/settings-1.0.0.xsd">
+<!--<servers>
+      <server>
+        <id>Tomcat</id>
+        <username>car-webservice</username>
+        <password>tomcat</password>
+      </server>
+</servers>
+<pluginGroups>
+  <pluginGroup>org.apache.tomcat.maven</pluginGroup>
+</pluginGroups>-->
+
+<profiles>
+        <profile>
+            <id>glassfish-context</id>
+            <properties>
+                <local.glassfish.home>D:\\glassfish4\\glassfish</local.glassfish.home>
+                <local.glassfish.user>admin</local.glassfish.user>
+                <local.glassfish.adminPassword>adminPassword</local.glassfish.adminPassword>
+                <local.glassfish.domain>allo-doc</local.glassfish.domain>
+                <local.glassfish.passfile>
+            ${local.glassfish.home}\\domains\\${local.glassfish.domain}\\config\\domain-passwords
+                </local.glassfish.passfile>
+            </properties>
+        </profile>
+    </profiles>
+ 
+    <activeProfiles>
+        <activeProfile>glassfish-context</activeProfile>
+    </activeProfiles>
+</settings>
