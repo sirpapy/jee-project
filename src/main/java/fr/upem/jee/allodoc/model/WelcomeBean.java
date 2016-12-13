@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc;
+package fr.upem.jee.allodoc.model;
 
 import javax.faces.bean.ManagedBean;
 
