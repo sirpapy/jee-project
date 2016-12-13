@@ -1,12 +1,13 @@
 package fr.upem.jee.allodoc;
 
 import fr.upem.jee.allodoc.jpa.User;
+import org.jboss.weld.environment.se.Weld;
+import org.jboss.weld.environment.se.WeldContainer;
 import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNull;
 
 /**
  * Created by raptao on 12/13/2016.

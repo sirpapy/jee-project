@@ -16,6 +16,10 @@ public class DatabaseManager {
     private final EntityManager em;
     private final EntityTransaction transaction;
 
+    public DatabaseManager() throws IOException {
+        this("DEV-MODE");
+    }
+
     public DatabaseManager(String applicationMode) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(applicationMode);
         this.em = factory.createEntityManager();
