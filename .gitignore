@@ -1,3 +1,4 @@
 .idea*
 allo-doc.iml
 target/*
+*.iml
