@@ -3,12 +3,13 @@ package fr.upem.jee.allodoc.jpa;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.io.IOException;
 
 /**
  * Created by raptao on 12/13/2016.
  */
 @Entity
-public class Address {
+public class Address extends AlloDocEntity<Address>{
 
     @Id
     @GeneratedValue
@@ -21,7 +22,9 @@ public class Address {
     private String city;
     private String country;
 
-    public Address() {
+
+    public Address() throws IOException {
+        super();
     }
 
     public Long getId() {
@@ -30,5 +33,15 @@ public class Address {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public void save() {
+        manager().save(this);
+    }
+
+    @Override
+    public void remove() {
+        manager().save(this);
     }
 }

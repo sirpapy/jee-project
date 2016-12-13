@@ -29,11 +29,11 @@ public class DatabaseManager<T> {
      * @return DatabaseManager
      * @throws IOException in case of I/O errors
      */
-    public static DatabaseManager getManager() throws IOException {
+    public static <R> DatabaseManager<R> getManager() throws IOException {
         Properties properties = System.getProperties();
         properties.load(DatabaseManager.class.getResourceAsStream("/application.properties"));
         String mode = properties.getProperty("mode");
-        return new DatabaseManager(mode);
+        return new DatabaseManager<>(mode);
     }
 
 
