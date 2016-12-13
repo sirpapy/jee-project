@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.IOException;
 
 /** {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.
@@ -11,7 +8,8 @@ import java.io.IOException;
  */
 
 @Entity
-public class User extends AlloDocEntity<User>{
+@Table(name = "users")
+public class User{
 
     @Id @GeneratedValue
     private Long id;
@@ -25,7 +23,6 @@ public class User extends AlloDocEntity<User>{
     private String password;
 
     public User() throws IOException {
-        super();
     }
 
     public Long getId() {
@@ -82,16 +79,6 @@ public class User extends AlloDocEntity<User>{
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public void save() {
-        manager().save(this);
-    }
-
-    @Override
-    public void remove() {
-        manager().remove(this);
     }
 
 }

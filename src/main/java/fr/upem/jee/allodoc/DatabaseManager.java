@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 /**
  * Created by raptao on 12/13/2016.
  */
-public class DatabaseManager<T> {
+public class DatabaseManager {
 
     private final EntityManager em;
     private final EntityTransaction transaction;
@@ -29,11 +29,11 @@ public class DatabaseManager<T> {
      * @return DatabaseManager
      * @throws IOException in case of I/O errors
      */
-    public static <R> DatabaseManager<R> getManager() throws IOException {
+    public static DatabaseManager getManager() throws IOException {
         Properties properties = System.getProperties();
         properties.load(DatabaseManager.class.getResourceAsStream("/application.properties"));
         String mode = properties.getProperty("mode");
-        return new DatabaseManager<>(mode);
+        return new DatabaseManager(mode);
     }
 
 
@@ -41,7 +41,7 @@ public class DatabaseManager<T> {
      * Saves or updates entities in the database
      * @param entities
      */
-    public void save(T... entities) {
+    public void save(Object... entities) {
        applyTransaction(em::persist, entities);
     }
 
@@ -50,7 +50,7 @@ public class DatabaseManager<T> {
      * Removes entities from database
      * @param entities
      */
-    public void remove( T... entities ){
+    public void remove( Object... entities ){
         applyTransaction(em::remove, entities);
     }
 
@@ -62,9 +62,9 @@ public class DatabaseManager<T> {
         return em;
     }
 
-    private void applyTransaction(Consumer<T> consumer, T...entities){
+    private void applyTransaction(Consumer<Object> consumer, Object...entities){
         transaction.begin();
-        for(T entity : entities){
+        for(Object entity : entities){
             consumer.accept(entity);
         }
         transaction.commit();

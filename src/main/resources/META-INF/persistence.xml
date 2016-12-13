@@ -5,24 +5,24 @@
     <persistence-unit name="DEV-MODE" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <properties>
-        <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/allodoc"/>
-        <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-        <property name="javax.persistence.jdbc.user" value="allodoc"/>
-        <property name="javax.persistence.jdbc.password" value="allodocPassword"/>
+        <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/allodoc?currentSchema=allodoc"/>
+        <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+        <property name="hibernate.connection.username" value="allodoc"/>
+        <property name="hibernate.connection.password" value="allodocPassword"/>
         <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-        <property name="javax.persistence.schema-generation.database.action" value="create"/>
+        <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
 </persistence-unit>
 
     <persistence-unit name="PROD-MODE" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <properties>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/allodoc"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://sqletud.u-pem.fr:5432/mrabea01_db?currentSchema=allodoc"/>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.user" value="allodoc"/>
-            <property name="javax.persistence.jdbc.password" value="allodocPassword"/>
+            <property name="javax.persistence.jdbc.user" value="mrabea01"/>
+            <property name="javax.persistence.jdbc.password" value="raptao12"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-            <property name="javax.persistence.schema-generation.database.action" value="create"/>
+            <property name="javax.persistence.schema-generation.database.action" value="update"/>
         </properties>
     </persistence-unit>
 </persistence>

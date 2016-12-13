@@ -4,15 +4,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.IOException;
+import java.util.Objects;
 
 /**
  * Created by raptao on 12/13/2016.
  */
 @Entity
-public class Address extends AlloDocEntity<Address>{
+public class Address{
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
     private String streetNumber;
     private String streetName;
@@ -22,6 +22,26 @@ public class Address extends AlloDocEntity<Address>{
     private String city;
     private String country;
 
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public void setPostalCode(Integer postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
     public Address() throws IOException {
         super();
@@ -36,12 +56,20 @@ public class Address extends AlloDocEntity<Address>{
     }
 
     @Override
-    public void save() {
-        manager().save(this);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(id, address.id) ||
+                Objects.equals(streetNumber, address.streetNumber) &&
+                Objects.equals(streetName, address.streetName) &&
+                Objects.equals(postalCode, address.postalCode) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(country, address.country);
     }
 
     @Override
-    public void remove() {
-        manager().save(this);
+    public int hashCode() {
+        return Objects.hash(id, streetNumber, streetName, postalCode, city, country);
     }
 }
