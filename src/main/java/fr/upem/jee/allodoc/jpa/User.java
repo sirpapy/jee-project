@@ -10,6 +10,7 @@ import java.io.IOException;
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "authenticateUser", query = "Select u from User u where u.email= :userEmail and u.password= :userPassword")
+@Inheritance( strategy = InheritanceType.JOINED)
 public class User{
 
     @Id @GeneratedValue

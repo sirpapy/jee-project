@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import java.io.IOException;
 import java.util.Objects;
 
 /**
@@ -30,8 +29,7 @@ public class Address{
     }
 
 
-    public Address() throws IOException {
-        super();
+    public Address() {
     }
 
     public Long getId() {
