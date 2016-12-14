@@ -1,11 +1,8 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -18,9 +15,6 @@ public class Physician extends User implements Serializable {
 
     @OneToOne
     private Location practiceArea;
-
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    private Set<Availability> availabilities;
 
     public Physician() {
 
@@ -42,11 +36,4 @@ public class Physician extends User implements Serializable {
         this.practiceArea = practiceArea;
     }
 
-    public Set<Availability> getAvailabilities() {
-        return availabilities;
-    }
-
-    public void setAvailability(Availability availability) {
-        this.availabilities.add(availability);
-    }
 }
