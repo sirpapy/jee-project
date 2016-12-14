@@ -3,6 +3,7 @@ package fr.upem.jee.allodoc.jpa;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -17,11 +18,8 @@ public class Address{
     private String streetNumber;
     private String streetName;
 
-    // TODO : la partie en dessous devra être remplacée par une table
-    private Integer postalCode;
-    private String city;
-    private String country;
-
+    @OneToOne
+    private Location location;
 
     public void setStreetNumber(String streetNumber) {
         this.streetNumber = streetNumber;
@@ -31,17 +29,6 @@ public class Address{
         this.streetName = streetName;
     }
 
-    public void setPostalCode(Integer postalCode) {
-        this.postalCode = postalCode;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
 
     public Address() throws IOException {
         super();
@@ -63,13 +50,30 @@ public class Address{
         return Objects.equals(id, address.id) ||
                 Objects.equals(streetNumber, address.streetNumber) &&
                 Objects.equals(streetName, address.streetName) &&
-                Objects.equals(postalCode, address.postalCode) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(country, address.country);
+                Objects.equals(location, address.location);
     }
 
+    public String getStreetNumber() {
+        return streetNumber;
+    }
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setRegion( int postalCode, String city, String country){
+        this.location = new Location(postalCode, city, country);
+    }
     @Override
     public int hashCode() {
-        return Objects.hash(id, streetNumber, streetName, postalCode, city, country);
+        return Objects.hash(id, streetNumber, streetName, location);
     }
 }

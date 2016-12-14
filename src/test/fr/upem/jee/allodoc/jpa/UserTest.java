@@ -51,9 +51,7 @@ public class UserTest {
     public void setAndGetAddress() throws Exception {
         Address address = new Address();
         address.setId(1L);
-        address.setCity("Paris");
-        address.setCountry("France");
-        address.setPostalCode(12345);
+        address.setRegion(93 , "Seine Saint-Denis", "France");
         address.setStreetName("streetName");
         address.setStreetNumber("2 bis");
         u.setAddress(address);

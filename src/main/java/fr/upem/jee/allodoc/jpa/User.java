@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @Entity
 @Table(name = "users")
+@NamedQuery(name = "authenticateUser", query = "Select u from User u where u.email= :userEmail and u.password= :userPassword")
 public class User{
 
     @Id @GeneratedValue
@@ -22,7 +23,7 @@ public class User{
     private Address address;
     private String password;
 
-    public User() throws IOException {
+    public User(){
     }
 
     public Long getId() {
