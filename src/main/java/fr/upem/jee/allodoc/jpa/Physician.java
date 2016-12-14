@@ -1,13 +1,17 @@
 package fr.upem.jee.allodoc.jpa;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by raptao on 12/14/2016.
  */
 @Entity
-public class Physician extends User {
+public class Physician extends User implements Serializable {
 
     @OneToOne
     private FieldOfActivity fieldOfActivity;
@@ -15,8 +19,8 @@ public class Physician extends User {
     @OneToOne
     private Location practiceArea;
 
-    @OneToOne
-    private Availability availability;
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    private Set<Availability> availabilities;
 
     public Physician() {
 
@@ -38,11 +42,11 @@ public class Physician extends User {
         this.practiceArea = practiceArea;
     }
 
-    public Availability getAvailability() {
-        return availability;
+    public Set<Availability> getAvailabilities() {
+        return availabilities;
     }
 
     public void setAvailability(Availability availability) {
-        this.availability = availability;
+        this.availabilities.add(availability);
     }
 }

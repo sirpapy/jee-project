@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by raptao on 12/13/2016.
  */
-public class UserController extends Controller{
+public class UserController{
 
     @Inject
     private DatabaseManager manager;

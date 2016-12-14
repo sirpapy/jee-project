@@ -4,13 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Created by raptao on 12/13/2016.
  */
 @Entity
-public class Address{
+public class Address implements Serializable{
 
     @Id @GeneratedValue
     private Long id;

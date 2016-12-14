@@ -7,10 +7,6 @@ import fr.upem.jee.allodoc.jpa.FieldOfActivity;
  */
 public class FieldOfActivityController {
 
-    public static FieldOfActivity getController() {
-        return null;
-    }
-
 
     public static FieldOfActivity getFieldOfActivity(String name) {
         return null;

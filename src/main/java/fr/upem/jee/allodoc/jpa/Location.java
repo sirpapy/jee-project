@@ -3,19 +3,21 @@ package fr.upem.jee.allodoc.jpa;
 import com.google.common.base.Preconditions;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import java.io.Serializable;
 
 /**
  * Created by raptao on 12/14/2016.
  */
 @Entity
-public class Location {
+@NamedQuery(name = "findByPostalCode",
+        query = "Select l from Location l where l.postalCode = :pc")
+public class Location implements Serializable {
 
-    @Id @GeneratedValue
-    private Long id;
-
+    @Id
     private Integer postalCode;
+
     private String city;
     private String country;
 

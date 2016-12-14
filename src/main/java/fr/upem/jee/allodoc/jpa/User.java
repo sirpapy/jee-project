@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.jpa;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /** {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.
  * Created by raptao on 12/13/2016.
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @NamedQuery(name = "authenticateUser", query = "Select u from User u where u.email= :userEmail and u.password= :userPassword")
 @Inheritance( strategy = InheritanceType.JOINED)
-public class User{
+public class User implements Serializable {
 
     @Id @GeneratedValue
     private Long id;
