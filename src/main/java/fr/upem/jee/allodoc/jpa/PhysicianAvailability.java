@@ -2,7 +2,7 @@ package fr.upem.jee.allodoc.jpa;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Set;
@@ -17,15 +17,15 @@ public class PhysicianAvailability implements Serializable {
     @EmbeddedId
     private PhysicianAvailabilityKey id;
 
-    @OneToMany
-    private Set<Appointment> appointments;
+    @OneToOne
+    private Appointment appointment;
 
-    public Set<Appointment> getAppointments() {
-        return appointments;
+    public Appointment getAppointment() {
+        return appointment;
     }
 
-    public void setAppointments(Appointment appointment) {
-        this.appointments.add(appointment);
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
 
     public PhysicianAvailability() {
