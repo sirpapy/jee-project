@@ -1,7 +1,6 @@
 package fr.upem.jee.allodoc.jpa;
 
 import javax.persistence.*;
-import java.io.IOException;
 
 /** {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.
  * Created by raptao on 12/13/2016.

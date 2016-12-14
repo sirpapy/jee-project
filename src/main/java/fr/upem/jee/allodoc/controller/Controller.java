@@ -8,6 +8,7 @@ import org.jboss.weld.environment.se.WeldContainer;
  */
 public class Controller {
 
+
     public static <R> R getController(Class<R> controller) {
         Weld weld = new Weld();
         WeldContainer container = weld.initialize();

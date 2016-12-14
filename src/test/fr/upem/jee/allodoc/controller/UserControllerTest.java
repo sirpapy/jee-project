@@ -23,6 +23,4 @@ public class UserControllerTest {
         controller.remove(u);
     }
 
-
-
 }
