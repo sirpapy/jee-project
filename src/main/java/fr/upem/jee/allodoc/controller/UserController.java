@@ -21,12 +21,6 @@ public class UserController {
     public UserController() {
     }
 
-    public static UserController getController(){
-        Weld weld = new Weld();
-        WeldContainer container = weld.initialize();
-        return container.instance().select(UserController.class).get();
-    }
-
     public void save(User user){
         manager.save(user);
     }
