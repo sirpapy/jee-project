@@ -1,13 +1,15 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * Created by raptao on 12/14/2016.
  */
 @Entity
+@NamedQuery(name = "getPhysicianFromId",
+query = "SELECT p from Physician p where p.id = :pId")
 public class Physician extends User implements Serializable {
 
     @OneToOne
@@ -15,6 +17,9 @@ public class Physician extends User implements Serializable {
 
     @OneToOne
     private Location practiceArea;
+
+    @OneToMany
+    private Set<PhysicianAvailability> availabilities;
 
     public Physician() {
 

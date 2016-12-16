@@ -9,7 +9,7 @@ import javax.inject.Inject;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class Controller {
+public class Controller<T> {
 
     @Inject
     private DatabaseManager manager;
@@ -21,11 +21,11 @@ public class Controller {
         return manager;
     }
 
-    public <T> void save(T object) {
+    public void save(T object) {
         manager.save(object);
     }
 
-    public <T> void remove(T object) {
+    public void remove(T object) {
         manager.remove(object);
     }
 

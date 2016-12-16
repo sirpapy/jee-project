@@ -1,10 +1,9 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Set;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -12,8 +11,12 @@ import java.sql.Date;
 @Entity
 public class Availability implements Serializable {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
+
+    @OneToMany
+    private Set<PhysicianAvailability> physicians;
 
     Date date;
 
