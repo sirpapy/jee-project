@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -18,9 +15,30 @@ public class Appointment {
     private Date begin_hour;
     private Date end_hour;
 
-    public Appointment(Long id, Date begin_hour, Date end_hour){
+    @OneToOne
+    private Long idPatient;
+
+    public Appointment(Date begin_hour, Date end_hour){
+        this.begin_hour = begin_hour;
+        this.end_hour = end_hour;
+        this.idPatient = null;
+    }
+    public Appointment(Long id, Date begin_hour, Date end_hour, Long idPatient){
         this.id = id;
         this.begin_hour = begin_hour;
         this.end_hour = end_hour;
+        this.idPatient = idPatient;
+    }
+
+    public void setAppointment(Long idPatient){
+        this.idPatient = idPatient;
+    }
+
+    public void removeAppointment(){
+        this.idPatient = null;
+    }
+
+    public boolean isFree(){
+        return this.idPatient ==null?true:false;
     }
 }

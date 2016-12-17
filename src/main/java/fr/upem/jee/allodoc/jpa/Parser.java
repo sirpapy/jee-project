@@ -49,8 +49,6 @@ public class Parser {
             Address address = new Address();
             address.setStreetName("");
             address.setStreetNumber("");
-            address.setLocation(new );
-            ph.setAddress();
             toReturn.add(ph);
         }
         return toReturn;
