@@ -75,3 +75,23 @@ to redeploy, just use :
 You now can open your browser on : 
 
 `http://localhost:8080/allo-doc/`
+
+
+## Database
+
+The database used is [PostgreSQL](https://www.postgresql.org/).
+
+You can download it here : [download link](http://www.enterprisedb.com/products-services-training/pgdownload#windows). The version **9.6** is recommended.
+
+### Configuration 
+
+After downloading and setting up your PostgreSQL database:
+
+- create the user **allodoc** with the password **allodocPassword**.
+    - `psql -U postgres`
+    - postgres>`create user allodoc password 'allodocPassword'`
+    - **OR** you can also use the`createuser` command
+- create the database **allodoc** associated with the user **allodoc** and the schema **allodoc** in this database
+    - `createdb -U allodoc allodoc`
+    
+**Note** : In order to easily Postgresql commands, i recommend you to add the **bin/** folder of your Postgres installation location in your $PATH.
