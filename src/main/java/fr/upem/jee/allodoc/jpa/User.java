@@ -10,7 +10,6 @@ import java.io.IOException;
 @Entity
 @Table(name = "users")
 public class User{
-
     @Id @GeneratedValue
     private Long id;
     private String firstName;
@@ -22,8 +21,23 @@ public class User{
     private Address address;
     private String password;
 
-    public User() throws IOException {
+    public User(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.password = password;
     }
+
+
+
+    public User(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+
 
     public Long getId() {
         return id;
