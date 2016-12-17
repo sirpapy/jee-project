@@ -10,6 +10,9 @@ import javax.persistence.Table;
 @Table(name = "patient")
 public class Patient extends User{
 
+    public Patient() {
+        super();
+    }
     public Patient(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {
         super(firstName, lastName, email, phoneNumber, address, password);
     }
