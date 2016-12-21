@@ -2,6 +2,7 @@ package fr.upem.jee.allodoc.jpa;
 
 import javax.persistence.*;
 import java.io.IOException;
+import java.util.Objects;
 
 /** {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.
  * Created by raptao on 12/13/2016.
@@ -10,7 +11,6 @@ import java.io.IOException;
 @Entity
 @Table(name = "users")
 public class User{
-
     @Id @GeneratedValue
     private Long id;
     private String firstName;
@@ -22,8 +22,33 @@ public class User{
     private Address address;
     private String password;
 
-    public User() throws IOException {
+    public User(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
+        Objects.requireNonNull(email);
+        Objects.requireNonNull(phoneNumber);
+        Objects.requireNonNull(address);
+        Objects.requireNonNull(password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.password = password;
     }
+
+
+
+    public User(String firstName, String lastName){
+        Objects.requireNonNull(firstName);
+        Objects.requireNonNull(lastName);
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    public User(){
+    }
+
+
 
     public Long getId() {
         return id;

@@ -102,7 +102,7 @@
                     <!--<passwordFile>${local.glassfish.passfile}</passwordFile>-->
                     <domain>
                         <name>allo-doc</name>
-                        <httpPort>8080</httpPort>
+                        <httpPort>9191</httpPort>
                         <adminPort>4848</adminPort>
                     </domain>
                     <components>
