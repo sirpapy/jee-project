@@ -7,7 +7,7 @@ import java.io.IOException;
 import static junit.framework.TestCase.assertEquals;
 
 /**
- * Created by raptao on 12/13/2016.
+ * Created by Pape on 17/13/2016.
  */
 public class AppointmentTest {
     private final Appointment a1;
