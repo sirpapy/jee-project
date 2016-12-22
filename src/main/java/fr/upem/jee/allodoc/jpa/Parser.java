@@ -11,18 +11,20 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Sirpapy on 30/11/2016.
  */
 public class Parser {
-    private static final Charset charset = StandardCharsets.UTF_8;
+    public static final Charset charset = StandardCharsets.UTF_8;
+    public static final String country = "France";
 
-    private static List<Physician> parseCSVDoctor(Path path) throws IOException {
-        List<String> dataOnDoctorCSV = null;
-        dataOnDoctorCSV = Files.readAllLines(path, charset);
-        if (dataOnDoctorCSV == null)
-            throw new IllegalPathStateException("The file is not available");
+    static List<Physician> parseCSVDoctor(Path path) throws IOException {
+
+        if (!Files.exists(Objects.requireNonNull(path)))
+            throw new IOException("The doctor's file is not available");
+        List<String> dataOnDoctorCSV = Files.readAllLines(path, charset);
 
         List<Physician> toReturn = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
@@ -52,24 +54,23 @@ public class Parser {
             Address address = new Address();
             address.setStreetName("");
             address.setStreetNumber("");
+            ph.setAddress(address);
             toReturn.add(ph);
         }
         return toReturn;
     }
 
-    private static List<Location> parseCSVPostCode(Path path) throws IOException {
-        List<String> dataOnPostCodeCSV = null;
-        dataOnPostCodeCSV = Files.readAllLines(path, charset);
-
-        if (dataOnPostCodeCSV == null)
-            throw new IllegalPathStateException("The file is not available");
+    static List<Location> parseCSVPostCode(Path path) throws IOException {
+        if (!Files.exists(path))
+            throw new IOException("The PostCode's file is not available");
+        List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), charset);
 
         List<Location> toReturn = new ArrayList<>();
         for (String line : dataOnPostCodeCSV) {
             String[] columns = line.split(";");
             String name = columns[1];
             String postCode = columns[2];
-            toReturn.add(new Location(Integer.valueOf(postCode), name, "France"));
+            toReturn.add(new Location(Integer.valueOf(postCode), name, country));
         }
         return toReturn;
     }

@@ -5,6 +5,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 
 /**
  * Created by Sirpapy on 14/12/2016.
@@ -15,7 +16,7 @@ import java.util.Collection;
 public class Patient extends User{
 
     @OneToMany(mappedBy="patient")
-    Collection<Appointment> listOfAppointment =  new ArrayList<>();
+    Collection<Appointment> appointments =  new ArrayList<>();
     public Patient() {
         super();
     }
@@ -23,12 +24,12 @@ public class Patient extends User{
         super(firstName, lastName, email, phoneNumber, address, password);
     }
     public void addAppointment(Appointment a){
-        listOfAppointment.add(a);
+        appointments.add(a);
     }
-    public void remoteAppointment(Appointment a){
-        listOfAppointment.remove(a);
+    public void removeAppointment(Appointment a){
+        appointments.remove(a);
     }
-    public Collection<Appointment> getListOfAppointment(){
-        return listOfAppointment;
+    public Collection<Appointment> getAppointments(){
+        return appointments;
     }
 }

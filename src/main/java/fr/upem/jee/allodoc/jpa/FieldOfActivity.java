@@ -22,8 +22,7 @@ public class FieldOfActivity {
 
     }
     public FieldOfActivity(String name) {
-        Objects.requireNonNull(name);
-        this.name = name;
+        this.name = Objects.requireNonNull(name);
     }
 
 
@@ -45,7 +44,7 @@ public class FieldOfActivity {
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.id = Objects.requireNonNull(id);
     }
 
 }

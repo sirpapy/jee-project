@@ -2,6 +2,7 @@ package fr.upem.jee.allodoc.jpa;
 
 import javax.persistence.OneToOne;
 import java.lang.reflect.Field;
+import java.util.Objects;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -24,41 +25,19 @@ public class Physician extends User {
 
     public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
         super(firstName, lastName);
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.fieldOfActivity = fieldOfActivity;
-        this.dateAccreditation = dateAccreditation;
-        this.nomOAAMedecin = nomOAAMedecin;
-        this.nomDepartement = nomDepartement;
-        this.regionExercice = regionExercice;
-        this.finess = finess;
-        this.status = status;
+        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
+        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
+        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
+        this.nomDepartement = Objects.requireNonNull(nomDepartement);
+        this.regionExercice = Objects.requireNonNull(regionExercice);
+        this.finess = Objects.requireNonNull(finess);
+        this.status = Objects.requireNonNull(status);
     }
 
     public Physician(String firstName, String lastName) {
         super(firstName, lastName);
-        this.lastName = lastName;
-        this.firstName = firstName;
-    }
-    @Override
-    public String getLastName() {
-        return lastName;
     }
 
-    @Override
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    @Override
-    public String getFirstName() {
-        return firstName;
-    }
-
-    @Override
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
 
     public FieldOfActivity getFieldOfActivity() {
         return fieldOfActivity;

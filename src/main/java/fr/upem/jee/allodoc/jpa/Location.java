@@ -23,6 +23,7 @@ public class Location {
     }
 
     public Location(int postalCode, String city, String country) {
+        Objects.requireNonNull(postalCode, "Postal code should be greater than 0");
         if(postalCode>0)
             throw new IllegalStateException("postalCode must be > 0");
         this.postalCode = postalCode;

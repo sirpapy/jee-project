@@ -20,22 +20,17 @@ public class Appointment {
     DatabaseManager manager = new DatabaseManager("DEV-MODE");
 
 
-
-    public Appointment(){
+    public Appointment() {
     }
 
-    public Appointment(Date beginHour, Date endHour){
-        Objects.requireNonNull(beginHour);
-        Objects.requireNonNull(endHour);
-        this.beginHour = beginHour;
-        this.endHour = endHour;
+    public Appointment(Date beginHour, Date endHour) {
+        this.beginHour = Objects.requireNonNull(beginHour);
+        this.endHour = Objects.requireNonNull(endHour);
     }
 
 
-    public boolean isFree(){
+    public boolean isFree() {
         //TODO
-        //TypedQuery<User> query = manager.getEntityManager().createQuery("Select u from appointment a where u.firstName='thierry' and u.lastName='rabearijao'", User.class);
-        //User singleResult = query.getResultList().get(0);
         return true;
     }
 

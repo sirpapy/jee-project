@@ -1,8 +1,11 @@
 package fr.upem.jee.allodoc.app;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.jpa.Patient;
+import fr.upem.jee.allodoc.jpa.Physician;
 import fr.upem.jee.allodoc.jpa.User;
 
+import javax.persistence.TypedQuery;
 import java.io.IOException;
 
 /**
@@ -17,6 +20,6 @@ public class App {
         Patient p = new Patient();
         p.setFirstName("Pape");
         p.setLastName("NDIAYE");
-        System.out.println(p.getFirstName());
+
     }
 }
