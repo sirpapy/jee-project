@@ -17,14 +17,11 @@ import java.util.Objects;
  * Created by Sirpapy on 30/11/2016.
  */
 public class Parser {
-    public static final Charset charset = StandardCharsets.UTF_8;
-    public static final String country = "France";
+    public static final Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
+    public static final String CONSTANT_FRANCE = "France";
 
     static List<Physician> parseCSVDoctor(Path path) throws IOException {
-
-        if (!Files.exists(Objects.requireNonNull(path)))
-            throw new IOException("The doctor's file is not available");
-        List<String> dataOnDoctorCSV = Files.readAllLines(path, charset);
+        List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
 
         List<Physician> toReturn = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
@@ -61,16 +58,14 @@ public class Parser {
     }
 
     static List<Location> parseCSVPostCode(Path path) throws IOException {
-        if (!Files.exists(path))
-            throw new IOException("The PostCode's file is not available");
-        List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), charset);
+        List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
 
         List<Location> toReturn = new ArrayList<>();
         for (String line : dataOnPostCodeCSV) {
             String[] columns = line.split(";");
             String name = columns[1];
             String postCode = columns[2];
-            toReturn.add(new Location(Integer.valueOf(postCode), name, country));
+            toReturn.add(new Location(Integer.valueOf(postCode), name, CONSTANT_FRANCE));
         }
         return toReturn;
     }
