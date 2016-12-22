@@ -18,9 +18,7 @@ public class Address{
     private String streetName;
 
     // TODO : la partie en dessous devra être remplacée par une table
-    private Integer postalCode;
-    private String city;
-    private String country;
+    private Location location;
 
 
     public void setStreetNumber(String streetNumber) {
@@ -31,19 +29,9 @@ public class Address{
         this.streetName = streetName;
     }
 
-    public void setPostalCode(Integer postalCode) {
-        this.postalCode = postalCode;
-    }
+    public void setLocation(Location location){this.location = location;}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public Address() throws IOException {
+    public Address() {
         super();
     }
 
@@ -63,13 +51,13 @@ public class Address{
         return Objects.equals(id, address.id) ||
                 Objects.equals(streetNumber, address.streetNumber) &&
                 Objects.equals(streetName, address.streetName) &&
-                Objects.equals(postalCode, address.postalCode) &&
-                Objects.equals(city, address.city) &&
-                Objects.equals(country, address.country);
+                Objects.equals(location.getPostalCode(), address.location.getPostalCode()) &&
+                Objects.equals(location.getCity(), address.location.getCity()) &&
+                Objects.equals(location.getCountry(), address.location.getCountry());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, streetNumber, streetName, postalCode, city, country);
+        return Objects.hash(id, streetNumber, streetName, location.getCity(), location.getCountry(), location.getPostalCode());
     }
 }

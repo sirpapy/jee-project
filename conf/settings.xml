@@ -13,11 +13,15 @@
   <pluginGroup>org.apache.tomcat.maven</pluginGroup>
 </pluginGroups>-->
 
-<profiles>
+
+
+
+
+  <profiles>
         <profile>
             <id>glassfish-context</id>
             <properties>
-                <local.glassfish.home>D:\\glassfish4\\glassfish</local.glassfish.home>
+                <local.glassfish.home>D:\\workspace\\glassfish\\glassfish4\\glassfish</local.glassfish.home>
                 <local.glassfish.user>admin</local.glassfish.user>
                 <local.glassfish.adminPassword>adminPassword</local.glassfish.adminPassword>
                 <local.glassfish.domain>allo-doc</local.glassfish.domain>
