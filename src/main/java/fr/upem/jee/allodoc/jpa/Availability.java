@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc.jpa;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,8 +20,10 @@ public class Availability implements Serializable {
     @OneToMany
     private Set<PhysicianAvailability> physicians;
 
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     Date date;
+
 
     public Date getDate() {
         return date;
@@ -31,5 +35,9 @@ public class Availability implements Serializable {
 
     public Availability() {
 
+    }
+
+    public Availability(Date date){
+        this.date = Preconditions.checkNotNull(date, "date should not be null");
     }
 }

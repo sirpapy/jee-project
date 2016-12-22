@@ -1,8 +1,14 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.*;
+import com.google.common.base.Preconditions;
+
+import javax.persistence.Entity;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -19,7 +25,7 @@ public class Physician extends User implements Serializable {
     private Location practiceArea;
 
     @OneToMany
-    private Set<PhysicianAvailability> availabilities;
+    private List<PhysicianAvailability> availabilities;
 
     public Physician() {
     }
@@ -38,6 +44,18 @@ public class Physician extends User implements Serializable {
 
     public void setPracticeArea(Location practiceArea) {
         this.practiceArea = practiceArea;
+    }
+
+    public void setAvailability(Availability availability) {
+        Preconditions.checkNotNull(availability);
+        if( availabilities == null){
+            availabilities = new ArrayList<>();
+        }
+        this.availabilities.add(new PhysicianAvailability(this, availability));
+    }
+
+    public List<PhysicianAvailability> getAvailabilities() {
+        return availabilities;
     }
 
 }

@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc.jpa;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +22,14 @@ public class PhysicianAvailability implements Serializable {
     private Appointment appointment;
 
     public PhysicianAvailability() {
+    }
+
+    public PhysicianAvailability(Physician physician, Availability availability){
+        Preconditions.checkNotNull(physician, "physician should not be null");
+        Preconditions.checkNotNull(availability, "availability should not be null");
+        this.id = new PhysicianAvailabilityId();
+        id.setPhysician(physician);
+        id.setAvailability(availability);
     }
 
     public PhysicianAvailabilityId getId() {
@@ -58,9 +68,8 @@ public class PhysicianAvailability implements Serializable {
      * Composite id for physician_availability
      */
     @Embeddable
-    public class PhysicianAvailabilityId implements Serializable {
+    public static class PhysicianAvailabilityId implements Serializable {
         @ManyToOne
-        @Column(name = "physician_id")
         private Physician physician;
 
         @ManyToOne
