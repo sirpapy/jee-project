@@ -2,7 +2,7 @@ package fr.upem.jee.allodoc.jpa;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -18,6 +18,7 @@ public class Availability implements Serializable {
     @OneToMany
     private Set<PhysicianAvailability> physicians;
 
+    @Temporal(TemporalType.TIMESTAMP)
     Date date;
 
     public Date getDate() {

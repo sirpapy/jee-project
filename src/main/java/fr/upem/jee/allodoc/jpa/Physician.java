@@ -22,7 +22,6 @@ public class Physician extends User implements Serializable {
     private Set<PhysicianAvailability> availabilities;
 
     public Physician() {
-
     }
 
     public FieldOfActivity getFieldOfActivity() {
