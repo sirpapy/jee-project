@@ -72,7 +72,7 @@ public class PhysicianAvailability implements Serializable {
         @ManyToOne
         private Physician physician;
 
-        @ManyToOne
+        @ManyToOne(cascade = CascadeType.ALL)
         private Availability availability;
 
         public PhysicianAvailabilityId() {

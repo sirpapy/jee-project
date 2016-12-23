@@ -35,6 +35,14 @@ public class PhysicianControllerTest {
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
+
         physician.setAvailability(new Availability(new Date()));
+        PhysicianController.savePhysician(physician);
+
+//        List<Physician> search = controller.search("thierry", "raptao");
+//        assertFalse(search.isEmpty());
     }
+
+
+
 }
