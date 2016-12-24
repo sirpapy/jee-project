@@ -29,7 +29,9 @@ public class Address implements Serializable{
         this.streetName = streetName;
     }
 
+    public void setLocation(Location location){this.location = location;}
 
+    public Address() {
     public Address() {
     }
 

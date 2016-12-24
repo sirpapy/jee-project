@@ -32,6 +32,15 @@ public class Physician extends User implements Serializable {
     private List<PhysicianAvailability> physicianAvailability;
 
     public Physician() {
+    public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
+        super(firstName, lastName);
+        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
+        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
+        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
+        this.nomDepartement = Objects.requireNonNull(nomDepartement);
+        this.regionExercice = Objects.requireNonNull(regionExercice);
+        this.finess = Objects.requireNonNull(finess);
+        this.status = Objects.requireNonNull(status);
     }
 
     public List<PhysicianAvailability> getPhysicianAvailability() {
@@ -65,5 +74,30 @@ public class Physician extends User implements Serializable {
     public List<Availability> getAvailabilities() {
         return physicianAvailability.stream().map(PhysicianAvailability::getAvailability).collect(Collectors.toList());
     }
+
+    public String getRegionExercice() {
+        return regionExercice;
+    }
+
+    public void setRegionExercice(String regionExercice) {
+        this.regionExercice = regionExercice;
+    }
+
+    public String getFiness() {
+        return finess;
+    }
+
+    public void setFiness(String finess) {
+        this.finess = finess;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
 }
