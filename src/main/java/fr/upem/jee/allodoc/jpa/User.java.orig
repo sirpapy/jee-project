@@ -25,14 +25,15 @@ public class User implements Serializable {
     @OneToOne
     private Address address;
 
-    public User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
+    public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
-        this.address = address;
     }
+
+    public User() {
+        this.password = Objects.requireNonNull(password);
+    }
+
 
     public User(String firstName, String lastName) {
         this.firstName = Objects.requireNonNull(firstName);

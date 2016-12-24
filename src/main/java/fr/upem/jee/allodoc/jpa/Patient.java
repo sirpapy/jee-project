@@ -17,11 +17,13 @@ public class Patient extends User{
 
     @OneToMany(mappedBy="patient")
     Collection<Appointment> appointments =  new ArrayList<>();
+
     public Patient() {
         super();
     }
+
     public Patient(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {
-        super(firstName, lastName, email, phoneNumber, address, password);
+        super(firstName,lastName,phoneNumber,email,password,address);
     }
     public void addAppointment(Appointment a){
         appointments.add(a);

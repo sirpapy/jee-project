@@ -2,16 +2,16 @@ package fr.upem.jee.allodoc.jpa;
 
 import fr.upem.jee.allodoc.controller.FieldOfActivityController;
 
-import java.awt.geom.IllegalPathStateException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static fr.upem.jee.allodoc.controller.FieldOfActivityController.save;
 
 /**
  * Created by Sirpapy on 30/11/2016.
@@ -46,7 +46,7 @@ public class Parser {
             if (foc != null) {
                 ph.setFieldOfActivity(foc);
             } else {
-                FieldOfActivityController.save(new FieldOfActivity(fieldOfActivity));
+                save(new FieldOfActivity(fieldOfActivity));
             }
             Address address = new Address();
             address.setStreetName("");

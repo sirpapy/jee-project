@@ -17,7 +17,7 @@ public class FieldOfActivityController {
 
     }
 
-    public void save(FieldOfActivity fieldOfActivity) {
+    public static void save(FieldOfActivity fieldOfActivity) {
 
     }
 }

@@ -15,6 +15,13 @@ public class FieldOfActivity implements Serializable {
     private Long id;
     private String name;
 
+    public FieldOfActivity(String fieldOfActivityName) {
+        this.name = fieldOfActivityName;
+    }
+
+    public FieldOfActivity() {
+    }
+
     public Long getId() {
         return id;
     }
