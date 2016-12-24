@@ -3,48 +3,31 @@ package fr.upem.jee.allodoc.jpa;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.util.Objects;
+import java.io.Serializable;
 
 /**
  * Created by raptao on 12/14/2016.
  */
 @Entity
-public class FieldOfActivity {
-
-
+public class FieldOfActivity implements Serializable {
 
     @Id @GeneratedValue
     private Long id;
     private String name;
 
+    public FieldOfActivity(String fieldOfActivityName) {
+        this.name = fieldOfActivityName;
+    }
 
     public FieldOfActivity() {
-
     }
-    public FieldOfActivity(String name) {
-        this.name = Objects.requireNonNull(name);
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
-
-
 
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
-        this.id = Objects.requireNonNull(id);
+        this.id = id;
     }
 
 }

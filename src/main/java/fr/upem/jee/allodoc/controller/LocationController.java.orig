@@ -1,5 +1,6 @@
 package fr.upem.jee.allodoc.controller;
 
+<<<<<<< HEAD
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.jpa.Location;
 
@@ -7,10 +8,15 @@ import javax.inject.Inject;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+=======
+import fr.upem.jee.allodoc.jpa.Location;
+
+>>>>>>> origin/develop
 /**
  * Created by raptao on 12/14/2016.
  */
 public class LocationController {
+<<<<<<< HEAD
 
     @Inject
     private DatabaseManager manager;
@@ -35,3 +41,20 @@ public class LocationController {
         return location;
     }
 }
+=======
+    
+    public static Location getController(){
+        return null;   
+    }
+    
+    
+    public static Location getLocation(String name){
+        return null;
+        
+    }
+    
+    public static void save(Location location){
+        
+    }
+}
+>>>>>>> origin/develop

@@ -17,7 +17,7 @@ public class DatabaseManager {
     private final EntityTransaction transaction;
 
     public DatabaseManager() throws IOException {
-        this("DEV-MODE");
+        this(getApplicationMode());
     }
 
     public DatabaseManager(String applicationMode) {
@@ -27,17 +27,14 @@ public class DatabaseManager {
     }
 
     /**
-     * Returns a newly created {@link DatabaseManager} object.
-     * The returned object depends on the value of the property mode in the file "application.properties"
      *
-     * @return DatabaseManager
-     * @throws IOException in case of I/O errors
+     * @return the application mode ( PRODUCTION or DEVELOPMENT )
+     * @throws IOException
      */
-    public static DatabaseManager getManager() throws IOException {
+    private static String getApplicationMode() throws IOException {
         Properties properties = System.getProperties();
         properties.load(DatabaseManager.class.getResourceAsStream("/application.properties"));
-        String mode = properties.getProperty("mode");
-        return new DatabaseManager(mode);
+        return properties.getProperty("mode");
     }
 
 

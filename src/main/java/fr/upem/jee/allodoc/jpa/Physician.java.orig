@@ -1,17 +1,23 @@
 package fr.upem.jee.allodoc.jpa;
 
+<<<<<<< HEAD
 import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+=======
+import javax.persistence.OneToOne;
+import java.lang.reflect.Field;
+import java.util.Objects;
+>>>>>>> origin/develop
 
 /**
  * Created by raptao on 12/14/2016.
  */
+<<<<<<< HEAD
 @Entity
 @NamedQueries({
 
@@ -24,12 +30,6 @@ import java.util.stream.Collectors;
 
 public class Physician extends User implements Serializable {
 
-    private String dateAccreditation;
-    private String regionExercice;
-    private String nomOAAMedecin;
-    private String nomDepartement;
-    private String finess;
-    private String status;
     @OneToOne
     private FieldOfActivity fieldOfActivity;
 
@@ -39,8 +39,28 @@ public class Physician extends User implements Serializable {
     private List<PhysicianAvailability> physicianAvailability;
 
     public Physician() {
-
     }
+
+    public List<PhysicianAvailability> getPhysicianAvailability() {
+        return physicianAvailability;
+    }
+
+=======
+public class Physician extends User {
+
+
+    private String lastName;
+    private String firstName;
+
+    @OneToOne
+    private FieldOfActivity fieldOfActivity;
+    private String dateAccreditation;
+    private String nomOAAMedecin;
+    private String nomDepartement;
+    private String regionExercice;
+    private String finess;
+    private String status;
+
 
     public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
         super(firstName, lastName);
@@ -53,18 +73,42 @@ public class Physician extends User implements Serializable {
         this.status = Objects.requireNonNull(status);
     }
 
-    public Physician(String lastName, String firstName) {
-        super(firstName,lastName);
+    public Physician(String firstName, String lastName) {
+        super(firstName, lastName);
     }
 
-    public List<PhysicianAvailability> getPhysicianAvailability() {
-        return physicianAvailability;
-    }
 
+>>>>>>> origin/develop
     public FieldOfActivity getFieldOfActivity() {
         return fieldOfActivity;
     }
 
+    public void setFieldOfActivity(FieldOfActivity fieldOfActivity) {
+        this.fieldOfActivity = fieldOfActivity;
+    }
+
+<<<<<<< HEAD
+    public Location getPracticeArea() {
+        return practiceArea;
+    }
+
+    public void setPracticeArea(Location practiceArea) {
+        this.practiceArea = practiceArea;
+    }
+
+    public void setAvailability(Availability availability) {
+        Preconditions.checkNotNull(availability);
+        if (physicianAvailability == null) {
+            physicianAvailability = new ArrayList<>();
+        }
+        this.physicianAvailability.add(new PhysicianAvailability(this, availability));
+    }
+
+    public List<Availability> getAvailabilities() {
+        return physicianAvailability.stream().map(PhysicianAvailability::getAvailability).collect(Collectors.toList());
+    }
+
+=======
     public String getDateAccreditation() {
         return dateAccreditation;
     }
@@ -87,34 +131,6 @@ public class Physician extends User implements Serializable {
 
     public void setNomDepartement(String nomDepartement) {
         this.nomDepartement = nomDepartement;
-    }
-
-    public void setPhysicianAvailability(List<PhysicianAvailability> physicianAvailability) {
-        this.physicianAvailability = physicianAvailability;
-    }
-
-    public void setFieldOfActivity(FieldOfActivity fieldOfActivity) {
-        this.fieldOfActivity = fieldOfActivity;
-    }
-
-    public Location getPracticeArea() {
-        return practiceArea;
-    }
-
-    public void setPracticeArea(Location practiceArea) {
-        this.practiceArea = practiceArea;
-    }
-
-    public void setAvailability(Availability availability) {
-        Preconditions.checkNotNull(availability);
-        if (physicianAvailability == null) {
-            physicianAvailability = new ArrayList<>();
-        }
-        this.physicianAvailability.add(new PhysicianAvailability(this, availability));
-    }
-
-    public List<Availability> getAvailabilities() {
-        return physicianAvailability.stream().map(PhysicianAvailability::getAvailability).collect(Collectors.toList());
     }
 
     public String getRegionExercice() {
@@ -142,4 +158,5 @@ public class Physician extends User implements Serializable {
     }
 
 
+>>>>>>> origin/develop
 }
