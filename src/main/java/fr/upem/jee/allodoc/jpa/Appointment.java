@@ -17,7 +17,7 @@ public class Appointment {
     private Long id;
     private Date beginHour;
     private Date endHour;
-    DatabaseManager manager = new DatabaseManager("DEV-MODE");
+    private Long appointment;
 
 
     public Appointment() {
@@ -34,4 +34,11 @@ public class Appointment {
         return true;
     }
 
+    public void setAppointment(Long appointment) {
+        this.appointment = appointment;
+    }
+
+    public void removeAppointment() {
+
+    }
 }
