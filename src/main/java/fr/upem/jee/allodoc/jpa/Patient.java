@@ -15,7 +15,7 @@ import java.util.Objects;
 @Table(name = "patient")
 public class Patient extends User{
 
-    @OneToMany(mappedBy="patient")
+    @OneToMany
     Collection<Appointment> appointments =  new ArrayList<>();
 
     public Patient() {
