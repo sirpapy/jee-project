@@ -4,7 +4,7 @@ import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Physician;
 
-import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.Collection;
 import java.util.List;
@@ -31,22 +31,14 @@ public class PhysicianController extends Controller<Physician> {
         query.setParameter("pFirstName", firstName);
         return query.getResultList();
     }
+
     public Collection<Availability> getAvailabilities(Physician physician){
         Preconditions.checkNotNull(physician);
-        TypedQuery<Availability> query = manager().getEntityManager().createNamedQuery("getPhysicianAvailabilies", Availability.class);
-        query.setParameter("pId", physician.getId());
+        System.out.println(physician.getId());
+        Query query = manager().getEntityManager().createNativeQuery("select availability_id from physician_availability where physician_id = "+physician.getId());
+        System.out.println("LIST ! " + query.getResultList());
         return query.getResultList();
     }
 
 
-//    public static void savePhysician(Physician physician) {
-//        Controller<Object> controller = Controller.getController(Controller.class);
-//        EntityManager entityManager = controller.manager().getEntityManager();
-//        entityManager.getTransaction().begin();
-////        PhysicianAvailability physicianAvailability = physician.getPhysicianAvailability().get(0);
-////        entityManager.persist(physicianAvailability);
-////        physician.getAvailabilities().forEach(entityManager::persist);
-////        entityManager.persist(physician);
-////        entityManager.getTransaction().commit();
-//    }
 }

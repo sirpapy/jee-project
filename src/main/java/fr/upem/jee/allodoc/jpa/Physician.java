@@ -18,7 +18,8 @@ import java.util.Objects;
                 query = "SELECT p from Physician p where p.id = :pId"),
 
         @NamedQuery(name = "findPhysicianFirstnameLastName",
-                query = "SELECT p from Physician p where p.firstName = :pFirstName and p.lastName = :pLastName")
+                query = "SELECT p from Physician p where p.firstName = :pFirstName and p.lastName = :pLastName"),
+
 })
 
 public class Physician extends User implements Serializable {
@@ -29,6 +30,7 @@ public class Physician extends User implements Serializable {
     private String nomDepartement;
     private String finess;
     private String status;
+
     @OneToOne
     private FieldOfActivity fieldOfActivity;
 
@@ -36,6 +38,7 @@ public class Physician extends User implements Serializable {
     private Location practiceArea;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
     private List<Availability> availabilities;
 
     public Physician() {
@@ -107,10 +110,10 @@ public class Physician extends User implements Serializable {
 
     public void setAvailability(Availability availability) {
         Preconditions.checkNotNull(availability);
-        if (availabilities == null) {
-            availabilities = new ArrayList<>();
+        if (this.availabilities == null) {
+            this.availabilities = new ArrayList<>();
         }
-        availabilities.add(availability);
+        this.availabilities.add(availability);
     }
 
 

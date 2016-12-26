@@ -5,8 +5,10 @@ import fr.upem.jee.allodoc.jpa.Physician;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
 
 /**
@@ -39,9 +41,15 @@ public class PhysicianControllerTest {
         physician.setAvailability(new Availability(new Date()));
         controller.save(physician);
 
-//        List<Physician> search = controller.search("thierry", "raptao");
-//        assertFalse(search.isEmpty());
+        List<Physician> search = controller.search("thierry", "raptao");
+        assertFalse(search.isEmpty());
+        Physician physician1 = search.get(0);
+        System.out.println(physician1.getFirstName());
+        System.out.println(physician1.getLastName());
+        System.out.println(physician1.getId());
+        controller.getAvailabilities(physician1);
     }
+
 
 
 

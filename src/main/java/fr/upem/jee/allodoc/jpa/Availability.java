@@ -17,7 +17,7 @@ public class Availability implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "availabilities")
     private List<Physician> physicians;
 
     @Column(nullable = false)
