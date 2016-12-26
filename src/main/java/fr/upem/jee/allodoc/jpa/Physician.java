@@ -1,7 +1,10 @@
 package fr.upem.jee.allodoc.jpa;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +34,8 @@ public class Physician extends User implements Serializable {
 
     @OneToOne
     private Location practiceArea;
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Availability> availabilities;
 
     public Physician() {
@@ -50,15 +54,23 @@ public class Physician extends User implements Serializable {
     }
 
     public Physician(String lastName, String firstName) {
-        super(firstName,lastName);
+        super(firstName, lastName);
     }
 
     public List<Availability> getAvailabilities() {
         return availabilities;
     }
 
+    public void setAvailabilities(List<Availability> availabilities) {
+        this.availabilities = availabilities;
+    }
+
     public FieldOfActivity getFieldOfActivity() {
         return fieldOfActivity;
+    }
+
+    public void setFieldOfActivity(FieldOfActivity fieldOfActivity) {
+        this.fieldOfActivity = fieldOfActivity;
     }
 
     public String getDateAccreditation() {
@@ -85,11 +97,6 @@ public class Physician extends User implements Serializable {
         this.nomDepartement = nomDepartement;
     }
 
-
-    public void setFieldOfActivity(FieldOfActivity fieldOfActivity) {
-        this.fieldOfActivity = fieldOfActivity;
-    }
-
     public Location getPracticeArea() {
         return practiceArea;
     }
@@ -99,6 +106,11 @@ public class Physician extends User implements Serializable {
     }
 
     public void setAvailability(Availability availability) {
+        Preconditions.checkNotNull(availability);
+        if (availabilities == null) {
+            availabilities = new ArrayList<>();
+        }
+        availabilities.add(availability);
     }
 
 

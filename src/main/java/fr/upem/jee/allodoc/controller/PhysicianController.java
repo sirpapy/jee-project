@@ -39,14 +39,14 @@ public class PhysicianController extends Controller<Physician> {
     }
 
 
-    public static void savePhysician(Physician physician) {
-        Controller<Object> controller = Controller.getController(Controller.class);
-        EntityManager entityManager = controller.manager().getEntityManager();
-        entityManager.getTransaction().begin();
-//        PhysicianAvailability physicianAvailability = physician.getPhysicianAvailability().get(0);
-//        entityManager.persist(physicianAvailability);
-        physician.getAvailabilities().forEach(entityManager::persist);
-        entityManager.persist(physician);
-        entityManager.getTransaction().commit();
-    }
+//    public static void savePhysician(Physician physician) {
+//        Controller<Object> controller = Controller.getController(Controller.class);
+//        EntityManager entityManager = controller.manager().getEntityManager();
+//        entityManager.getTransaction().begin();
+////        PhysicianAvailability physicianAvailability = physician.getPhysicianAvailability().get(0);
+////        entityManager.persist(physicianAvailability);
+////        physician.getAvailabilities().forEach(entityManager::persist);
+////        entityManager.persist(physician);
+////        entityManager.getTransaction().commit();
+//    }
 }
