@@ -1,13 +1,9 @@
 package fr.upem.jee.allodoc.jpa;
 
-import com.google.common.base.Preconditions;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -35,8 +31,8 @@ public class Physician extends User implements Serializable {
 
     @OneToOne
     private Location practiceArea;
-    @OneToMany
-    private List<PhysicianAvailability> physicianAvailability;
+    @ManyToMany
+    private List<Availability> availabilities;
 
     public Physician() {
 
@@ -57,8 +53,8 @@ public class Physician extends User implements Serializable {
         super(firstName,lastName);
     }
 
-    public List<PhysicianAvailability> getPhysicianAvailability() {
-        return physicianAvailability;
+    public List<Availability> getAvailabilities() {
+        return availabilities;
     }
 
     public FieldOfActivity getFieldOfActivity() {
@@ -89,9 +85,6 @@ public class Physician extends User implements Serializable {
         this.nomDepartement = nomDepartement;
     }
 
-    public void setPhysicianAvailability(List<PhysicianAvailability> physicianAvailability) {
-        this.physicianAvailability = physicianAvailability;
-    }
 
     public void setFieldOfActivity(FieldOfActivity fieldOfActivity) {
         this.fieldOfActivity = fieldOfActivity;
@@ -106,16 +99,8 @@ public class Physician extends User implements Serializable {
     }
 
     public void setAvailability(Availability availability) {
-        Preconditions.checkNotNull(availability);
-        if (physicianAvailability == null) {
-            physicianAvailability = new ArrayList<>();
-        }
-        this.physicianAvailability.add(new PhysicianAvailability(this, availability));
     }
 
-    public List<Availability> getAvailabilities() {
-        return physicianAvailability.stream().map(PhysicianAvailability::getAvailability).collect(Collectors.toList());
-    }
 
     public String getRegionExercice() {
         return regionExercice;
