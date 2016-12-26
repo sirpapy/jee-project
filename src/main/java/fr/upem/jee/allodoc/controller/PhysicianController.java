@@ -6,8 +6,10 @@ import fr.upem.jee.allodoc.jpa.Physician;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -36,8 +38,12 @@ public class PhysicianController extends Controller<Physician> {
         Preconditions.checkNotNull(physician);
         System.out.println(physician.getId());
         Query query = manager().getEntityManager().createNativeQuery("select availability_id from physician_availability where physician_id = "+physician.getId());
-        System.out.println("LIST ! " + query.getResultList());
-        return query.getResultList();
+        List<BigInteger> resultList = query.getResultList();
+        String collect = resultList.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(","));
+        TypedQuery<Availability> availabilities = manager().getEntityManager().createQuery("select a from Availability a where a.id in ("+collect+")", Availability.class);
+        return availabilities.getResultList();
     }
 
 

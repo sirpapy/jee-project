@@ -4,6 +4,7 @@ import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Physician;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -39,15 +40,14 @@ public class PhysicianControllerTest {
         physician.setFirstName("thierry");
 
         physician.setAvailability(new Availability(new Date()));
+        physician.setAvailability(new Availability(new Date()));
         controller.save(physician);
 
         List<Physician> search = controller.search("thierry", "raptao");
         assertFalse(search.isEmpty());
         Physician physician1 = search.get(0);
-        System.out.println(physician1.getFirstName());
-        System.out.println(physician1.getLastName());
-        System.out.println(physician1.getId());
-        controller.getAvailabilities(physician1);
+        Collection<Availability> availabilities = controller.getAvailabilities(physician1);
+        assertEquals(2, availabilities.size());
     }
 
 
