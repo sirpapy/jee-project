@@ -80,5 +80,6 @@
     <orderEntry type="library" name="Maven: postgresql:postgresql:9.1-901.jdbc4" level="project" />
     <orderEntry type="library" name="Maven: org.jboss.weld.se:weld-se:2.4.1.Final" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
   </component>
 </module>
