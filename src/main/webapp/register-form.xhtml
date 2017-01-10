@@ -12,13 +12,13 @@
     <h:form>
         <h:panelGrid id="registration-form-grid" columns="2" cellpadding="5">
             <h:outputText value="First Name: "/>
-            <p:inputText value="#{userBean.firstName}" placeholder="Enter your email"/>
+            <p:inputText value="#{userBean.firstName}" placeholder="Enter your email" required="true"/>
 
             <h:outputText value="LastName: "/>
-            <p:inputText value="#{userBean.lastName}" placeholder="Enter your email"/>
+            <p:inputText value="#{userBean.lastName}" placeholder="Enter your email" required="true"/>
 
             <h:outputText value="Email: "/>
-            <p:inputText value="#{userBean.email}" placeholder="Enter your email"/>
+            <p:inputText type="email" value="#{userBean.email}" placeholder="Enter your email" required="true"/>
 
 
         </h:panelGrid>
