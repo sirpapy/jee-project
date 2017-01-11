@@ -3,7 +3,9 @@ package fr.upem.jee.allodoc.controller;
 import fr.upem.jee.allodoc.jpa.User;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertNotNull;
+import java.util.Optional;
+
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by raptao on 12/13/2016.
@@ -18,8 +20,8 @@ public class UserControllerTest {
         u.setEmail("thierryrabearijao@mail.com");
         u.setPassword("password");
         controller.save(u);
-        User authenticate = controller.authenticate("thierryrabearijao@mail.com", "password");
-        assertNotNull( authenticate);
+        Optional<User> authenticate = controller.authenticate("thierryrabearijao@mail.com", "password");
+        assertTrue( authenticate.isPresent());
         controller.remove(u);
     }
 

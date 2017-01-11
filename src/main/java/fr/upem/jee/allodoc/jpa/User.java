@@ -1,4 +1,5 @@
 package fr.upem.jee.allodoc.jpa;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,16 +16,17 @@ import java.util.Objects;
 public class User implements Serializable {
     @Id
     @GeneratedValue
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String phoneNumber;
-    private String email;
-    private String password;
-    @OneToOne
-    private Address address;
+    Long id;
+    String firstName;
+    String lastName;
+    String phoneNumber;
+    String email;
+    String password;
 
-    public User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
+    @OneToOne
+    Address address;
+
+    User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
@@ -33,10 +35,6 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public User(String firstName, String lastName) {
-        this.firstName = Objects.requireNonNull(firstName);
-        this.lastName = Objects.requireNonNull(lastName);
-    }
 
     public User() {
     }

@@ -2,7 +2,6 @@ package fr.upem.jee.allodoc;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.io.IOException;
 import java.util.Properties;
@@ -13,61 +12,80 @@ import java.util.function.Consumer;
  */
 public class DatabaseManager {
 
+    public static final String APPLICATION_PROPERTIES_RESOURCE = "/application.properties";
+    private static EntityManagerFactory SINGLETON_FACTORY;
     private final EntityManager em;
-    private final EntityTransaction transaction;
-
-    public DatabaseManager() throws IOException {
-        this(getApplicationMode());
-    }
 
     public DatabaseManager(String applicationMode) {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(applicationMode);
-        this.em = factory.createEntityManager();
-        transaction = em.getTransaction();
+        this.em = getFactory(applicationMode).createEntityManager();
+    }
+
+    public static DatabaseManager getDatabaseManager() {
+        String applicationMode = getApplicationMode();
+        return new DatabaseManager(applicationMode);
+    }
+
+    private static EntityManagerFactory getFactory(String applicationMode) {
+        if (SINGLETON_FACTORY == null) {
+            SINGLETON_FACTORY = Persistence.createEntityManagerFactory(applicationMode);
+            return SINGLETON_FACTORY;
+        }
+        return SINGLETON_FACTORY;
     }
 
     /**
-     *
      * @return the application mode ( PRODUCTION or DEVELOPMENT )
      * @throws IOException
      */
-    private static String getApplicationMode() throws IOException {
+    private static String getApplicationMode() {
         Properties properties = System.getProperties();
-        properties.load(DatabaseManager.class.getResourceAsStream("/application.properties"));
-        return properties.getProperty("mode");
+        try {
+            properties.load(DatabaseManager.class.getResourceAsStream(APPLICATION_PROPERTIES_RESOURCE));
+            return properties.getProperty("mode");
+        } catch (IOException e) {
+            throw new AssertionError("Cannot retrieve required resource", e);
+        }
     }
 
 
     /**
      * Saves or updates entities in the database
+     *
      * @param entities
      */
     public void save(Object... entities) {
-       applyTransaction(em::persist, entities);
+        applyTransaction(em::persist, entities);
     }
 
 
     /**
      * Removes entities from database
+     *
      * @param entities
      */
-    public void remove( Object... entities ){
-        applyTransaction(em::remove, entities);
+    public void remove(Object... entities) {
+        applyTransaction((entity) -> {
+            if (!em.contains(entity)) {
+                Object mergedEntity = em.merge(entity);
+                em.remove(mergedEntity);
+            } else {
+                em.remove(entity);
+            }
+        }, entities);
     }
 
     /**
-     *
      * @return the entity manager of the database
      */
     public EntityManager getEntityManager() {
         return em;
     }
 
-    private void applyTransaction(Consumer<Object> consumer, Object...entities){
-        transaction.begin();
-        for(Object entity : entities){
+    private void applyTransaction(Consumer<Object> consumer, Object... entities) {
+        em.getTransaction().begin();
+        for (Object entity : entities) {
             consumer.accept(entity);
         }
-        transaction.commit();
+        em.getTransaction().commit();
     }
 }

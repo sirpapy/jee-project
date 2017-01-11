@@ -1,16 +1,17 @@
 package fr.upem.jee.allodoc.model;
 
 import fr.upem.jee.allodoc.controller.UserController;
-import fr.upem.jee.allodoc.jpa.User;
+import fr.upem.jee.allodoc.jpa.Patient;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import javax.faces.bean.ManagedBean;
+import java.io.Serializable;
 
 /**
  * Created by raptao on 1/10/2017.
  */
 @ManagedBean
-public class UserBean {
+public class UserBean implements Serializable{
     private String firstName;
     private String lastName;
     private String email;
@@ -59,14 +60,23 @@ public class UserBean {
         this.password = password;
     }
 
-    public String authenticate(){
+    public String authenticate() {
         return Pages.PAGE_HOME;
     }
 
-    public String register(){
-        User u = new User(firstName, lastName);
-        userController.save(u);
-        return Pages.PAGE_HOME;
+    public String registerAsPatient() {
+        Patient p = new Patient.Builder()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setPassword(password)
+                .build();
+        userController.save(p);
+        return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
+    }
+
+    public String registerAsPhysician() {
+        return Pages.PAGE_LOGIN_FORM;
     }
 
 

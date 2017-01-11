@@ -12,10 +12,10 @@
     <h:form>
         <h:panelGrid id="registration-form-grid" columns="2" cellpadding="5">
             <h:outputText value="First Name: "/>
-            <p:inputText label="First Name" value="#{userBean.firstName}" placeholder="Enter your email" required="true"/>
+            <p:inputText label="First Name" value="#{userBean.firstName}" placeholder="Enter your first name" required="true"/>
 
             <h:outputText value="LastName: "/>
-            <p:inputText label="Last Name" value="#{userBean.lastName}" placeholder="Enter your email" required="true"/>
+            <p:inputText label="Last Name" value="#{userBean.lastName}" placeholder="Enter your last name" required="true"/>
 
             <h:outputText value="Email: "/>
             <p:inputText label="Email" type="email" value="#{userBean.email}" placeholder="Enter your email" required="true"/>
@@ -39,7 +39,7 @@
                         placeholder="Confirm password"
                         required="true"/>
 
-            <p:commandButton update="registration-form-grid" value="Confirm" action="#{userBean.register}"/>
+            <p:commandButton update="registration-form-grid" value="Confirm" action="#{userBean.registerAsPatient()}"/>
         </h:panelGrid>
     </h:form>
 </h:body>
