@@ -1,5 +1,9 @@
 package fr.upem.jee.allodoc.model;
 
+import fr.upem.jee.allodoc.controller.UserController;
+import fr.upem.jee.allodoc.jpa.User;
+import fr.upem.jee.allodoc.utilities.Pages;
+
 import javax.faces.bean.ManagedBean;
 
 /**
@@ -11,8 +15,10 @@ public class UserBean {
     private String lastName;
     private String email;
     private String password;
+    private UserController userController;
 
     public UserBean() {
+        userController = new UserController();
     }
 
     public UserBean(String email, String password) {
@@ -54,10 +60,14 @@ public class UserBean {
     }
 
     public String authenticate(){
-        if( firstName != null && email != null && password != null){
-            return "index";
-        }else{
-            return "register-form";
-        }
+        return Pages.PAGE_HOME;
     }
+
+    public String register(){
+        User u = new User(firstName, lastName);
+        userController.save(u);
+        return Pages.PAGE_HOME;
+    }
+
+
 }

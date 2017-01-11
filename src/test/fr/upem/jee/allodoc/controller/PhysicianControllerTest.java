@@ -19,7 +19,7 @@ public class PhysicianControllerTest {
 
     @Test
     public void getFromId(){
-        PhysicianController controller = Controller.getController(PhysicianController.class);
+        PhysicianController controller = new PhysicianController();
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
@@ -34,7 +34,7 @@ public class PhysicianControllerTest {
 
     @Test
     public void getAvailabilities(){
-        PhysicianController controller = Controller.getController(PhysicianController.class);
+        PhysicianController controller = new PhysicianController();
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
