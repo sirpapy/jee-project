@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>allo-doc</groupId>
@@ -20,10 +20,27 @@
         </dependency>
 
         <dependency>
-            <groupId>javax.faces</groupId>
+            <groupId>com.sun.faces</groupId>
             <artifactId>jsf-api</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
+            <version>2.2.14</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.2.14</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.myfaces.core/myfaces-api -->
+        <dependency>
+            <groupId>org.apache.myfaces.core</groupId>
+            <artifactId>myfaces-api</artifactId>
+            <version>2.2.11</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.maven/maven-plugin-api -->
@@ -107,6 +124,19 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <path>/allo-doc</path>
+                    <update>true</update>
+                    <username>allodoc</username>
+                    <password>tomcat</password>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
                 <groupId>org.glassfish.maven.plugin</groupId>
                 <artifactId>maven-glassfish-plugin</artifactId>
                 <version>2.1</version>
@@ -117,7 +147,8 @@
                     <!--<passwordFile>${local.glassfish.passfile}</passwordFile>-->
                     <domain>
                         <name>allo-doc</name>
-                        <httpPort>9191</httpPort>
+                        <!--<httpPort>9191</httpPort>-->
+                        <httpPort>8080</httpPort>
                         <adminPort>4848</adminPort>
                     </domain>
                     <components>
@@ -131,7 +162,7 @@
                     <echo>true</echo>
                 </configuration>
             </plugin>
-            
+
         </plugins>
     </build>
 </project>
