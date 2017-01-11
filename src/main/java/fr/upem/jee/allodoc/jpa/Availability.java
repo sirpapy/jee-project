@@ -5,7 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -17,8 +17,8 @@ public class Availability implements Serializable {
     @GeneratedValue
     private Long id;
 
-    @OneToMany
-    private Set<PhysicianAvailability> physicians;
+    @ManyToMany(mappedBy = "availabilities")
+    private List<Physician> physicians;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

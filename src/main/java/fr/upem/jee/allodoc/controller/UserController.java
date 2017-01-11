@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class UserController extends Controller<User>{
 
-    public UserController() {
+    public UserController(){
         super();
     }
 

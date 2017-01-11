@@ -11,7 +11,7 @@ import static junit.framework.TestCase.assertNotNull;
 public class UserControllerTest {
     @Test
     public void controllerTest() throws Exception {
-        UserController controller = Controller.getController(UserController.class);
+        UserController controller = new UserController();
         User u = new User();
         u.setFirstName("thierry");
         u.setLastName("rabearijao");

@@ -1,5 +1,4 @@
 package fr.upem.jee.allodoc.jpa;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;

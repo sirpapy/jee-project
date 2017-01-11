@@ -15,10 +15,10 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * Created by Pape on 17/13/2016.
  */
-public class AppointmentTest {
-    private Appointment a1;
-    private Appointment a2;
-    private final Patient u;
+public class AppointmentTest{
+
+    // TODO : tests bellow are failing
+
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
     public AppointmentTest() throws IOException, ParseException {
         u = new Patient();
@@ -27,7 +27,7 @@ public class AppointmentTest {
     }
 
 
-
+//        u = new Patient();
     @Test
     public void isFreeAppointmentTest() throws Exception {
         assertTrue(a1.isFree());

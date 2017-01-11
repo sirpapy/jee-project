@@ -4,9 +4,12 @@ import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Physician;
 import org.junit.Test;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
 
 /**
@@ -16,7 +19,7 @@ public class PhysicianControllerTest {
 
     @Test
     public void getFromId(){
-        PhysicianController controller = Controller.getController(PhysicianController.class);
+        PhysicianController controller = new PhysicianController();
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
@@ -31,17 +34,22 @@ public class PhysicianControllerTest {
 
     @Test
     public void getAvailabilities(){
-        PhysicianController controller = Controller.getController(PhysicianController.class);
+        PhysicianController controller = new PhysicianController();
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
 
         physician.setAvailability(new Availability(new Date()));
-        PhysicianController.savePhysician(physician);
+        physician.setAvailability(new Availability(new Date()));
+        controller.save(physician);
 
-//        List<Physician> search = controller.search("thierry", "raptao");
-//        assertFalse(search.isEmpty());
+        List<Physician> search = controller.search("thierry", "raptao");
+        assertFalse(search.isEmpty());
+        Physician physician1 = search.get(0);
+        Collection<Availability> availabilities = controller.getAvailabilities(physician1);
+        assertEquals(2, availabilities.size());
     }
+
 
 
 
