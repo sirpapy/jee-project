@@ -19,7 +19,8 @@ public class Appointment {
     private Date endHour;
     private Long appointment;
 
-
+    @ManyToOne
+    private Patient patient;
     public Appointment() {
     }
 

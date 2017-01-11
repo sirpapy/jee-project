@@ -20,7 +20,7 @@ public class Parser {
     public static final Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
     public static final String CONSTANT_FRANCE = "France";
 
-    static List<Physician> parseCSVDoctor(Path path) throws IOException {
+    public static List<Physician> parseCSVDoctor(Path path) throws IOException {
         List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
 
         List<Physician> toReturn = new ArrayList<>();
@@ -57,7 +57,7 @@ public class Parser {
         return toReturn;
     }
 
-    static List<Location> parseCSVPostCode(Path path) throws IOException {
+    public static List<Location> parseCSVPostCode(Path path) throws IOException {
         List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
 
         List<Location> toReturn = new ArrayList<>();
