@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,13 +31,14 @@ public class Physician extends User implements Serializable {
     private String nomDepartement;
     private String finess;
     private String status;
+    private Date beginHour;
+    private Date endHour;
 
     @OneToOne
     private FieldOfActivity fieldOfActivity;
 
     @OneToOne
     private Location practiceArea;
-
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
     private List<Availability> availabilities;
@@ -45,7 +47,7 @@ public class Physician extends User implements Serializable {
 
     }
 
-    public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
+    public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status, Date beginHour, Date endHour) {
         super(firstName, lastName);
         this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
         this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
@@ -54,6 +56,7 @@ public class Physician extends User implements Serializable {
         this.regionExercice = Objects.requireNonNull(regionExercice);
         this.finess = Objects.requireNonNull(finess);
         this.status = Objects.requireNonNull(status);
+
     }
 
     public Physician(String lastName, String firstName) {
@@ -142,4 +145,10 @@ public class Physician extends User implements Serializable {
     }
 
 
+    //Function made by me
+    public void validateAppointment(long idAppointment) {
+        Preconditions.checkArgument(idAppointment>=0, "The appointment ID must be greater than 0");
+        Preconditions.checkArgument(this.availabilities.get((int) idAppointment) == null, "This time slot is not available");
+        this.availabilities.remove(idAppointment);
+    }
 }

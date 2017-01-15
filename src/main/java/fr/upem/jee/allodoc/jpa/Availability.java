@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -13,31 +14,54 @@ import java.util.List;
 @Entity
 public class Availability implements Serializable {
 
+
     @Id
     @GeneratedValue
     private Long id;
 
-    @ManyToMany(mappedBy = "availabilities")
-    private List<Physician> physicians;
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date beginHour;
 
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    Date date;
+    private Date endHour;
+
+    @ManyToMany(mappedBy = "availabilities")
+    private List<Physician> physicians;
+
+//    @Column(nullable = false)
+//    @Temporal(TemporalType.TIMESTAMP)
+//    Date date;
 
 
-    public Date getDate() {
-        return date;
+    public Date getBeginAvailability() {
+        return beginHour;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Date getEndAvailability() {
+        return endHour;
+    }
+
+    public void setDate(Date beginHour, Date endHour) {
+        this.beginHour = beginHour;
+        this.endHour = endHour;
     }
 
     public Availability() {
 
     }
 
-    public Availability(Date date){
-        this.date = Preconditions.checkNotNull(date, "date should not be null");
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Availability(Date beginHour, Date endHour) {
+        this.beginHour = Objects.requireNonNull(beginHour);
+        this.endHour = Objects.requireNonNull(endHour);
     }
 }

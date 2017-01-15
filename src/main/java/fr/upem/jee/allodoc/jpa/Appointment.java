@@ -11,35 +11,65 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "appointment")
+@NamedQuery(name = "findByID",
+        query = "Select a from Appointment a where a.id = :id")
 public class Appointment {
     @Id
     @GeneratedValue
     private Long id;
     private Date beginHour;
     private Date endHour;
-    private Long appointment;
+//    private Long appointment;
 
     @ManyToOne
     private Patient patient;
     public Appointment() {
+    }
+    public Appointment(long id) {
+
     }
 
     public Appointment(Date beginHour, Date endHour) {
         this.beginHour = Objects.requireNonNull(beginHour);
         this.endHour = Objects.requireNonNull(endHour);
     }
-
-
-    public boolean isFree() {
-        //TODO
-        return true;
+    public Long getId() {
+        return id;
     }
 
-    public void setAppointment(Long appointment) {
-        this.appointment = appointment;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public void removeAppointment() {
-
+    public Date getBeginHour() {
+        return beginHour;
     }
+
+    public void setBeginHour(Date beginHour) {
+        this.beginHour = beginHour;
+    }
+
+    public Date getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(Date endHour) {
+        this.endHour = endHour;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+//    public void setAppointment(Long appointment) {
+//        this.appointment = appointment;
+//    }
+
+//    public void removeAppointment() {
+//
+//    }
 }

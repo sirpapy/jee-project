@@ -1,8 +1,6 @@
 package fr.upem.jee.allodoc.jpa;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
@@ -12,10 +10,19 @@ import java.util.Objects;
  */
 
 @Entity
+@NamedQueries({
+
+        @NamedQuery(name = "getPatientnFromId",
+                query = "SELECT p from Patient p where p.id = :pId"),
+
+        @NamedQuery(name = "findPatientFirstnameLastName",
+                query = "SELECT p from Patient p where p.firstName = :pFirstName and p.lastName = :pLastName"),
+
+})
 @Table(name = "patient")
 public class Patient extends User{
 
-    @OneToMany
+    @OneToMany(cascade = {CascadeType.ALL})
     Collection<Appointment> appointments =  new ArrayList<>();
 
     public Patient() {
