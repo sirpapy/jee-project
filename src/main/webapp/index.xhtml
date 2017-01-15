@@ -21,9 +21,15 @@
     <h:form>
 
         <p:commandButton styleClass="ui-priority-primary"
-                         action="#{welcomeBean.register()}"
-                         id="signin"
-                         value="Sign in"
+                         action="#{welcomeBean.registerPhysician()}"
+                         id="signupPhysician"
+                         value="Sign up as Physician"
+                         icon="ui-icon-star"/>
+
+        <p:commandButton styleClass="ui-priority-primary"
+                         action="#{welcomeBean.registerPatient()}"
+                         id="signupPatient"
+                         value="Sign up as Patient"
                          icon="ui-icon-star"/>
     </h:form>
 </h:body>

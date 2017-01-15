@@ -11,14 +11,24 @@
     <h2>Sign up !</h2>
     <h:form>
         <h:panelGrid id="registration-form-grid" columns="2" cellpadding="5">
+            <!-- FIRSTNAME-->
             <h:outputText value="First Name: "/>
-            <p:inputText label="First Name" value="#{userBean.firstName}" placeholder="Enter your first name" required="true"/>
+            <p:inputText label="First Name" value="#{userBean.firstName}" placeholder="Enter your first name"
+                         required="true"/>
 
+            <!--LASTNAME-->
             <h:outputText value="LastName: "/>
-            <p:inputText label="Last Name" value="#{userBean.lastName}" placeholder="Enter your last name" required="true"/>
+            <p:inputText label="Last Name" value="#{userBean.lastName}" placeholder="Enter your last name"
+                         required="true"/>
 
+            <!--ADDRESS-->
+            <h:outputText value="Address:"/>
+            <p:inputText label="Address" value="#{userBean.address}" placeholder="Enter your address" required="true"/>
+
+            <!--EMAIL-->
             <h:outputText value="Email: "/>
-            <p:inputText label="Email" type="email" value="#{userBean.email}" placeholder="Enter your email" required="true"/>
+            <p:inputText label="Email" type="email" value="#{userBean.email}" placeholder="Enter your email"
+                         required="true"/>
 
 
         </h:panelGrid>
@@ -26,6 +36,7 @@
         <p:messages id="messages" showDetail="true" autoUpdate="true"/>
         <h:panelGrid columns="2" id="password-confirm" cellpadding="5">
 
+            <!--PASSWORD-->
             <h:outputLabel for="password" value="Password: "/>
             <p:password id="password" label="Password"
                         value="#{userBean.password}"
@@ -41,6 +52,16 @@
 
             <p:commandButton update="registration-form-grid" value="Confirm" action="#{userBean.registerAsPatient()}"/>
         </h:panelGrid>
+
+        <!--FOR PHYSICIAN-->
+        <h:panelGroup layout="block" rendered="#{userBean.type == 'PHYSICIAN'}">
+            <h:outputText value="BLABLABLA PHYSICIAN"/>
+        </h:panelGroup>
+
+        <!--FOR PATIENT-->
+        <h:panelGroup layout="block" rendered="#{userBean.type == 'PATIENT'}">
+            <h:outputText value="BLABLABLA PATIENT"/>
+        </h:panelGroup>
     </h:form>
 </h:body>
 </html>

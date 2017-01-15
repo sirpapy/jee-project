@@ -5,17 +5,25 @@ import fr.upem.jee.allodoc.jpa.Patient;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 
 /**
  * Created by raptao on 1/10/2017.
  */
 @ManagedBean
-public class UserBean implements Serializable{
+@SessionScoped
+public class UserBean implements Serializable {
+
+    public static final String TYPE_PHYSICIAN = "PHYSICIAN";
+    public static final String TYPE_PATIENT = "PATIENT";
+
+    private String type;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
+    private String address;
     private UserController userController;
 
     public UserBean() {
@@ -25,6 +33,22 @@ public class UserBean implements Serializable{
     public UserBean(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getFirstName() {
@@ -64,6 +88,11 @@ public class UserBean implements Serializable{
         return Pages.PAGE_HOME;
     }
 
+    /**
+     * Registers a new {@link Patient} in the database
+     *
+     * @return the redirection page ( login page )
+     */
     public String registerAsPatient() {
         Patient p = new Patient.Builder()
                 .setFirstName(firstName)
@@ -74,6 +103,7 @@ public class UserBean implements Serializable{
         userController.save(p);
         return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
+
 
     public String registerAsPhysician() {
         return Pages.PAGE_LOGIN_FORM;

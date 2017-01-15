@@ -46,7 +46,7 @@ public class Physician extends User implements Serializable {
     }
 
     private Physician(String firstName, String lastName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
-        super(firstName, lastName,null, null, null, null);
+        super(firstName, lastName, null, null, null, null);
         this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
         this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
         this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
@@ -150,6 +150,10 @@ public class Physician extends User implements Serializable {
         private String finess;
         private String status;
 
+        private String email;
+        private String password;
+
+
         public Builder setFirstName(String firstName) {
             this.firstName = firstName;
             return this;
@@ -190,6 +194,16 @@ public class Physician extends User implements Serializable {
             return this;
         }
 
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
         public Builder setStatus(String status) {
             this.status = status;
             return this;
@@ -198,6 +212,8 @@ public class Physician extends User implements Serializable {
         public Physician build() {
             return new Physician(firstName, lastName, fieldOfActivity, dateAccreditation, nomOAAMedecin, nomDepartement, regionExercice, finess, status);
         }
+
+
     }
 
 }
