@@ -39,6 +39,8 @@ public class Physician extends User implements Serializable {
 
     @OneToOne
     private Location practiceArea;
+
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
     private List<Availability> availabilities;

@@ -5,6 +5,7 @@ import fr.upem.jee.allodoc.jpa.*;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -29,14 +30,12 @@ public class AppointmentsController extends Controller<Appointment> {
 
     public boolean setAppointment(Patient patient, Physician physician, long idAppointment) {
         PatientController pc = new PatientController();
-        AppointmentsController apc = new AppointmentsController();
+        PhysicianController phC = new PhysicianController();
+
         Appointment nAp;
-        List<Availability> avs = physician.getAvailabilities().stream().filter(e -> e.getId() == idAppointment).collect(Collectors.toList());
-        if (avs.size() != 0) {
-            nAp = getNewAppointmentByID(idAppointment);
-            if (nAp == null) {
-                return false;
-            }
+        Optional<Availability> avs = phC.getAvailabilities(physician).stream().filter(e -> e.getId() == idAppointment).findFirst();
+        if (avs.isPresent()) {
+            nAp = new Appointment(avs.get().getBeginAvailability(),avs.get().getEndAvailability());
             physician.validateAppointment(idAppointment);
             patient.addAppointment(nAp);
             pc.save(patient);
