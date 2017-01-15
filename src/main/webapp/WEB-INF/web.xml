@@ -13,6 +13,10 @@
         <param-name>javax.faces.CONFIG_FILES</param-name>
         <param-value>/faces-config.xml</param-value>
     </context-param>
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
 
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
