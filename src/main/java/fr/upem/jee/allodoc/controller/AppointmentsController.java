@@ -1,5 +1,6 @@
 package fr.upem.jee.allodoc.controller;
 
+import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.jpa.*;
 
@@ -19,7 +20,7 @@ public class AppointmentsController extends Controller<Appointment> {
     }
 
     public Appointment getNewAppointmentByID(long id) {
-
+        Preconditions.checkArgument(id>=0);
         TypedQuery<Appointment> findByID = manager.getEntityManager().createNamedQuery("findByID", Appointment.class);
         findByID.setParameter("id", id);
         List<Appointment> resultList = findByID.getResultList();
@@ -29,12 +30,15 @@ public class AppointmentsController extends Controller<Appointment> {
     }
 
     public boolean setAppointment(Patient patient, Physician physician, long idAppointment) {
-        PatientController pc = new PatientController();
-        PhysicianController phC = new PhysicianController();
+        Preconditions.checkNotNull(patient);
+        Preconditions.checkNotNull(physician);
+        Preconditions.checkArgument(idAppointment>=0);
+            PatientController pc = new PatientController();
+            PhysicianController phC = new PhysicianController();
 
-        Appointment nAp;
-        Optional<Availability> avs = phC.getAvailabilities(physician).stream().filter(e -> e.getId() == idAppointment).findFirst();
-        if (avs.isPresent()) {
+            Appointment nAp;
+            Optional<Availability> avs = phC.getAvailabilities(physician).stream().filter(e -> e.getId() == idAppointment).findFirst();
+            if (avs.isPresent()) {
             nAp = new Appointment(avs.get().getBeginAvailability(),avs.get().getEndAvailability());
             physician.validateAppointment(idAppointment);
             patient.addAppointment(nAp);
