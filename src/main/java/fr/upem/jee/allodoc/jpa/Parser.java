@@ -35,13 +35,13 @@ public class Parser {
             String regionExercice = columns[6];
             String finess = columns[7];
             String status = columns[8];
-            Physician ph = new Physician(lastName, firstName);
-            ph.setDateAccreditation(dateAccreditation);
-            ph.setNomDepartement(nomDepartement);
-            ph.setNomOAAMedecin(nomOAAMedecin);
-            ph.setRegionExercice(regionExercice);
-            ph.setFiness(finess);
-            ph.setStatus(status);
+            Physician ph = new Physician.Builder()
+                    .setFirstName(firstName)
+                    .setLastName(lastName)
+                    .setDateAccreditation(dateAccreditation)
+                    .setRegionExercice(regionExercice)
+                    .setStatus(status)
+                    .setNomDepartement(nomDepartement).build();
             FieldOfActivity foc = FieldOfActivityController.getFieldOfActivity(fieldOfActivity);
             if (foc != null) {
                 ph.setFieldOfActivity(foc);

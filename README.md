@@ -61,6 +61,8 @@ If you have something to change on this file ( or those lines ), that would only
 
 ### Deployment 
 
+#### Glassfish ( obsolete )
+
 In the same terminal, you now can deploy with : 
 
 `mvn glassfish:deploy`
@@ -68,6 +70,45 @@ In the same terminal, you now can deploy with :
 to redeploy, just use : 
 
 `mvn glassfish:redeploy`
+
+#### Tomcat ( recommended )
+
+
+##### Prerequisite 
+
+In order to be able to deploy on tomcat, you need to have this line in the file
+**conf/tomcat_users.xml** of your tomcat directory : 
+
+`<user username="allodoc" password="tomcat" roles="tomcat,manager-gui,admin-gui,manager-jmx,manager-script" />`
+
+> This line specifies the allodoc user for your tomcat server, so this user can deploy on the server.
+
+You also need to configure your **${HOME}/.m2/settings.xml** file, by adding : 
+
+
+```xml
+    <servers>
+        <server>
+            <id>Tomcat</id>
+            <username>allodoc</username>
+            <password>tomcat</password>
+        </server>
+    </servers>
+    <pluginGroups>
+        <pluginGroup>org.apache.tomcat.maven</pluginGroup>
+    </pluginGroups>
+```
+
+**Now, you should be able to deploy**:
+
+In the same terminal, you new can deploy with :
+
+`mvn tomcat7:deploy`
+
+to redeploy, just use : 
+
+`mvn tomcat7:redeploy`
+
 
 
 ## On your browser

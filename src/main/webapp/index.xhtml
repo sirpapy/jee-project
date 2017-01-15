@@ -3,31 +3,35 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+>
 
 <h:head>
     <title>Hello JSF 2!</title>
 </h:head>
-<body>
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
-#{welcome.message}
 
-<h:form>
-    <h:outputText value="#{userBean.password}"/>
-    <h:commandButton action="#{navigationController.redirectLogin}" value="Sign in"/>
-</h:form>
 
-<h:form>
+<h:body>
+    <f:view>
+        <h:outputLabel value="Hello, world"/>
+    </f:view>
+    #{welcomeBean.getMessage()}
 
-<p:commandButton styleClass="ui-priority-primary"
-                 action="#{navigationController.registerPage}"
-                 id="signin"
-                 value="Sign in"
-                 icon="ui-icon-star"/>
-</h:form>
-</body>
+    <h:form>
+
+        <p:commandButton styleClass="ui-priority-primary"
+                         action="#{welcomeBean.registerPhysician()}"
+                         id="signupPhysician"
+                         value="Sign up as Physician"
+                         icon="ui-icon-star"/>
+
+        <p:commandButton styleClass="ui-priority-primary"
+                         action="#{welcomeBean.registerPatient()}"
+                         id="signupPatient"
+                         value="Sign up as Patient"
+                         icon="ui-icon-star"/>
+    </h:form>
+</h:body>
+
 </html>

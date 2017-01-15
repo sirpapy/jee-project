@@ -20,7 +20,6 @@ import java.util.Objects;
 
         @NamedQuery(name = "findPhysicianFirstnameLastName",
                 query = "SELECT p from Physician p where p.firstName = :pFirstName and p.lastName = :pLastName"),
-
 })
 
 public class Physician extends User implements Serializable {
@@ -49,8 +48,8 @@ public class Physician extends User implements Serializable {
 
     }
 
-    public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status, Date beginHour, Date endHour) {
-        super(firstName, lastName);
+    private Physician(String firstName, String lastName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
+        super(firstName, lastName, null, null, null, null);
         this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
         this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
         this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
@@ -61,9 +60,6 @@ public class Physician extends User implements Serializable {
 
     }
 
-    public Physician(String lastName, String firstName) {
-        super(firstName, lastName);
-    }
 
     public List<Availability> getAvailabilities() {
         return availabilities;
@@ -146,6 +142,83 @@ public class Physician extends User implements Serializable {
         this.status = status;
     }
 
+
+    public static class Builder {
+        private String firstName;
+        private String lastName;
+        private FieldOfActivity fieldOfActivity;
+        private String dateAccreditation;
+        private String nomOAAMedecin;
+        private String nomDepartement;
+        private String regionExercice;
+        private String finess;
+        private String status;
+
+        private String email;
+        private String password;
+
+
+        public Builder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
+            this.fieldOfActivity = fieldOfActivity;
+            return this;
+        }
+
+        public Builder setDateAccreditation(String dateAccreditation) {
+            this.dateAccreditation = dateAccreditation;
+            return this;
+        }
+
+        public Builder setNomOAAMedecin(String nomOAAMedecin) {
+            this.nomOAAMedecin = nomOAAMedecin;
+            return this;
+        }
+
+        public Builder setNomDepartement(String nomDepartement) {
+            this.nomDepartement = nomDepartement;
+            return this;
+        }
+
+        public Builder setRegionExercice(String regionExercice) {
+            this.regionExercice = regionExercice;
+            return this;
+        }
+
+        public Builder setFiness(String finess) {
+            this.finess = finess;
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public Builder setPassword(String password) {
+            this.password = password;
+            return this;
+        }
+
+        public Builder setStatus(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public Physician build() {
+            return new Physician(firstName, lastName, fieldOfActivity, dateAccreditation, nomOAAMedecin, nomDepartement, regionExercice, finess, status);
+        }
+
+
+    }
 
     //Function made by me
     public void validateAppointment(long idAppointment) {

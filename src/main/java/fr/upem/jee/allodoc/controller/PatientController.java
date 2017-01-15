@@ -15,10 +15,20 @@ import java.util.List;
  */
 public class PatientController extends Controller<Patient> {
 
-    public PatientController() {
+    private Patient patient;
+
+    public PatientController(Patient patient) {
         super();
+        this.patient = patient;
     }
 
+    public boolean setNewAppointment(Physician physician, long availabilityId, long appointmentId) {
+        PhysicianController physicianController = new PhysicianController(physician);
+        if (physicianController.isAvailableAt(availabilityId)) {
+            // TODO complete section
+            // taper sur la table physician_appointment
+            // update physician_availability set appointment_id = appointmentId
+            // where physician_id = physician.getId() and availability_id = availabilityId
 
     public Patient getFromId(Long id) {
         return manager().getEntityManager().find(Patient.class, id);

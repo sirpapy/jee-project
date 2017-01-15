@@ -11,9 +11,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.*;
 
 /**
  * Created by raptao on 12/22/2016.
@@ -23,33 +21,34 @@ public class PhysicianControllerTest {
 
     @Test
     public void getFromId(){
-        PhysicianController controller = new PhysicianController();
         Physician physician = new Physician();
+        PhysicianController controller = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
-        controller.save(physician);
+        controller.save();
 
-        Physician fromId = controller.getFromId(1L);
+        Physician fromId = PhysicianController.getFromId(1L);
+        assertNotNull(fromId);
         assertEquals(physician.getFirstName(), fromId.getFirstName());
 
         controller.remove(fromId);
-        assertNull(controller.getFromId(1L));
+        assertNull(PhysicianController.getFromId(1L));
     }
 
     @Test
     public void getAvailabilities() throws ParseException {
-        PhysicianController controller = new PhysicianController();
         Physician physician = new Physician();
+        PhysicianController controller = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save(physician);
+        controller.save();
 
-        List<Physician> search = controller.search("thierry", "raptao");
+        List<Physician> search = new PhysicianController(new Physician()).search("thierry", "raptao");
         assertFalse(search.isEmpty());
         Physician physician1 = search.get(0);
-        Collection<Availability> availabilities = controller.getAvailabilities(physician1);
+        Collection<Availability> availabilities = controller.getAvailabilities();
         assertEquals(2, availabilities.size());
     }
 
