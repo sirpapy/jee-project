@@ -82,6 +82,17 @@ public class PhysicianController extends UserController {
     }
 
     /**
+     * @param availabilityId the id of the scheduled time
+     * @return true if the controlled physician is available on the time specified by the availability id
+     */
+    public boolean isAvailableAt(long availabilityId) {
+        String queryString = String.format("select appointment_id FROM  physician_availability where availability_id = %d and physician_id = %d ", availabilityId, physician.getId());
+        Query appointmentIdQuery = manager().getEntityManager().createNativeQuery(queryString);
+        List resultList = appointmentIdQuery.getResultList();
+        return resultList.isEmpty();
+    }
+
+    /**
      * Saves the current controlled physician
      */
     public void save() {

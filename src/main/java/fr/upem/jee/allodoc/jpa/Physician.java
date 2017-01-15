@@ -19,7 +19,6 @@ import java.util.Objects;
 
         @NamedQuery(name = "findPhysicianFirstnameLastName",
                 query = "SELECT p from Physician p where p.firstName = :pFirstName and p.lastName = :pLastName"),
-
 })
 
 public class Physician extends User implements Serializable {
