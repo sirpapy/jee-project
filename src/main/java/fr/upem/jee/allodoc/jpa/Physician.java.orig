@@ -48,8 +48,13 @@ public class Physician extends User implements Serializable {
 
     }
 
+<<<<<<< HEAD
+    public Physician(String lastName, String firstName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status, Date beginHour, Date endHour) {
+        super(firstName, lastName);
+=======
     private Physician(String firstName, String lastName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
         super(firstName, lastName, null, null, null, null);
+>>>>>>> origin/physician-jpa
         this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
         this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
         this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
@@ -143,6 +148,14 @@ public class Physician extends User implements Serializable {
     }
 
 
+<<<<<<< HEAD
+    //Function made by me
+    public void validateAppointment(long idAppointment) {
+        Preconditions.checkArgument(idAppointment>=0, "The appointment ID must be greater than 0");
+        Preconditions.checkArgument(this.availabilities.get((int) idAppointment) == null, "This time slot is not available");
+        this.availabilities.remove(idAppointment);
+    }
+=======
     public static class Builder {
         private String firstName;
         private String lastName;
@@ -220,10 +233,5 @@ public class Physician extends User implements Serializable {
 
     }
 
-    //Function made by me
-//    public void validateAppointment(long idAppointment) {
-//        Preconditions.checkArgument(idAppointment>=0, "The appointment ID must be greater than 0");
-//        Preconditions.checkArgument(this.availabilities.get((int) idAppointment) == null, "This time slot is not available");
-//        this.availabilities.remove(idAppointment);
-//    }
+>>>>>>> origin/physician-jpa
 }

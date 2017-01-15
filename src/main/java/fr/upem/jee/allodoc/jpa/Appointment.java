@@ -1,7 +1,5 @@
 package fr.upem.jee.allodoc.jpa;
 
-import fr.upem.jee.allodoc.DatabaseManager;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
@@ -23,8 +21,10 @@ public class Appointment {
 
     @ManyToOne
     private Patient patient;
+
     public Appointment() {
     }
+
     public Appointment(long id) {
 
     }
@@ -33,6 +33,7 @@ public class Appointment {
         this.beginHour = Objects.requireNonNull(beginHour);
         this.endHour = Objects.requireNonNull(endHour);
     }
+
     public Long getId() {
         return id;
     }

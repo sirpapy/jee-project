@@ -30,7 +30,6 @@ public class AppointmentTest {
 
     @Test
     public void setAppointmentTest() throws ParseException {
-        PatientController paController = new PatientController();
         PhysicianController phController = new PhysicianController();
 
         Physician physician = new Physician();
@@ -41,14 +40,15 @@ public class AppointmentTest {
         phController.save(physician);
 
 
-        Patient pa = new Patient();
-        assertTrue(pa.getAppointments().size() == 0);
+        Patient patient = new Patient();
+        PatientController patientController = new PatientController(patient);
+        assertTrue(patient.getAppointments().size() == 0);
 
-        AppointmentsController apC = new AppointmentsController();
+        AppointmentController appointmentController = new AppointmentController();
 
-        apC.setAppointment(pa, physician, 2);
-        paController.save(pa);
-        assertTrue(pa.getAppointments().size() == 1);
+        appointmentController.setAppointment(patient, physician, 2);
+        patientController.save();
+        assertTrue(patient.getAppointments().size() == 1);
 
     }
 

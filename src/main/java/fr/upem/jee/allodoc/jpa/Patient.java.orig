@@ -1,10 +1,15 @@
 package fr.upem.jee.allodoc.jpa;
 
+<<<<<<< HEAD
 import javax.persistence.*;
+=======
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.io.Serializable;
+>>>>>>> origin/physician-jpa
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Created by Sirpapy on 14/12/2016.
@@ -20,10 +25,16 @@ import java.util.List;
                 query = "SELECT p from Patient p where p.firstName = :pFirstName and p.lastName = :pLastName"),
 
 })
+@Table(name = "patient")
 public class Patient extends User implements Serializable {
 
+<<<<<<< HEAD
     @OneToMany(cascade = {CascadeType.ALL})
-    List<Appointment> appointments = new ArrayList<>();
+    Collection<Appointment> appointments =  new ArrayList<>();
+=======
+    @OneToMany
+    Collection<Appointment> appointments = new ArrayList<>();
+>>>>>>> origin/physician-jpa
 
     public Patient() {
         super();
