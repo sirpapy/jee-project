@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PhysicianController extends UserController {
+public class PhysicianController extends UserController<Physician> {
 
     private Physician physician;
 
@@ -30,6 +30,7 @@ public class PhysicianController extends UserController {
     }
 
     public PhysicianController() {
+        super();
     }
 
     /**
@@ -45,6 +46,7 @@ public class PhysicianController extends UserController {
      *
      * @param physician the {@link Physician} to be taken control of
      */
+    @Override
     public void takeControl(Physician physician) {
         Objects.requireNonNull(physician);
         this.physician = physician;
@@ -69,6 +71,7 @@ public class PhysicianController extends UserController {
     /**
      * @return all availabilities of the currently controlled {@link Physician}
      */
+    // TODO remove this uneeded method
     public Collection<Availability> getAvailabilities() {
         // retrieving all availability_id for the physician
         Query query = manager().getEntityManager().createNativeQuery("select availability_id from physician_availability where physician_id = " + physician.getId());
@@ -95,6 +98,7 @@ public class PhysicianController extends UserController {
     /**
      * Saves the current controlled physician
      */
+    @Override
     public void save() {
         super.save(physician);
     }

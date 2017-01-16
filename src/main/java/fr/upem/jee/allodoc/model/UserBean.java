@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.model;
 
-import fr.upem.jee.allodoc.controller.UserController;
+import fr.upem.jee.allodoc.controller.PatientController;
+import fr.upem.jee.allodoc.controller.PhysicianController;
 import fr.upem.jee.allodoc.jpa.Patient;
 import fr.upem.jee.allodoc.utilities.Pages;
 
@@ -24,10 +25,12 @@ public class UserBean implements Serializable {
     private String email;
     private String password;
     private String address;
-    private UserController userController;
+    private PatientController patientController;
+    private PhysicianController physicianController;
 
     public UserBean() {
-        userController = new UserController();
+        patientController = new PatientController();
+        physicianController = new PhysicianController();
     }
 
     public UserBean(String email, String password) {
@@ -100,7 +103,8 @@ public class UserBean implements Serializable {
                 .setEmail(email)
                 .setPassword(password)
                 .build();
-        userController.save(p);
+        patientController.takeControl(p);
+        patientController.save();
         return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 

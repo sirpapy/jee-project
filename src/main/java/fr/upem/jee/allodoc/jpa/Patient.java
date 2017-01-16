@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc.jpa;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,20 +23,21 @@ import java.util.List;
 
 })
 public class Patient extends User implements Serializable {
-
     @OneToMany(cascade = {CascadeType.ALL})
-    List<Appointment> appointments = new ArrayList<>();
+    List<Appointment> appointments;
 
     public Patient() {
         super();
+
     }
 
     public Patient(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {
         super(firstName, lastName, phoneNumber, email, password, address);
     }
 
-    public void addAppointment(Appointment a) {
-        appointments.add(a);
+    public void addAppointment(Appointment newAppointment) {
+        Preconditions.checkNotNull(newAppointment, "newAppointment should not be null");
+        appointments.add(newAppointment);
     }
 
     public void removeAppointment(Appointment a) {
@@ -43,6 +46,10 @@ public class Patient extends User implements Serializable {
 
     public Collection<Appointment> getAppointments() {
         return appointments;
+    }
+
+    public void setAppointments(List<Appointment> appointments) {
+        this.appointments = appointments;
     }
 
     public static class Builder {

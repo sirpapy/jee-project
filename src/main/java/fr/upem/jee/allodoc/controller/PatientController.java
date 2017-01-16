@@ -20,6 +20,10 @@ public class PatientController extends Controller<Patient> {
         this.patient = patient;
     }
 
+    public PatientController() {
+        super();
+    }
+
     public boolean setNewAppointment(Physician physician, long availabilityId, long appointmentId) {
         PhysicianController physicianController = new PhysicianController(physician);
         if (physicianController.isAvailableAt(availabilityId)) {
