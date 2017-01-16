@@ -30,8 +30,6 @@ public class Physician extends User implements Serializable {
     private String nomDepartement;
     private String finess;
     private String status;
-    private Date beginHour;
-    private Date endHour;
 
     @OneToOne
     private FieldOfActivity fieldOfActivity;
@@ -41,7 +39,7 @@ public class Physician extends User implements Serializable {
 
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
+    @JoinTable(name="physician_availability",joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
     private List<Availability> availabilities;
 
     public Physician() {

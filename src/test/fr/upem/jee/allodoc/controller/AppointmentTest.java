@@ -27,30 +27,30 @@ public class AppointmentTest {
         a2 = new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45"));
     }
 
-
-    @Test
-    public void setAppointmentTest() throws ParseException {
-        PhysicianController phController = new PhysicianController();
-
-        Physician physician = new Physician();
-        physician.setLastName("raptao");
-        physician.setFirstName("thierry");
-        physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
-        physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        phController.save(physician);
-
-
-        Patient patient = new Patient();
-        PatientController patientController = new PatientController(patient);
-        assertTrue(patient.getAppointments().size() == 0);
-
-        AppointmentController appointmentController = new AppointmentController();
-
-        appointmentController.setAppointment(patient, physician, 2);
-        patientController.save();
-        assertTrue(patient.getAppointments().size() == 1);
-
-    }
+//
+//    @Test
+//    public void setAppointmentTest() throws ParseException {
+//        PhysicianController phController = new PhysicianController();
+//
+//        Physician physician = new Physician();
+//        physician.setLastName("raptao");
+//        physician.setFirstName("thierry");
+//        physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
+//        physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
+//        phController.save(physician);
+//
+//
+//        Patient patient = new Patient();
+//        PatientController patientController = new PatientController(patient);
+//        assertTrue(patient.getAppointments().size() == 0);
+//
+//        AppointmentController appointmentController = new AppointmentController();
+//
+//        appointmentController.setAppointment(patient, physician, 2);
+//        patientController.save();
+//        assertTrue(patient.getAppointments().size() == 1);
+//
+//    }
 
 
 }
