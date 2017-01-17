@@ -88,4 +88,10 @@ public class DatabaseManager {
         }
         em.getTransaction().commit();
     }
+
+
+    public <T> T findById(Class<T> className, long id){
+
+        return null;
+    }
 }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static fr.upem.jee.allodoc.controller.FieldOfActivityController.save;
 
 /**
  * Created by Sirpapy on 30/11/2016.

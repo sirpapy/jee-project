@@ -1,24 +1,30 @@
 package fr.upem.jee.allodoc.controller;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.jpa.FieldOfActivity;
+
+import javax.persistence.TypedQuery;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by raptao on 12/14/2016.
  */
 public class FieldOfActivityController {
 
-    public static FieldOfActivity getController(){
-        return null;   
-    }
-    
-
-    public static FieldOfActivity getFieldOfActivity(String name) {
-        // TODO complete section
-        return null;
-
+    public static Optional<FieldOfActivity> getByName(String name){
+        DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
+        TypedQuery<FieldOfActivity> findFAByName = databaseManager.getEntityManager().createNamedQuery("findFAByName", FieldOfActivity.class);
+        findFAByName.setParameter("fa_name", name);
+        List<FieldOfActivity> resultList = findFAByName.getResultList();
+        return resultList.isEmpty()? Optional.empty() : Optional.of(resultList.get(0));
     }
 
-    public static void save(FieldOfActivity fieldOfActivity) {
-
+    public static List<FieldOfActivity> getAll(){
+        DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
+        TypedQuery<FieldOfActivity> findAllFA = databaseManager.getEntityManager().createNamedQuery("findAllFA", FieldOfActivity.class);
+        return findAllFA.getResultList();
     }
+
+
 }
