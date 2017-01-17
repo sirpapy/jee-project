@@ -1,11 +1,14 @@
 package fr.upem.jee.allodoc;
 
+import fr.upem.jee.allodoc.controller.FieldOfActivityController;
+import fr.upem.jee.allodoc.jpa.FieldOfActivity;
 import fr.upem.jee.allodoc.jpa.User;
 import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by raptao on 12/13/2016.
@@ -36,9 +39,16 @@ public class DatabaseManagerTest {
         assertEquals(0, removed.getResultList().size());
     }
 
-    @Test
-    public void getEntityManager() throws Exception {
 
+    @Test
+    public void clear(){
+        DatabaseManager manager = new DatabaseManager("DEV-MODE");
+        FieldOfActivity a = new FieldOfActivity("a");
+        FieldOfActivity b = new FieldOfActivity("b");
+        FieldOfActivity c = new FieldOfActivity("c");
+        manager.save(a, b, c);
+        manager.clear(FieldOfActivity.class);
+        assertTrue(FieldOfActivityController.getAll().isEmpty());
     }
 
 }

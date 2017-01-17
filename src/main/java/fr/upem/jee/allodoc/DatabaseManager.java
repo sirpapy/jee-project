@@ -3,6 +3,7 @@ package fr.upem.jee.allodoc;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -90,8 +91,16 @@ public class DatabaseManager {
     }
 
 
-    public <T> T findById(Class<T> className, long id){
+    public <T> T findByLongId(Class<T> className, long id) {
+        return em.find(className, id);
+    }
 
-        return null;
+    public <T> void clear(Class<T> className){
+        String name = className.getName();
+        String deleteQuery = "DELETE from "+name;
+        Query query = em.createQuery(deleteQuery);
+        em.getTransaction().begin();
+        query.executeUpdate();
+        em.getTransaction().commit();
     }
 }

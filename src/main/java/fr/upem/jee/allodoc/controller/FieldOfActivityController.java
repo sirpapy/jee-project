@@ -5,6 +5,7 @@ import fr.upem.jee.allodoc.jpa.FieldOfActivity;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -26,5 +27,12 @@ public class FieldOfActivityController {
         return findAllFA.getResultList();
     }
 
+    public static void distinctSave(FieldOfActivity fieldOfActivity){
+        Objects.requireNonNull(fieldOfActivity);
+        Optional<FieldOfActivity> byName = getByName(fieldOfActivity.getName());
+        if( !byName.isPresent()){
+            DatabaseManager.getDatabaseManager().save(fieldOfActivity);
+        }
+    }
 
 }
