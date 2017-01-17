@@ -1,10 +1,7 @@
 package fr.upem.jee.allodoc.controller;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.jpa.Appointment;
-import fr.upem.jee.allodoc.jpa.Availability;
-import fr.upem.jee.allodoc.jpa.Patient;
-import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.jpa.*;
 import fr.upem.jee.allodoc.DatabaseManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -15,7 +12,7 @@ import java.util.Objects;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PatientController extends UserController {
+public class PatientController extends UserController<Patient> {
 
     private Patient patient;
 
@@ -24,8 +21,9 @@ public class PatientController extends UserController {
         this.patient = patient;
     }
 
-
-
+    public PatientController() {
+        super();
+    }
 
 
 //    PatientController patientController = new PatientController(patient);
@@ -54,15 +52,9 @@ public class PatientController extends UserController {
         Preconditions.checkArgument(appointmentId >= 0);
         PhysicianController physicianController = new PhysicianController(physician);
         if (!physicianController.isAvailableAt(availabilityId)) {
-
-            // TODO complete section
-            // taper sur la table physician_appointment
-            // update physician_availability set appointment_id = appointmentId
-            // where physician_id = physician.getId() and availability_id = availabilityId
-
             Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = "+appointmentId+" WHERE physician_id ="+physician.getId()+" AND availability_id = "+availabilityId+"");
             query.getFirstResult();
-            Availability appointment = DatabaseManager.getDatabaseManager().getEntityManager().find(Availability.class, appointmentId);
+            Availability appointment = manager().getEntityManager().find(Availability.class, appointmentId);
             patient.addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability()));
             return true;
         }

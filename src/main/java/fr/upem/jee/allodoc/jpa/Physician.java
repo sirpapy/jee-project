@@ -24,10 +24,6 @@ import java.util.Objects;
 
 public class Physician extends User implements Serializable {
 
-    private String dateAccreditation;
-    private String regionExercice;
-    private String nomOAAMedecin;
-    private String nomDepartement;
     private String finess;
     private String status;
 
@@ -48,13 +44,13 @@ public class Physician extends User implements Serializable {
 
     private Physician(String firstName, String lastName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
         super(firstName, lastName, null, null, null, null);
-        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
-        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
-        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
-        this.nomDepartement = Objects.requireNonNull(nomDepartement);
-        this.regionExercice = Objects.requireNonNull(regionExercice);
-        this.finess = Objects.requireNonNull(finess);
-        this.status = Objects.requireNonNull(status);
+//        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
+//        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
+//        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
+//        this.nomDepartement = Objects.requireNonNull(nomDepartement);
+//        this.regionExercice = Objects.requireNonNull(regionExercice);
+//        this.finess = Objects.requireNonNull(finess);
+//        this.status = Objects.requireNonNull(status);
 
     }
 
@@ -75,30 +71,6 @@ public class Physician extends User implements Serializable {
         this.fieldOfActivity = fieldOfActivity;
     }
 
-    public String getDateAccreditation() {
-        return dateAccreditation;
-    }
-
-    public void setDateAccreditation(String dateAccreditation) {
-        this.dateAccreditation = dateAccreditation;
-    }
-
-    public String getNomOAAMedecin() {
-        return nomOAAMedecin;
-    }
-
-    public void setNomOAAMedecin(String nomOAAMedecin) {
-        this.nomOAAMedecin = nomOAAMedecin;
-    }
-
-    public String getNomDepartement() {
-        return nomDepartement;
-    }
-
-    public void setNomDepartement(String nomDepartement) {
-        this.nomDepartement = nomDepartement;
-    }
-
     public Location getPracticeArea() {
         return practiceArea;
     }
@@ -115,14 +87,6 @@ public class Physician extends User implements Serializable {
         this.availabilities.add(availability);
     }
 
-
-    public String getRegionExercice() {
-        return regionExercice;
-    }
-
-    public void setRegionExercice(String regionExercice) {
-        this.regionExercice = regionExercice;
-    }
 
     public String getFiness() {
         return finess;

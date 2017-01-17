@@ -28,7 +28,6 @@ public class AppointmentController extends Controller<Appointment> {
         List<Appointment> resultList = findByID.getResultList();
         Appointment res = resultList.isEmpty() ? null : resultList.get(0);
         return res == null ? null : new Appointment(res.getBeginHour(), res.getEndHour());
-
     }
 
     public long getAppointmentId(Date beginHour, Date endHour){
@@ -44,6 +43,7 @@ public class AppointmentController extends Controller<Appointment> {
         PhysicianController physicianController = new PhysicianController(physician);
 
         Appointment appointment;
+        // TODO fix this after removing getAvailabilities in PhysicianController
         Optional<Availability> avs = physicianController.getAvailabilities().stream().filter(e -> e.getId() == idAppointment).findFirst();
         if (avs.isPresent()) {
             appointment = new Appointment(avs.get().getBeginAvailability(), avs.get().getEndAvailability());
@@ -51,7 +51,6 @@ public class AppointmentController extends Controller<Appointment> {
             patient.addAppointment(appointment);
             patientController.save(patient);
             return true;
-
         }
         return false;
     }
