@@ -1,8 +1,6 @@
 package fr.upem.jee.allodoc.utilities;
 
-import fr.upem.jee.allodoc.controller.FieldOfActivityController;
 import fr.upem.jee.allodoc.jpa.Address;
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
 import fr.upem.jee.allodoc.jpa.Location;
 import fr.upem.jee.allodoc.jpa.Physician;
 
@@ -15,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static fr.upem.jee.allodoc.controller.FieldOfActivityController.save;
 
 /**
  * Created by Sirpapy on 30/11/2016.
@@ -44,12 +41,14 @@ public class Parser {
                     .setRegionExercice(regionExercice)
                     .setStatus(status)
                     .setNomDepartement(nomDepartement).build();
-            FieldOfActivity foc = FieldOfActivityController.getFieldOfActivity(fieldOfActivity);
-            if (foc != null) {
-                ph.setFieldOfActivity(foc);
-            } else {
-                save(new FieldOfActivity(fieldOfActivity));
-            }
+
+            // TODO finish it
+//            FieldOfActivity foc = FieldOfActivityController.getFieldOfActivity(fieldOfActivity);
+//            if (foc != null) {
+//                ph.setFieldOfActivity(foc);
+//            } else {
+//                save(new FieldOfActivity(fieldOfActivity));
+//            }
             Address address = new Address();
             address.setStreetName("");
             address.setStreetNumber("");
