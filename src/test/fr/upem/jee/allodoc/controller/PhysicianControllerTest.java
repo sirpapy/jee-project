@@ -1,14 +1,11 @@
 package fr.upem.jee.allodoc.controller;
 
-import fr.upem.jee.allodoc.jpa.Appointment;
 import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Physician;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import static junit.framework.TestCase.*;
@@ -48,8 +45,9 @@ public class PhysicianControllerTest {
         List<Physician> search = new PhysicianController(new Physician()).search("thierry", "raptao");
         assertFalse(search.isEmpty());
         Physician physician1 = search.get(0);
-        Collection<Availability> availabilities = controller.getAvailabilities();
-        assertEquals(2, availabilities.size());
+        assertEquals(2, physician1.getAvailabilities().size());
+//        Collection<Availability> availabilities = controller.getAvailabilities();
+//        assertEquals(2, availabilities.size());
     }
 
 

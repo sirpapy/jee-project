@@ -30,8 +30,6 @@ public class Physician extends User implements Serializable {
     private String nomDepartement;
     private String finess;
     private String status;
-    private Date beginHour;
-    private Date endHour;
 
     @OneToOne
     private FieldOfActivity fieldOfActivity;
@@ -50,13 +48,13 @@ public class Physician extends User implements Serializable {
 
     private Physician(String firstName, String lastName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
         super(firstName, lastName, null, null, null, null);
-        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
-        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
-        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
-        this.nomDepartement = Objects.requireNonNull(nomDepartement);
-        this.regionExercice = Objects.requireNonNull(regionExercice);
-        this.finess = Objects.requireNonNull(finess);
-        this.status = Objects.requireNonNull(status);
+//        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
+//        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
+//        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
+//        this.nomDepartement = Objects.requireNonNull(nomDepartement);
+//        this.regionExercice = Objects.requireNonNull(regionExercice);
+//        this.finess = Objects.requireNonNull(finess);
+//        this.status = Objects.requireNonNull(status);
 
     }
 

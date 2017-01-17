@@ -30,20 +30,20 @@ public class AppointmentTest {
 
     @Test
     public void setAppointmentTest() throws ParseException {
-        PhysicianController phController = new PhysicianController();
 
         Physician physician = new Physician();
+        PhysicianController phController = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
+
+        // TODO change Date usage : the database doesnt store the right values
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        phController.save(physician);
+        phController.save();
 
 
         Patient patient = new Patient();
         PatientController patientController = new PatientController(patient);
-        assertTrue(patient.getAppointments().size() == 0);
-
         AppointmentController appointmentController = new AppointmentController();
 
         appointmentController.setAppointment(patient, physician, 2);
