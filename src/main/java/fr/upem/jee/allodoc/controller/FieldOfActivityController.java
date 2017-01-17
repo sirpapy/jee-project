@@ -13,6 +13,7 @@ public class FieldOfActivityController {
     
 
     public static FieldOfActivity getFieldOfActivity(String name) {
+        // TODO complete section
         return null;
 
     }
