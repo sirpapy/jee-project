@@ -1,6 +1,10 @@
-package fr.upem.jee.allodoc.jpa;
+package fr.upem.jee.allodoc.utilities;
 
 import fr.upem.jee.allodoc.controller.FieldOfActivityController;
+import fr.upem.jee.allodoc.jpa.Address;
+import fr.upem.jee.allodoc.jpa.FieldOfActivity;
+import fr.upem.jee.allodoc.jpa.Location;
+import fr.upem.jee.allodoc.jpa.Physician;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -30,10 +34,8 @@ public class Parser {
             String firstName = columns[1];
             String fieldOfActivity = columns[2];
             String dateAccreditation = columns[3];
-            String nomOAAMedecin = columns[4];
             String nomDepartement = columns[5];
             String regionExercice = columns[6];
-            String finess = columns[7];
             String status = columns[8];
             Physician ph = new Physician.Builder()
                     .setFirstName(firstName)
