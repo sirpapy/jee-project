@@ -24,9 +24,14 @@ public class PatientController extends UserController {
         this.patient = patient;
     }
 
+<<<<<<< HEAD
     public PatientController() {
         super();
     }
+=======
+
+
+
 
 //    PatientController patientController = new PatientController(patient);
 //    PhysicianController physicianController = new PhysicianController(physician);
@@ -47,6 +52,7 @@ public class PatientController extends UserController {
 
 
 
+>>>>>>> origin/patientAppointmentController
 
     public boolean setNewAppointment(Physician physician, long availabilityId, long appointmentId) {
         Preconditions.checkNotNull(physician);

@@ -1,13 +1,17 @@
 package fr.upem.jee.allodoc.controller;
 
 import fr.upem.jee.allodoc.jpa.Appointment;
+import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Patient;
+import fr.upem.jee.allodoc.jpa.Physician;
 import org.junit.Test;
 
+import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by raptao on 12/22/2016.
@@ -15,7 +19,7 @@ import static junit.framework.TestCase.*;
 public class PatientControllerTest {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
-    @Test
+    @Test(expected= NoResultException.class)
     public void getFromId(){
         Patient patient = new Patient();
         PatientController controller = new PatientController(patient);
@@ -26,7 +30,7 @@ public class PatientControllerTest {
         Patient fromId = controller.getFromId(1L);
         assertEquals(patient.getFirstName(), fromId.getFirstName());
         controller.remove(fromId);
-        assertNull(controller.getFromId(1L));
+        controller.getFromId(1L);
     }
 
     @Test
@@ -44,6 +48,27 @@ public class PatientControllerTest {
         assertFalse(p.getAppointments().isEmpty());
         assertEquals(2, p.getAppointments().size());
     }
+
+
+
+    @Test
+    public void setAppointmentTest() throws ParseException {
+        PhysicianController phController = new PhysicianController();
+        Physician physician = new Physician();
+        physician.setLastName("raptao");
+        physician.setFirstName("thierry");
+        physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
+        physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
+        phController.save(physician);
+        Patient patient = new Patient();
+        PatientController patientController = new PatientController(patient);
+        assertTrue(patient.getAppointments().size() == 0);
+        patientController.setNewAppointment(physician, physician.getAvailabilities().get(0).getId(), physician.getAvailabilities().get(0).getId());
+        patientController.save();
+        assertTrue(patient.getAppointments().size() == 1);
+
+    }
+
 
     @Test
     public void isFreeAppointmentTest() throws Exception {

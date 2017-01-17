@@ -27,6 +27,32 @@ public class AppointmentTest {
         a2 = new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45"));
     }
 
+<<<<<<< HEAD
+
+    @Test
+    public void setAppointmentTest() throws ParseException {
+
+        Physician physician = new Physician();
+        PhysicianController phController = new PhysicianController(physician);
+        physician.setLastName("raptao");
+        physician.setFirstName("thierry");
+
+        // TODO change Date usage : the database doesnt store the right values
+        physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
+        physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
+        phController.save();
+
+
+        Patient patient = new Patient();
+        PatientController patientController = new PatientController(patient);
+        AppointmentController appointmentController = new AppointmentController();
+
+        appointmentController.setAppointment(patient, physician, 2);
+        patientController.save();
+        assertTrue(patient.getAppointments().size() == 1);
+
+    }
+=======
 //
 //    @Test
 //    public void setAppointmentTest() throws ParseException {
@@ -51,6 +77,7 @@ public class AppointmentTest {
 //        assertTrue(patient.getAppointments().size() == 1);
 //
 //    }
+>>>>>>> origin/patientAppointmentController
 
 
 }
