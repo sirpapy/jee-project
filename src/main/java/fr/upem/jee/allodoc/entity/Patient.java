@@ -13,10 +13,6 @@ import java.util.List;
 
 @Entity
 @NamedQueries({
-
-        @NamedQuery(name = "getPatientnFromId",
-                query = "SELECT p from Patient p where p.id = :pId"),
-
         @NamedQuery(name = "findPatientFirstnameLastName",
                 query = "SELECT p from Patient p where p.firstName = :pFirstName and p.lastName = :pLastName"),
 

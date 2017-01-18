@@ -25,7 +25,7 @@ abstract class UserController<U extends User> extends Controller<U>{
     public Optional<User> authenticate(String email, String password ){
         Preconditions.checkNotNull(email);
         Preconditions.checkNotNull(password);
-        TypedQuery<User> authenticateUser = manager().getEntityManager().createNamedQuery("authenticateUser", User.class);
+        TypedQuery<User> authenticateUser = manager().getEntityManager().createNamedQuery("getAuthenticatedUser", User.class);
         authenticateUser.setParameter("userEmail", email);
         authenticateUser.setParameter("userPassword", password);
         List<User> resultList = authenticateUser.getResultList();
