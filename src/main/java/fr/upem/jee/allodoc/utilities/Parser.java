@@ -43,9 +43,9 @@ public class Parser {
                     .setNomDepartement(nomDepartement).build();
 
             // TODO finish it
-//            FieldOfActivity foc = FieldOfActivityController.getFieldOfActivity(fieldOfActivity);
+//            FieldOfActivity foc = FieldOfActivityController.getSelectedFieldOfActivity(fieldOfActivity);
 //            if (foc != null) {
-//                ph.setFieldOfActivity(foc);
+//                ph.setSelectedFieldOfActivity(foc);
 //            } else {
 //                save(new FieldOfActivity(fieldOfActivity));
 //            }

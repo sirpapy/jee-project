@@ -25,7 +25,7 @@ public class Controller<T> {
         manager.remove(object);
     }
 
-    public T findLongId( Class<T> className, long id){
+    public T findByLongId(Class<T> className, long id){
         return manager.findByLongId(className, id);
     }
 }

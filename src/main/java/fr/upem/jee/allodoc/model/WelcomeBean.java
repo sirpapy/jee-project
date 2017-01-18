@@ -11,8 +11,8 @@ import java.io.Serializable;
 @RequestScoped
 public class WelcomeBean implements Serializable {
 
-    @ManagedProperty("#{userBean}")
-    private UserBean userBean;
+    @ManagedProperty("#{registerBean}")
+    private RegisterBean registerBean;
 
     public WelcomeBean() {
         System.out.println("WelcomeBean instantiated");
@@ -23,20 +23,20 @@ public class WelcomeBean implements Serializable {
     }
 
     public String registerPhysician() {
-        userBean.setType(UserBean.TYPE_PHYSICIAN);
+        registerBean.setType(RegisterBean.TYPE_PHYSICIAN);
         return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
-    public UserBean getUserBean() {
-        return userBean;
+    public RegisterBean getRegisterBean() {
+        return registerBean;
     }
 
-    public void setUserBean(UserBean userBean) {
-        this.userBean = userBean;
+    public void setRegisterBean(RegisterBean registerBean) {
+        this.registerBean = registerBean;
     }
 
     public String registerPatient() {
-        userBean.setType(UserBean.TYPE_PATIENT);
+        registerBean.setType(RegisterBean.TYPE_PATIENT);
         return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
 
     }

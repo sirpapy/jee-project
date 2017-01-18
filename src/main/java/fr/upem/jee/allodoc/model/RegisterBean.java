@@ -2,19 +2,23 @@ package fr.upem.jee.allodoc.model;
 
 import fr.upem.jee.allodoc.controller.PatientController;
 import fr.upem.jee.allodoc.controller.PhysicianController;
+import fr.upem.jee.allodoc.jpa.FieldOfActivity;
 import fr.upem.jee.allodoc.jpa.Patient;
+import fr.upem.jee.allodoc.jpa.Physician;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by raptao on 1/10/2017.
  */
 @ManagedBean
 @SessionScoped
-public class UserBean implements Serializable {
+public class RegisterBean implements Serializable {
 
     public static final String TYPE_PHYSICIAN = "PHYSICIAN";
     public static final String TYPE_PATIENT = "PATIENT";
@@ -25,17 +29,41 @@ public class UserBean implements Serializable {
     private String email;
     private String password;
     private String address;
+    private FieldOfActivity selectedFieldOfActivity;
     private PatientController patientController;
     private PhysicianController physicianController;
+    private List<FieldOfActivity> fieldOfActivities;
 
-    public UserBean() {
+    public RegisterBean() {
         patientController = new PatientController();
         physicianController = new PhysicianController();
+//        fieldOfActivities = FieldOfActivityController.getAll();
+        fieldOfActivities = new ArrayList<>();
+        fieldOfActivities.add(new FieldOfActivity("science field"));
+        fieldOfActivities.add(new FieldOfActivity("dentist field"));
+        fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
+        fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
     }
 
-    public UserBean(String email, String password) {
+    public RegisterBean(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public List<FieldOfActivity> getFieldOfActivities() {
+        return fieldOfActivities;
+    }
+
+    public void setFieldOfActivities(List<FieldOfActivity> fieldOfActivities) {
+        this.fieldOfActivities = fieldOfActivities;
+    }
+
+    public FieldOfActivity getSelectedFieldOfActivity() {
+        return selectedFieldOfActivity;
+    }
+
+    public void setSelectedFieldOfActivity(FieldOfActivity selectedFieldOfActivity) {
+        this.selectedFieldOfActivity = selectedFieldOfActivity;
     }
 
     public String getAddress() {
@@ -110,7 +138,16 @@ public class UserBean implements Serializable {
 
 
     public String registerAsPhysician() {
-        return Pages.PAGE_LOGIN_FORM;
+        Physician physician = new Physician.Builder()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setEmail(email)
+                .setPassword(password)
+                .setFieldOfActivity(selectedFieldOfActivity)
+                .build();
+        physicianController.takeControl(physician);
+        physicianController.save();
+        return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 

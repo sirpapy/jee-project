@@ -18,7 +18,7 @@ public class FieldOfActivityControllerTest {
         FieldOfActivity fieldOfActivity = new FieldOfActivity("scienceField");
         FieldOfActivityController.distinctSave(fieldOfActivity);
         Controller<FieldOfActivity> controller = new Controller<>();
-        FieldOfActivity retrievedFieldOfActivity = controller.findLongId(FieldOfActivity.class, 1L);
+        FieldOfActivity retrievedFieldOfActivity = controller.findByLongId(FieldOfActivity.class, 1L);
         assertNotNull(retrievedFieldOfActivity);
         assertEquals(fieldOfActivity.getName(), retrievedFieldOfActivity.getName());
         controller.remove(retrievedFieldOfActivity);
