@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
 >
-
+<h:outputStylesheet library="css" name="style.css"  />
 <h:head>
     <title>Hello JSF 2!</title>
 </h:head>
@@ -31,6 +31,9 @@
                          id="signupPatient"
                          value="Sign up as Patient"
                          icon="ui-icon-star"/>
+        <p:commandButton styleClass="ui-priority-primary" action="#{navigationController.toPage()}" value="Go to Home">
+            <f:param name="page" value="1" />
+        </p:commandButton>
     </h:form>
 </h:body>
 

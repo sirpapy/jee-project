@@ -1,5 +1,6 @@
 package fr.upem.jee.allodoc.controller;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.jpa.Appointment;
 import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Patient;
@@ -37,8 +38,8 @@ public class PatientControllerTest {
     public void getAppointments() throws ParseException {
         Patient patient = new Patient();
         PatientController controller = new PatientController(patient);
-        patient.setLastName("rapthhhho");
-        patient.setFirstName("thieyyyrry");
+        patient.setLastName("raptao");
+        patient.setFirstName("thierry");
 //        Patient.setId(2L);
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
@@ -47,6 +48,7 @@ public class PatientControllerTest {
         Patient p = controller.getFromId(patient.getId());
         assertFalse(p.getAppointments().isEmpty());
         assertEquals(2, p.getAppointments().size());
+
     }
 
 
