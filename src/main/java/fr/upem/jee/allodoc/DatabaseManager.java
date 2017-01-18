@@ -1,10 +1,8 @@
 package fr.upem.jee.allodoc;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 
@@ -93,6 +91,13 @@ public class DatabaseManager {
 
     public <T> T findByLongId(Class<T> className, long id) {
         return em.find(className, id);
+    }
+
+    public <T> List<T> findAll(Class<T> className){
+        String name = className.getName();
+        String query = "Select c from "+name+" c";
+        TypedQuery<T> selectQuery = em.createQuery(query, className);
+        return selectQuery.getResultList();
     }
 
     public <T> void clear(Class<T> className){

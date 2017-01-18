@@ -2,9 +2,9 @@ package fr.upem.jee.allodoc.model;
 
 import fr.upem.jee.allodoc.controller.PatientController;
 import fr.upem.jee.allodoc.controller.PhysicianController;
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
-import fr.upem.jee.allodoc.jpa.Patient;
-import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Patient;
+import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import javax.faces.bean.ManagedBean;
@@ -35,9 +35,14 @@ public class RegisterBean implements Serializable {
     private List<FieldOfActivity> fieldOfActivities;
 
     public RegisterBean() {
+        System.out.println("REGISTERBEAN INSTANCIATED");
         patientController = new PatientController();
         physicianController = new PhysicianController();
 //        fieldOfActivities = FieldOfActivityController.getAll();
+        initFakeData();
+    }
+
+    private void initFakeData() {
         fieldOfActivities = new ArrayList<>();
         fieldOfActivities.add(new FieldOfActivity("science field"));
         fieldOfActivities.add(new FieldOfActivity("dentist field"));
@@ -113,10 +118,6 @@ public class RegisterBean implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String authenticate() {
-        return Pages.PAGE_HOME;
     }
 
     /**

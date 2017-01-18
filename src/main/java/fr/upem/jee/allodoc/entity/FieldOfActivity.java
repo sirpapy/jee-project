@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.jpa;
+package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
 import org.apache.commons.lang3.StringUtils;

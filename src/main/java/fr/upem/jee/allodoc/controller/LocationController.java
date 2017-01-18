@@ -1,7 +1,7 @@
 package fr.upem.jee.allodoc.controller;
 
 import fr.upem.jee.allodoc.DatabaseManager;
-import fr.upem.jee.allodoc.jpa.Location;
+import fr.upem.jee.allodoc.entity.Location;
 
 import javax.inject.Inject;
 import javax.persistence.TypedQuery;

@@ -1,6 +1,6 @@
 package fr.upem.jee.allodoc.controller;
 
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import org.junit.Test;
 
 import java.util.List;

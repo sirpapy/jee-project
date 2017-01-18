@@ -1,8 +1,8 @@
 package fr.upem.jee.allodoc.utilities;
 
-import fr.upem.jee.allodoc.jpa.Address;
-import fr.upem.jee.allodoc.jpa.Location;
-import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.entity.Address;
+import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.entity.Physician;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

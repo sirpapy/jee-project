@@ -15,16 +15,10 @@ public class WelcomeBean implements Serializable {
     private RegisterBean registerBean;
 
     public WelcomeBean() {
-        System.out.println("WelcomeBean instantiated");
     }
 
     public String getMessage() {
         return "I'm alive!";
-    }
-
-    public String registerPhysician() {
-        registerBean.setType(RegisterBean.TYPE_PHYSICIAN);
-        return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
     public RegisterBean getRegisterBean() {
@@ -35,10 +29,17 @@ public class WelcomeBean implements Serializable {
         this.registerBean = registerBean;
     }
 
+    public String registerPhysician() {
+        registerBean.setType(RegisterBean.TYPE_PHYSICIAN);
+        return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
+    }
+
     public String registerPatient() {
         registerBean.setType(RegisterBean.TYPE_PATIENT);
         return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
-
     }
 
+    public String loginPage() {
+        return Pages.PAGE_LOGIN_FORM;
+    }
 }

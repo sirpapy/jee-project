@@ -1,11 +1,10 @@
 package fr.upem.jee.allodoc.controller;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.DatabaseManager;
-import fr.upem.jee.allodoc.jpa.Appointment;
-import fr.upem.jee.allodoc.jpa.Availability;
-import fr.upem.jee.allodoc.jpa.Patient;
-import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.entity.Appointment;
+import fr.upem.jee.allodoc.entity.Availability;
+import fr.upem.jee.allodoc.entity.Patient;
+import fr.upem.jee.allodoc.entity.Physician;
 
 import javax.persistence.TypedQuery;
 import java.util.Date;

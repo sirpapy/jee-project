@@ -1,8 +1,7 @@
-package fr.upem.jee.allodoc.jpa;
+package fr.upem.jee.allodoc.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.

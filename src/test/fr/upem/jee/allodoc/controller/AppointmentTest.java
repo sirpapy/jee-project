@@ -1,10 +1,7 @@
 package fr.upem.jee.allodoc.controller;
 
-import fr.upem.jee.allodoc.jpa.Appointment;
-import fr.upem.jee.allodoc.jpa.Availability;
-import fr.upem.jee.allodoc.jpa.Patient;
-import fr.upem.jee.allodoc.jpa.Physician;
-import org.junit.Test;
+import fr.upem.jee.allodoc.entity.Appointment;
+import fr.upem.jee.allodoc.entity.Patient;
 
 import java.io.IOException;
 import java.text.ParseException;

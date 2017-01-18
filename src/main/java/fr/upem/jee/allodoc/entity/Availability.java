@@ -1,6 +1,4 @@
-package fr.upem.jee.allodoc.jpa;
-
-import com.google.common.base.Preconditions;
+package fr.upem.jee.allodoc.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;

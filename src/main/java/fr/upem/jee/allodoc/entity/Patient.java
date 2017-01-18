@@ -1,10 +1,9 @@
-package fr.upem.jee.allodoc.jpa;
+package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

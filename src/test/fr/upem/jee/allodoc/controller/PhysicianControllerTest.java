@@ -1,7 +1,7 @@
 package fr.upem.jee.allodoc.controller;
 
-import fr.upem.jee.allodoc.jpa.Availability;
-import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.entity.Availability;
+import fr.upem.jee.allodoc.entity.Physician;
 import org.junit.Test;
 
 import java.text.ParseException;

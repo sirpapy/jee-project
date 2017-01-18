@@ -1,8 +1,8 @@
 package fr.upem.jee.allodoc;
 
 import fr.upem.jee.allodoc.controller.FieldOfActivityController;
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
-import fr.upem.jee.allodoc.jpa.User;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.User;
 import org.junit.Test;
 
 import javax.persistence.TypedQuery;

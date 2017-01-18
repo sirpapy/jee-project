@@ -1,7 +1,7 @@
 package fr.upem.jee.allodoc.controller;
 
 import fr.upem.jee.allodoc.DatabaseManager;
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
 
 import javax.persistence.TypedQuery;
 import java.util.List;

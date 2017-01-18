@@ -1,8 +1,8 @@
 package fr.upem.jee.allodoc.controller;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.jpa.*;
-import fr.upem.jee.allodoc.DatabaseManager;
+import fr.upem.jee.allodoc.entity.*;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;

@@ -1,8 +1,8 @@
 package fr.upem.jee.allodoc.model;
 
 import fr.upem.jee.allodoc.controller.PhysicianController;
-import fr.upem.jee.allodoc.jpa.Physician;
-import fr.upem.jee.allodoc.jpa.User;
+import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.User;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import java.util.Optional;

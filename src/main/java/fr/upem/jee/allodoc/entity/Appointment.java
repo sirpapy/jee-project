@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.jpa;
+package fr.upem.jee.allodoc.entity;
 
 import javax.persistence.*;
 import java.util.Date;

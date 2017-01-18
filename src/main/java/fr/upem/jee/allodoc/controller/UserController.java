@@ -1,7 +1,7 @@
 package fr.upem.jee.allodoc.controller;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.jpa.User;
+import fr.upem.jee.allodoc.entity.User;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
