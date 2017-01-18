@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -22,7 +23,6 @@ import java.util.List;
 
 public class Physician extends User implements Serializable {
 
-    private String finess;
     private String status;
 
     @OneToOne
@@ -33,23 +33,18 @@ public class Physician extends User implements Serializable {
 
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="physician_availability",joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
+    @JoinTable(name = "physician_availability", joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
     private List<Availability> availabilities;
 
     public Physician() {
 
     }
 
-    private Physician(String firstName, String lastName, FieldOfActivity fieldOfActivity, String dateAccreditation, String nomOAAMedecin, String nomDepartement, String regionExercice, String finess, String status) {
+    private Physician(String firstName, String lastName, String status, FieldOfActivity fieldOfActivity, Location practiceArea) {
         super(firstName, lastName, null, null, null, null);
-//        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
-//        this.dateAccreditation = Objects.requireNonNull(dateAccreditation);
-//        this.nomOAAMedecin = Objects.requireNonNull(nomOAAMedecin);
-//        this.nomDepartement = Objects.requireNonNull(nomDepartement);
-//        this.regionExercice = Objects.requireNonNull(regionExercice);
-//        this.finess = Objects.requireNonNull(finess);
-//        this.status = Objects.requireNonNull(status);
-
+        this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
+        this.status = Objects.requireNonNull(status);
+        this.practiceArea = Objects.requireNonNull(practiceArea);
     }
 
 
@@ -86,14 +81,6 @@ public class Physician extends User implements Serializable {
     }
 
 
-    public String getFiness() {
-        return finess;
-    }
-
-    public void setFiness(String finess) {
-        this.finess = finess;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -108,7 +95,6 @@ public class Physician extends User implements Serializable {
         private String lastName;
         private FieldOfActivity fieldOfActivity;
         private String dateAccreditation;
-        private String nomOAAMedecin;
         private String nomDepartement;
         private String regionExercice;
         private String finess;
@@ -116,7 +102,12 @@ public class Physician extends User implements Serializable {
 
         private String email;
         private String password;
+        private Location practiceArea;
 
+        public Builder setPracticeArea(Location practiceArea) {
+            this.practiceArea = practiceArea;
+            return this;
+        }
 
         public Builder setFirstName(String firstName) {
             this.firstName = firstName;
@@ -135,11 +126,6 @@ public class Physician extends User implements Serializable {
 
         public Builder setDateAccreditation(String dateAccreditation) {
             this.dateAccreditation = dateAccreditation;
-            return this;
-        }
-
-        public Builder setNomOAAMedecin(String nomOAAMedecin) {
-            this.nomOAAMedecin = nomOAAMedecin;
             return this;
         }
 
@@ -174,7 +160,8 @@ public class Physician extends User implements Serializable {
         }
 
         public Physician build() {
-            return new Physician(firstName, lastName, fieldOfActivity, dateAccreditation, nomOAAMedecin, nomDepartement, regionExercice, finess, status);
+            return new Physician(firstName, lastName, status, fieldOfActivity, practiceArea
+            );
         }
 
 

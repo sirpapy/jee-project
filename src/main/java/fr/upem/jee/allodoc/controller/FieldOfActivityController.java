@@ -23,8 +23,7 @@ public class FieldOfActivityController {
 
     public static List<FieldOfActivity> getAll(){
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
-        TypedQuery<FieldOfActivity> findAllFA = databaseManager.getEntityManager().createNamedQuery("findAllFA", FieldOfActivity.class);
-        return findAllFA.getResultList();
+        return databaseManager.findAll(FieldOfActivity.class);
     }
 
     public static void distinctSave(FieldOfActivity fieldOfActivity){

@@ -41,12 +41,13 @@ public class DatabaseManagerTest {
 
 
     @Test
-    public void clear(){
+    public void findAllAndClear(){
         DatabaseManager manager = new DatabaseManager("DEV-MODE");
         FieldOfActivity a = new FieldOfActivity("a");
         FieldOfActivity b = new FieldOfActivity("b");
         FieldOfActivity c = new FieldOfActivity("c");
         manager.save(a, b, c);
+        assertEquals(3, FieldOfActivityController.getAll().size());
         manager.clear(FieldOfActivity.class);
         assertTrue(FieldOfActivityController.getAll().isEmpty());
     }

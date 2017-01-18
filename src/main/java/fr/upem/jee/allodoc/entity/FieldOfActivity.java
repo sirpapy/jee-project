@@ -16,7 +16,6 @@ import java.util.Objects;
         columnNames = {"name"}))
 @NamedQueries({
         @NamedQuery(name = "findFAByName", query = "select fa from FieldOfActivity fa where name = :fa_name"),
-        @NamedQuery(name = "findAllFA", query = "select fa from FieldOfActivity fa")
 
 })
 public class FieldOfActivity implements Serializable {

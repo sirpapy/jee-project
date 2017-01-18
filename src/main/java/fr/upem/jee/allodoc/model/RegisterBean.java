@@ -1,8 +1,10 @@
 package fr.upem.jee.allodoc.model;
 
+import fr.upem.jee.allodoc.controller.FieldOfActivityController;
 import fr.upem.jee.allodoc.controller.PatientController;
 import fr.upem.jee.allodoc.controller.PhysicianController;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.utilities.Pages;
@@ -29,9 +31,14 @@ public class RegisterBean implements Serializable {
     private String email;
     private String password;
     private String address;
-    private FieldOfActivity selectedFieldOfActivity;
     private PatientController patientController;
     private PhysicianController physicianController;
+
+    private Location selectedPracticeArea;
+    private List<Location> allPraticeAreas;
+
+    private String status;
+    private FieldOfActivity selectedFieldOfActivity;
     private List<FieldOfActivity> fieldOfActivities;
 
     public RegisterBean() {
@@ -39,20 +46,36 @@ public class RegisterBean implements Serializable {
         patientController = new PatientController();
         physicianController = new PhysicianController();
 //        fieldOfActivities = FieldOfActivityController.getAll();
-        initFakeData();
-    }
-
-    private void initFakeData() {
-        fieldOfActivities = new ArrayList<>();
-        fieldOfActivities.add(new FieldOfActivity("science field"));
-        fieldOfActivities.add(new FieldOfActivity("dentist field"));
-        fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
-        fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
+        loadFakeData();
     }
 
     public RegisterBean(String email, String password) {
         this.email = email;
         this.password = password;
+    }
+
+    public Location getSelectedPracticeArea() {
+        return selectedPracticeArea;
+    }
+
+    public void setSelectedPracticeArea(Location selectedPracticeArea) {
+        this.selectedPracticeArea = selectedPracticeArea;
+    }
+
+    public List<Location> getAllPraticeAreas() {
+        return allPraticeAreas;
+    }
+
+    public void setAllPraticeAreas(List<Location> allPraticeAreas) {
+        this.allPraticeAreas = allPraticeAreas;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<FieldOfActivity> getFieldOfActivities() {
@@ -137,7 +160,6 @@ public class RegisterBean implements Serializable {
         return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
-
     public String registerAsPhysician() {
         Physician physician = new Physician.Builder()
                 .setFirstName(firstName)
@@ -145,6 +167,8 @@ public class RegisterBean implements Serializable {
                 .setEmail(email)
                 .setPassword(password)
                 .setFieldOfActivity(selectedFieldOfActivity)
+                .setPracticeArea(selectedPracticeArea)
+                .setStatus(status)
                 .build();
         physicianController.takeControl(physician);
         physicianController.save();
@@ -152,4 +176,15 @@ public class RegisterBean implements Serializable {
     }
 
 
+    private void loadData() {
+        fieldOfActivities = FieldOfActivityController.getAll();
+    }
+
+    private void loadFakeData() {
+        fieldOfActivities = new ArrayList<>();
+        fieldOfActivities.add(new FieldOfActivity("science field"));
+        fieldOfActivities.add(new FieldOfActivity("dentist field"));
+        fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
+        fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
+    }
 }
