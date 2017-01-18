@@ -72,6 +72,17 @@
                     <h:outputText value="#{f.name}"/>
                 </p:column>
             </p:selectOneListbox>
+
+            <p:selectOneListbox id="practiceArea" value="#{registerBean.selectedPracticeArea}" var="p" filter="true"
+                                filterMatchMode="contains" scrollHeight="50">
+                <f:selectItems value="#{registerBean.allPraticeAreas}" var="area" itemLabel="#{area.postalCode}"
+                               itemValue="#{area}"/>
+
+                <p:column>
+                    <h:outputText value="#{p.city} - #{p.postalCode}"/>
+                </p:column>
+            </p:selectOneListbox>
+
             <p:commandButton update="registration-form-grid" value="Confirm"
                              action="#{registerBean.registerAsPatient()}" icon="ui-icon-disk"
                              styleClass="ui-priority-primary"/>

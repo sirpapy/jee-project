@@ -70,7 +70,7 @@ public class Address implements Serializable {
     }
 
     public void setRegion(int postalCode, String city, String country) {
-        this.location = new Location(postalCode, city, country);
+        this.location = new Location.Builder().setPostalCode(postalCode).setCity(city).setCountry(country).build();
     }
 
     @Override

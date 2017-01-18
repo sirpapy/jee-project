@@ -15,6 +15,7 @@ import java.io.Serializable;
         query = "Select l from Location l where l.postalCode = :pc")
 public class Location implements Serializable {
 
+    private static final String DEFAULT_COUNTRY_NAME = "France";
     @Id
     private Integer postalCode;
 
@@ -25,10 +26,10 @@ public class Location implements Serializable {
     }
 
     public Location(int postalCode, String city, String country) {
-        Preconditions.checkArgument(postalCode>0, "postalCode must be > 0");
+        Preconditions.checkArgument(postalCode > 0, "postalCode must be > 0");
         this.postalCode = postalCode;
         this.city = Preconditions.checkNotNull(city, "city should not be null");
-        this.city = Preconditions.checkNotNull(country, "country should not be null");
+        this.country = country == null ? DEFAULT_COUNTRY_NAME : country;
     }
 
     public Integer getPostalCode() {
@@ -53,5 +54,30 @@ public class Location implements Serializable {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public static class Builder {
+        private int postalCode;
+        private String city;
+        private String country;
+
+        public Builder setPostalCode(int postalCode) {
+            this.postalCode = postalCode;
+            return this;
+        }
+
+        public Builder setCity(String city) {
+            this.city = city;
+            return this;
+        }
+
+        public Builder setCountry(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Location build() {
+            return new Location(postalCode, city, country);
+        }
     }
 }

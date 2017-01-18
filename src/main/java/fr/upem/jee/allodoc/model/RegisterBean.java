@@ -176,6 +176,9 @@ public class RegisterBean implements Serializable {
     }
 
 
+    /**
+     * loads data from database
+     */
     private void loadData() {
         fieldOfActivities = FieldOfActivityController.getAll();
     }
@@ -186,5 +189,11 @@ public class RegisterBean implements Serializable {
         fieldOfActivities.add(new FieldOfActivity("dentist field"));
         fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
         fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
+        allPraticeAreas = new ArrayList<>();
+        allPraticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
+        allPraticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
+        allPraticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
+        allPraticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
+        allPraticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
     }
 }

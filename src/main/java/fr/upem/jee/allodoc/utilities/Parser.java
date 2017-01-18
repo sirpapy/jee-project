@@ -66,7 +66,7 @@ public class Parser {
             String[] columns = line.split(";");
             String name = columns[1];
             String postCode = columns[2];
-            toReturn.add(new Location(Integer.valueOf(postCode), name, CONSTANT_FRANCE));
+            toReturn.add(new Location.Builder().setPostalCode(Integer.valueOf(postCode)).setCity(name).setCountry(CONSTANT_FRANCE).build());
         }
         return toReturn;
     }
