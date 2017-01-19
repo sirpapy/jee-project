@@ -66,6 +66,33 @@ public class PhysicianController extends UserController {
         return query.getResultList();
     }
 
+
+    /**
+     * Searches and returns the list of physician with the firstName and the lastName given in argument
+     * @param name the name of the physician (First or last name)
+    * @return the list of physician, empty list if there is no physician with that name
+     */
+    public List<Physician> searchByName(String name) {
+        Preconditions.checkNotNull(name, "firstName should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianName", Physician.class);
+        query.setParameter("pName", "%"+name+"%");
+        return query.getResultList();
+    }
+
+
+
+    /**
+     * Searches and returns the list of physician with the firstName and the lastName given in argument
+     * @param name the name of the physician (First or last name)
+    * @return the list of physician, empty list if there is no physician with that name
+     */
+    public List<Physician> searchByNameFieldOfActivity(String fieldOfActivity) {
+        Preconditions.checkNotNull(fieldOfActivity, "firstName should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianFieldOfActivity", Physician.class);
+        query.setParameter("pField", fieldOfActivity);
+        return query.getResultList();
+    }
+
     /**
      * @return all availabilities of the currently controlled {@link Physician}
      */

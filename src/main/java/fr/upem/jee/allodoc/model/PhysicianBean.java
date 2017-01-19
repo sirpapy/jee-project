@@ -5,6 +5,8 @@ import fr.upem.jee.allodoc.jpa.Physician;
 import fr.upem.jee.allodoc.jpa.User;
 import fr.upem.jee.allodoc.utilities.Pages;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -45,4 +47,6 @@ public class PhysicianBean {
         physician = PhysicianController.getFromId(u.getId());
         return Pages.PAGE_HOME;
     }
+
+
 }

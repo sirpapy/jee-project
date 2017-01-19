@@ -6,6 +6,7 @@ import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.Patient;
 import fr.upem.jee.allodoc.jpa.Physician;
 import fr.upem.jee.allodoc.DatabaseManager;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -24,8 +25,9 @@ public class PatientController extends UserController {
         this.patient = patient;
     }
 
-
-
+    public PatientController() {
+        super();
+    }
 
 
 //    PatientController patientController = new PatientController(patient);
@@ -45,9 +47,6 @@ public class PatientController extends UserController {
 //
 
 
-
-
-
     public boolean setNewAppointment(Physician physician, long availabilityId, long appointmentId) {
         Preconditions.checkNotNull(physician);
         Preconditions.checkArgument(availabilityId >= 0);
@@ -60,7 +59,7 @@ public class PatientController extends UserController {
             // update physician_availability set appointment_id = appointmentId
             // where physician_id = physician.getId() and availability_id = availabilityId
 
-            Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = "+appointmentId+" WHERE physician_id ="+physician.getId()+" AND availability_id = "+availabilityId+"");
+            Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
             query.getFirstResult();
             Availability appointment = DatabaseManager.getDatabaseManager().getEntityManager().find(Availability.class, appointmentId);
             patient.addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability()));
@@ -81,7 +80,7 @@ public class PatientController extends UserController {
 
 
     public Patient getFromId(Long id) {
-        Preconditions.checkArgument(id>=0, "ID must be greater than 0");
+        Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
         TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientnFromId", Patient.class);
         query.setParameter("pId", id);
         return query.getSingleResult();

@@ -28,7 +28,7 @@ public class Location implements Serializable {
         Preconditions.checkArgument(postalCode>0, "postalCode must be > 0");
         this.postalCode = postalCode;
         this.city = Preconditions.checkNotNull(city, "city should not be null");
-        this.city = Preconditions.checkNotNull(country, "country should not be null");
+        this.country = Preconditions.checkNotNull(country, "country should not be null");
     }
 
     public Integer getPostalCode() {

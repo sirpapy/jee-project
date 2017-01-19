@@ -13,6 +13,15 @@ public class FieldOfActivity implements Serializable {
 
     @Id @GeneratedValue
     private Long id;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String name;
 
     public FieldOfActivity(String fieldOfActivityName) {

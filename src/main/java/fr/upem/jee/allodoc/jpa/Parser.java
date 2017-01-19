@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static fr.upem.jee.allodoc.controller.FieldOfActivityController.save;
+//import static fr.upem.jee.allodoc.controller.FieldOfActivityController.save;
 
 /**
  * Created by Sirpapy on 30/11/2016.
@@ -22,7 +22,7 @@ public class Parser {
 
     public static List<Physician> parseCSVDoctor(Path path) throws IOException {
         List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
-
+        FieldOfActivityController fieldOfActivityController = new FieldOfActivityController();
         List<Physician> toReturn = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
             String[] columns = line.split(";");
@@ -46,7 +46,7 @@ public class Parser {
             if (foc != null) {
                 ph.setFieldOfActivity(foc);
             } else {
-                save(new FieldOfActivity(fieldOfActivity));
+                fieldOfActivityController.save(new FieldOfActivity(fieldOfActivity));
             }
             Address address = new Address();
             address.setStreetName("");
@@ -59,7 +59,7 @@ public class Parser {
 
     public static List<Location> parseCSVPostCode(Path path) throws IOException {
         List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
-
+        dataOnPostCodeCSV.remove(0);
         List<Location> toReturn = new ArrayList<>();
         for (String line : dataOnPostCodeCSV) {
             String[] columns = line.split(";");

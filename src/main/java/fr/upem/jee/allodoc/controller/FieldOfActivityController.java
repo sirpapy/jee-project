@@ -5,7 +5,7 @@ import fr.upem.jee.allodoc.jpa.FieldOfActivity;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class FieldOfActivityController {
+public class FieldOfActivityController extends Controller<FieldOfActivity>{
 
     public static FieldOfActivity getController(){
         return null;   
@@ -17,7 +17,7 @@ public class FieldOfActivityController {
 
     }
 
-    public static void save(FieldOfActivity fieldOfActivity) {
-
+    public void save(FieldOfActivity fieldOfActivity) {
+        super.save(fieldOfActivity);
     }
 }

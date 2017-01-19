@@ -4,23 +4,36 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Sirpapy on 18/01/2017.
  */
-@ManagedBean(name = "navigationController", eager = true)
+@ManagedBean(name = "navigationBean", eager = true)
 @RequestScoped
 public class PageNavigationBean  implements Serializable {
 
-    @ManagedProperty(value="#{param.page}")
-    private String page;
-
-
-    public String getToPage(){
+    public String getToPage(String page){
         if (page.equals("home")){
             System.out.println("Going to Home");
             return "home";
         }
         return "home";
     }
+
+
+
+    /*
+    * Return the list of Field of Activity
+    * */
+    public List<String> getFieldOfActivity(){
+        return new ArrayList<String>() {{
+            add("Generaliste");
+            add("Gynéco");
+            add("Neurologue");
+        }};
+    }
+
+
 }
