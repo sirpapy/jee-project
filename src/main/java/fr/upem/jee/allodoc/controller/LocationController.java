@@ -16,6 +16,7 @@ public class LocationController {
     private DatabaseManager manager;
 
     public LocationController() {
+        manager = DatabaseManager.getDatabaseManager();
     }
 
     public Location getByPostalCode( int postalCode ){

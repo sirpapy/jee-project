@@ -27,6 +27,9 @@ import java.util.Objects;
 
         @NamedQuery(name = "findPhysicianFieldOfActivity",
                 query = "SELECT p from Physician p where p.fieldOfActivity.name like :pField"),
+
+        @NamedQuery(name = "findPhysicianByNameFieldOfActivityLocation",
+                query = "SELECT p from Physician p where p.fieldOfActivity.name like :pField and  p.practiceArea.city = :pCity and p.firstName like :pName or p.lastName like :pName "),
 })
 
 public class Physician extends User implements Serializable {
@@ -46,7 +49,7 @@ public class Physician extends User implements Serializable {
 
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="physician_availability",joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
+    @JoinTable(name = "physician_availability", joinColumns = @JoinColumn(name = "physician_id"), inverseJoinColumns = @JoinColumn(name = "availability_id"))
     private List<Availability> availabilities;
 
     public Physician() {

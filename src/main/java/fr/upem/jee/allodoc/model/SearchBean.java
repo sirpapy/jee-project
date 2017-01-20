@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +21,16 @@ public class SearchBean implements Serializable{
     private String postalCode;
     private Set<Integer> postalCodeList = PatientDashboadBean.getPostalCodeList().keySet();
     private List<String> RegionList = PatientDashboadBean.getPostalCodeList().values().stream().collect(Collectors.toList());
+    private HashMap<Integer, String> Location = PatientDashboadBean.getPostalCodeList();
+
+    public HashMap<Integer, String> getLocation() {
+        return Location;
+    }
+
+    public void setLocation(HashMap<Integer, String> location) {
+        Location = location;
+    }
+
 
     PatientDashboadBean patientDashboadBean = new PatientDashboadBean();
 

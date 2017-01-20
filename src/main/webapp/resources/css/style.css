@@ -9,6 +9,10 @@
 #logoAlloDoc{
 }
 
+div#aPhysician {
+    width: 315px;
+}
+
 #container {
     background-color: #d2d2d2;
 }

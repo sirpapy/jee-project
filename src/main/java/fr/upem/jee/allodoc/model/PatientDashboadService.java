@@ -26,7 +26,7 @@ class PatientDashboadService {
 
 
 
-    private void getDummyData() throws ParseException {
+    private void getDummyPhysicianData() throws ParseException {
         Physician physician = new Physician();
         FieldOfActivityController fieldOfActivityController = new FieldOfActivityController();
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
@@ -62,7 +62,7 @@ class PatientDashboadService {
     }
 
     public List<Physician> getListOfPhysician(String name) throws ParseException {
-        getDummyData();
+        getDummyPhysicianData();
         return physicianController.searchByName(name);
     }
 }

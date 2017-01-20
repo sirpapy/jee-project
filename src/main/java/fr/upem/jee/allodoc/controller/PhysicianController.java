@@ -3,6 +3,8 @@ package fr.upem.jee.allodoc.controller;
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.jpa.Availability;
+import fr.upem.jee.allodoc.jpa.FieldOfActivity;
+import fr.upem.jee.allodoc.jpa.Location;
 import fr.upem.jee.allodoc.jpa.Physician;
 
 import javax.persistence.Query;
@@ -83,13 +85,30 @@ public class PhysicianController extends UserController {
 
     /**
      * Searches and returns the list of physician with the firstName and the lastName given in argument
+     * @param fieldOfActivity the name of the physician (First or last name)
+    * @return the list of physician, empty list if there is no physician with that name
+     */
+    public List<Physician> searchByFieldOfActivity(String fieldOfActivity) {
+        Preconditions.checkNotNull(fieldOfActivity, "field of activity should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianFieldOfActivity", Physician.class);
+        query.setParameter("pField", fieldOfActivity);
+        return query.getResultList();
+    }
+
+
+    /**
+     * Searches and returns the list of physician with the firstName and the lastName given in argument
      * @param name the name of the physician (First or last name)
     * @return the list of physician, empty list if there is no physician with that name
      */
-    public List<Physician> searchByNameFieldOfActivity(String fieldOfActivity) {
-        Preconditions.checkNotNull(fieldOfActivity, "firstName should not be null");
-        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianFieldOfActivity", Physician.class);
-        query.setParameter("pField", fieldOfActivity);
+    public List<Physician> searchByNameFieldOfActivityLocation(FieldOfActivity fieldOfActivity, String name, Location location) {
+        Preconditions.checkNotNull(fieldOfActivity, "field of activity should not be null");
+        Preconditions.checkNotNull(name, "The name should not be null");
+        Preconditions.checkNotNull(location, "The location should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByNameFieldOfActivityLocation", Physician.class);
+        query.setParameter("pField", '%'+fieldOfActivity.getName()+'%');
+        query.setParameter("pCity", '%'+String.valueOf(location.getPostalCode())+'%');
+        query.setParameter("pName", '%'+name+'%');
         return query.getResultList();
     }
 

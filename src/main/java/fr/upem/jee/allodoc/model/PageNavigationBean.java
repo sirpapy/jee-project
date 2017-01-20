@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc.model;
 
+import fr.upem.jee.allodoc.utilities.Pages;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -12,22 +14,18 @@ import java.util.List;
  */
 @ManagedBean(name = "navigationBean", eager = true)
 @RequestScoped
-public class PageNavigationBean  implements Serializable {
+public class PageNavigationBean implements Serializable {
 
-    public String getToPage(String page){
-        if (page.equals("home")){
-            System.out.println("Going to Home");
-            return "home";
-        }
-        return "home";
+
+    @ManagedProperty("#{searchBean}")
+    SearchBean searchBean;
+
+    public String goToHome() {
+        return Pages.PAGE_HOME_SEARCH;
     }
 
 
-
-    /*
-    * Return the list of Field of Activity
-    * */
-    public List<String> getFieldOfActivity(){
+    public List<String> getFieldOfActivity() {
         return new ArrayList<String>() {{
             add("Generaliste");
             add("Gynéco");
@@ -35,5 +33,12 @@ public class PageNavigationBean  implements Serializable {
         }};
     }
 
+    public SearchBean getSearchBean() {
+        return searchBean;
+    }
+
+    public void setSearchBean(SearchBean searchBean) {
+        this.searchBean = searchBean;
+    }
 
 }

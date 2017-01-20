@@ -31,7 +31,9 @@
                          id="signupPatient"
                          value="Sign up as Patient"
                          icon="ui-icon-star"/>
-        <p:commandButton styleClass="ui-priority-primary" action="#{navigationBean.getToPage('home')}"
+        <p:commandButton styleClass="ui-priority-primary"
+                         action="#{navigationBean.goToHome()}"
+                         id="goToHome"
                          value="Go to Home"/>
     </h:form>
 </h:body>
