@@ -61,11 +61,14 @@ public class Parser {
         List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
         dataOnPostCodeCSV.remove(0);
         List<Location> toReturn = new ArrayList<>();
+        int cpt=0;
         for (String line : dataOnPostCodeCSV) {
+            if(cpt==4){break;}
             String[] columns = line.split(";");
             String name = columns[1];
             String postCode = columns[2];
             toReturn.add(new Location(Integer.valueOf(postCode), name, CONSTANT_FRANCE));
+            cpt++;
         }
         return toReturn;
     }

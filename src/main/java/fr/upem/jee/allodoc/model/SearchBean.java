@@ -23,15 +23,6 @@ public class SearchBean implements Serializable{
     private List<String> RegionList = PatientDashboadBean.getPostalCodeList().values().stream().collect(Collectors.toList());
     private HashMap<Integer, String> Location = PatientDashboadBean.getPostalCodeList();
 
-    public HashMap<Integer, String> getLocation() {
-        return Location;
-    }
-
-    public void setLocation(HashMap<Integer, String> location) {
-        Location = location;
-    }
-
-
     PatientDashboadBean patientDashboadBean = new PatientDashboadBean();
 
     public SearchBean() throws IOException {

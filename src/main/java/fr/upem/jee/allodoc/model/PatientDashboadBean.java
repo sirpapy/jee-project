@@ -10,7 +10,6 @@ import javax.faces.bean.RequestScoped;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,11 +37,11 @@ public class PatientDashboadBean {
         return patientDashboadService.getListOfPhysician(searchBean.getName());
     }
 
-    public static List<Location> getPostalCodeList() throws IOException {
-        List<Location> toReturn = new ArrayList<>();
+    public static HashMap<Integer,String> getPostalCodeList() throws IOException {
+        HashMap<Integer,String> toReturn = new HashMap<>();
         List<Location> locations = Parser.parseCSVPostCode(Paths.get("D:\\workspace\\jee-project\\src\\main\\resources\\XLS\\laposte_hexasmal.csv"));
         for (Location location : locations){
-            toReturn.add(location.getPostalCode(), location.getCity());
+            toReturn.put(location.getPostalCode(), location.getCity());
         }
         return toReturn;
     }

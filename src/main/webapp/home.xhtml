@@ -38,10 +38,6 @@
 
 
                     <h:selectOneMenu id="postalCode" value="#{searchBean.postalCode}">
-                       <ui:repeat value="#{searchBean.location}" var="aLocation">
-                           <f:selectItem itemLabel="#{aLocation.}"
-                       </ui:repeat>
-
                         <f:selectItems value="#{searchBean.postalCodeList}" />
                     </h:selectOneMenu>
 
