@@ -24,7 +24,6 @@ public class Patient extends User implements Serializable {
 
     public Patient() {
         super();
-
     }
 
     public Patient(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {

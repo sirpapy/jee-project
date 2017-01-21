@@ -107,6 +107,12 @@ public class Physician extends User implements Serializable {
         private FieldOfActivity fieldOfActivity;
         private String status;
         private Date birthDate;
+        private Address address;
+
+        public Builder setAddress(Address address) {
+            this.address = address;
+            return this;
+        }
 
         private String email;
         private String password;

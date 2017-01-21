@@ -9,6 +9,7 @@ import fr.upem.jee.allodoc.utilities.Pages;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,28 +28,32 @@ public class RegisterBean implements Serializable {
     private String lastName;
     private String email;
     private String password;
+    private Date birthDate;
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
     private Address address;
     private PatientController patientController;
     private PhysicianController physicianController;
 
     private Location selectedPracticeArea;
-    private List<Location> allPraticeAreas;
+    private List<Location> allPracticeAreas;
 
     private String status;
     private FieldOfActivity selectedFieldOfActivity;
     private List<FieldOfActivity> fieldOfActivities;
 
     public RegisterBean() {
-        System.out.println("REGISTERBEAN INSTANCIATED");
         patientController = new PatientController();
         physicianController = new PhysicianController();
 //        fieldOfActivities = FieldOfActivityController.getAll();
         loadFakeData();
-    }
-
-    public RegisterBean(String email, String password) {
-        this.email = email;
-        this.password = password;
     }
 
     public Location getSelectedPracticeArea() {
@@ -59,12 +64,12 @@ public class RegisterBean implements Serializable {
         this.selectedPracticeArea = selectedPracticeArea;
     }
 
-    public List<Location> getAllPraticeAreas() {
-        return allPraticeAreas;
+    public List<Location> getAllPracticeAreas() {
+        return allPracticeAreas;
     }
 
-    public void setAllPraticeAreas(List<Location> allPraticeAreas) {
-        this.allPraticeAreas = allPraticeAreas;
+    public void setAllPracticeAreas(List<Location> allPracticeAreas) {
+        this.allPracticeAreas = allPracticeAreas;
     }
 
     public String getStatus() {
@@ -162,6 +167,8 @@ public class RegisterBean implements Serializable {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
+                .setBirthDate(birthDate)
+                .setAddress(address)
                 .setPassword(password)
                 .setFieldOfActivity(selectedFieldOfActivity)
                 .setPracticeArea(selectedPracticeArea)
@@ -186,11 +193,11 @@ public class RegisterBean implements Serializable {
         fieldOfActivities.add(new FieldOfActivity("dentist field"));
         fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
         fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
-        allPraticeAreas = new ArrayList<>();
-        allPraticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
-        allPraticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
-        allPraticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
-        allPraticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
-        allPraticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
+        allPracticeAreas = new ArrayList<>();
+        allPracticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
+        allPracticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
+        allPracticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
+        allPracticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
+        allPracticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
     }
 }

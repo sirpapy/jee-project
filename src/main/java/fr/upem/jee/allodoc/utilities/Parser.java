@@ -30,6 +30,7 @@ public class Parser {
             String[] columns = line.split(";");
             String lastName = columns[0];
             String firstName = columns[1];
+            // TODO : what to do with those variables? 
             String fieldOfActivity = columns[2];
             String dateAccreditation = columns[3];
             String nomDepartement = columns[5];
@@ -38,10 +39,7 @@ public class Parser {
             Physician ph = new Physician.Builder()
                     .setFirstName(firstName)
                     .setLastName(lastName)
-                    .setDateAccreditation(dateAccreditation)
-                    .setRegionExercice(regionExercice)
-                    .setStatus(status)
-                    .setNomDepartement(nomDepartement).build();
+                    .setStatus(status).build();
 
             // TODO finish it
 //            FieldOfActivity foc = FieldOfActivityController.getSelectedFieldOfActivity(fieldOfActivity);

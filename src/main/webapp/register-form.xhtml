@@ -94,7 +94,7 @@
             <!--LISTBOX : practiceArea-->
             <p:selectOneListbox id="practiceArea" value="#{registerBean.selectedPracticeArea}" var="p" filter="true"
                                 filterMatchMode="contains" scrollHeight="50">
-                <f:selectItems value="#{registerBean.allPraticeAreas}" var="area" itemLabel="#{area.postalCode}"
+                <f:selectItems value="#{registerBean.allPracticeAreas}" var="area" itemLabel="#{area.postalCode}"
                                itemValue="#{area}"/>
 
                 <p:column>
@@ -103,7 +103,7 @@
             </p:selectOneListbox>
 
             <p:commandButton update="registration-form-grid" value="Confirm"
-                             action="#{registerBean.registerAsPatient()}" icon="ui-icon-disk"
+                             action="#{registerBean.registerAsPhysician()}" icon="ui-icon-disk"
                              styleClass="ui-priority-primary"/>
         </h:panelGroup>
 
@@ -111,7 +111,7 @@
         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PATIENT'}">
             <h:outputText value="BLABLABLA PATIENT"/>
             <p:commandButton update="registration-form-grid" value="Confirm"
-                             action="#{registerBean.registerAsPhysician()}"/>
+                             action="#{registerBean.registerAsPatient()}"/>
         </h:panelGroup>
     </h:form>
 </h:body>
