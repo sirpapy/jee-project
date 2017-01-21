@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.*;
@@ -13,22 +13,22 @@ import java.util.Objects;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PatientController extends UserController<Patient> {
+public class PatientService extends UserController<Patient> {
 
     private Patient patient;
 
-    public PatientController(Patient patient) {
+    public PatientService(Patient patient) {
         super();
         this.patient = patient;
     }
 
-    public PatientController() {
+    public PatientService() {
         super();
     }
 
 
-//    PatientController patientController = new PatientController(patient);
-//    PhysicianController physicianController = new PhysicianController(physician);
+//    PatientService patientController = new PatientService(patient);
+//    PhysicianService physicianController = new PhysicianService(physician);
 //
 //    Appointment appointment;
 //    Optional<Availability> avs = physicianController.getAvailabilities().stream().filter(e -> e.getId() == idAppointment).findFirst();
@@ -48,8 +48,8 @@ public class PatientController extends UserController<Patient> {
         Preconditions.checkNotNull(physician);
         Preconditions.checkArgument(availabilityId >= 0);
         Preconditions.checkArgument(appointmentId >= 0);
-        PhysicianController physicianController = new PhysicianController(physician);
-        if (!physicianController.isAvailableAt(availabilityId)) {
+        PhysicianService physicianService = new PhysicianService(physician);
+        if (!physicianService.isAvailableAt(availabilityId)) {
             Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
             query.getFirstResult();
             Availability appointment = manager().getEntityManager().find(Availability.class, appointmentId);

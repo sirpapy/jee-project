@@ -23,7 +23,7 @@ public class Parser {
 
     public static List<Physician> parseCSVDoctor(Path path) throws IOException {
         List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
-        FieldOfActivityController fieldOfActivityController = new FieldOfActivityController();
+        FieldOfActivityController fieldOfActivityService = new FieldOfActivityController();
         List<Physician> toReturn = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
             String[] columns = line.split(";");

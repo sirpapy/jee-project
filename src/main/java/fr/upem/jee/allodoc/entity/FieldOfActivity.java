@@ -50,4 +50,16 @@ public class FieldOfActivity implements Serializable {
         this.id = id;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof FieldOfActivity)) return false;
+        FieldOfActivity that = (FieldOfActivity) o;
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 }

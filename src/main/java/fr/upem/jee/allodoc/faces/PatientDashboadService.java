@@ -1,8 +1,8 @@
-package fr.upem.jee.allodoc.model;
+package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.controller.FieldOfActivityController;
-import fr.upem.jee.allodoc.controller.PatientController;
-import fr.upem.jee.allodoc.controller.PhysicianController;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import fr.upem.jee.allodoc.service.PatientService;
+import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.Physician;
@@ -19,20 +19,20 @@ import java.util.List;
 
 class PatientDashboadService {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
-    private PhysicianController physicianController = new PhysicianController();
-    private PatientController patientController = new PatientController();
+    private PhysicianService physicianService = new PhysicianService();
+    private PatientService patientService = new PatientService();
 
 
 
     private void getDummyPhysicianData() throws ParseException {
         Physician physician = new Physician();
-        FieldOfActivityController fieldOfActivityController = new FieldOfActivityController();
+        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        PhysicianController controller = new PhysicianController(physician);
+        PhysicianService controller = new PhysicianService(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityController.save(fieldOfActivity);
+        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
@@ -41,7 +41,7 @@ class PatientDashboadService {
         physician.setLastName("NDIAYE");
         physician.setFirstName("PAPE");
         fieldOfActivity = new FieldOfActivity("Gynéco");
-        fieldOfActivityController.save(fieldOfActivity);
+        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
@@ -51,7 +51,7 @@ class PatientDashboadService {
         physician.setLastName("NDIAYE");
         physician.setFirstName("PAPEZ");
         fieldOfActivity = new FieldOfActivity("Neurologue");
-        fieldOfActivityController.save(fieldOfActivity);
+        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
@@ -61,6 +61,6 @@ class PatientDashboadService {
 
     public List<Physician> getListOfPhysician(String name) throws ParseException {
         getDummyPhysicianData();
-        return physicianController.searchByName(name);
+        return physicianService.searchByName(name);
     }
 }

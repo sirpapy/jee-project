@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.Appointment;
@@ -38,17 +38,17 @@ public class AppointmentController extends Controller<Appointment> {
         Preconditions.checkNotNull(patient);
         Preconditions.checkNotNull(physician);
         Preconditions.checkArgument(idAppointment >= 0);
-        PatientController patientController = new PatientController(patient);
-        PhysicianController physicianController = new PhysicianController(physician);
+        PatientService patientService = new PatientService(patient);
+        PhysicianService physicianService = new PhysicianService(physician);
 
         Appointment appointment;
-        // TODO fix this after removing getAvailabilities in PhysicianController
-        Optional<Availability> avs = physicianController.getAvailabilities().stream().filter(e -> e.getId() == idAppointment).findFirst();
+        // TODO fix this after removing getAvailabilities in PhysicianService
+        Optional<Availability> avs = physicianService.getAvailabilities().stream().filter(e -> e.getId() == idAppointment).findFirst();
         if (avs.isPresent()) {
             appointment = new Appointment(avs.get().getBeginAvailability(), avs.get().getEndAvailability());
 //            physician.validateAppointment(idAppointment);
             patient.addAppointment(appointment);
-            patientController.save(patient);
+            patientService.save(patient);
             return true;
         }
         return false;

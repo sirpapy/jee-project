@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 import fr.upem.jee.allodoc.entity.Appointment;
 import fr.upem.jee.allodoc.entity.Patient;
@@ -27,7 +27,7 @@ public class AppointmentTest {
 //
 //    @Test
 //    public void setAppointmentTest() throws ParseException {
-//        PhysicianController phController = new PhysicianController();
+//        PhysicianService phController = new PhysicianService();
 //
 //        Physician physician = new Physician();
 //        physician.setLastName("raptao");
@@ -38,7 +38,7 @@ public class AppointmentTest {
 //
 //
 //        Patient patient = new Patient();
-//        PatientController patientController = new PatientController(patient);
+//        PatientService patientController = new PatientService(patient);
 //        assertTrue(patient.getAppointments().size() == 0);
 //
 //        AppointmentController appointmentController = new AppointmentController();

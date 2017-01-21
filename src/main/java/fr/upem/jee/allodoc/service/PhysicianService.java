@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
@@ -18,20 +18,20 @@ import java.util.stream.Collectors;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PhysicianController extends UserController<Physician> {
+public class PhysicianService extends UserController<Physician> {
 
     private Physician physician;
 
     /**
-     * Initializes a newly created {@link PhysicianController} object.
+     * Initializes a newly created {@link PhysicianService} object.
      * This controller will take control of a new {@link Physician}
      */
-    public PhysicianController(Physician physician) {
+    public PhysicianService(Physician physician) {
         super();
         this.physician = Objects.requireNonNull(physician);
     }
 
-    public PhysicianController() {
+    public PhysicianService() {
         super();
     }
 

@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.model;
+package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.utilities.Pages;
 

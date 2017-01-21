@@ -1,6 +1,6 @@
 package fr.upem.jee.allodoc.utilities;
 
-import fr.upem.jee.allodoc.controller.FieldOfActivityController;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.entity.Address;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
@@ -24,13 +24,13 @@ public class Parser {
 
     public static List<Physician> parseCSVDoctor(Path path) throws IOException {
         List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
-        FieldOfActivityController fieldOfActivityController = new FieldOfActivityController();
+        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
         List<Physician> toReturn = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
             String[] columns = line.split(";");
             String lastName = columns[0];
             String firstName = columns[1];
-            // TODO : what to do with those variables? 
+            // TODO : what to do with those variables?
             String fieldOfActivity = columns[2];
             String dateAccreditation = columns[3];
             String nomDepartement = columns[5];
@@ -42,7 +42,7 @@ public class Parser {
                     .setStatus(status).build();
 
             // TODO finish it
-//            FieldOfActivity foc = FieldOfActivityController.getSelectedFieldOfActivity(fieldOfActivity);
+//            FieldOfActivity foc = FieldOfActivityService.getSelectedFieldOfActivity(fieldOfActivity);
 //            if (foc != null) {
 //                ph.setSelectedFieldOfActivity(foc);
 //            } else {
