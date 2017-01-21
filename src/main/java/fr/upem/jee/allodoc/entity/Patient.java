@@ -92,7 +92,9 @@ public class Patient extends User implements Serializable {
         }
 
         public Patient build() {
-            return new Patient(firstName, lastName, email, phoneNumber, address, password);
+            Patient patient = new Patient(firstName, lastName, email, phoneNumber, address, password);
+            patient.setBirthDate(birthDate);
+            return patient;
         }
     }
 }

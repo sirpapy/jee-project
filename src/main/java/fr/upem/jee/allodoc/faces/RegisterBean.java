@@ -1,12 +1,11 @@
 package fr.upem.jee.allodoc.faces;
 
+import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
-import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.utilities.Pages;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -42,14 +41,10 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
-//        fieldOfActivities = FieldOfActivityService.getAll();
-        loadFakeData();
-    }
-
-    @PostConstruct
-    public void init(){
         address = new Address();
         address.setLocation(new Location());
+//        fieldOfActivities = FieldOfActivityService.getAll();
+        loadFakeData();
     }
 
     public Date getBirthDate() {
@@ -159,6 +154,7 @@ public class RegisterBean implements Serializable {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
+                .setBirthDate(birthDate)
                 .setPassword(password)
                 .build();
         patientService.takeControl(p);

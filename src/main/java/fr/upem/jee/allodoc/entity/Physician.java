@@ -155,8 +155,9 @@ public class Physician extends User implements Serializable {
         }
 
         public Physician build() {
-            return new Physician(firstName, lastName, status, fieldOfActivity, practiceArea
-            );
+            Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
+            physician.setBirthDate(birthDate);
+            return physician;
         }
 
         public Builder setBirthDate(Date birthDate) {
