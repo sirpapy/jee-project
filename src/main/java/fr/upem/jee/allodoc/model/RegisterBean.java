@@ -3,10 +3,7 @@ package fr.upem.jee.allodoc.model;
 import fr.upem.jee.allodoc.controller.FieldOfActivityController;
 import fr.upem.jee.allodoc.controller.PatientController;
 import fr.upem.jee.allodoc.controller.PhysicianController;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Patient;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import javax.faces.bean.ManagedBean;
@@ -30,7 +27,7 @@ public class RegisterBean implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    private String address;
+    private Address address;
     private PatientController patientController;
     private PhysicianController physicianController;
 
@@ -94,11 +91,11 @@ public class RegisterBean implements Serializable {
         this.selectedFieldOfActivity = selectedFieldOfActivity;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 

@@ -27,8 +27,25 @@
 
             <!--ADDRESS-->
             <h:outputText value="Address:"/>
-            <p:inputText label="Address" value="#{registerBean.address}" placeholder="Enter your address"
-                         required="true"/>
+            <p:panelGrid id="address-form-grid" columns="2" cellpadding="5">
+                <h:outputText value="Street number: "/>
+                <p:inputText maxlength="3" label="Street" value="#{registerBean.address.streetNumber}" placeholder="XXX"
+                             required="true"/>
+
+                <h:outputText value="Street name: "/>
+                <p:inputText label="Street name" value="#{registerBean.address.streetName}" placeholder="Enter your street name"
+                             required="true"/>
+
+                <h:outputText value="Postal code: "/>
+                <p:inputNumber maxlength="10" label="PostCod" value="#{registerBean.address.location.postalCode}" placeholder="Postal code"
+                             required="true"/>
+
+                <h:outputText value="City: "/>
+                <p:inputText label="City" value="#{registerBean.address.location.city}" placeholder="Enter the city name"
+                             required="true"/>
+                
+            </p:panelGrid>
+
 
             <!--EMAIL-->
             <h:outputText value="Email: "/>
@@ -59,20 +76,17 @@
 
         <!--FOR PHYSICIAN-->
         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PHYSICIAN'}">
+            <!-- LIST BOX : fieldOfActivity-->
             <p:selectOneListbox id="advanced" value="#{registerBean.selectedFieldOfActivity}" var="f" filter="true"
                                 filterMatchMode="contains" scrollHeight="50">
                 <f:selectItems value="#{registerBean.fieldOfActivities}" var="field" itemLabel="#{field.name}"
                                itemValue="#{field}"/>
-
-                <!--<p:column>-->
-                <!--<h:outputText styleClass="ui-theme ui-theme-#{}" />-->
-                <!--</p:column>-->
-
                 <p:column>
                     <h:outputText value="#{f.name}"/>
                 </p:column>
             </p:selectOneListbox>
 
+            <!--LISTBOX : practiceArea-->
             <p:selectOneListbox id="practiceArea" value="#{registerBean.selectedPracticeArea}" var="p" filter="true"
                                 filterMatchMode="contains" scrollHeight="50">
                 <f:selectItems value="#{registerBean.allPraticeAreas}" var="area" itemLabel="#{area.postalCode}"
