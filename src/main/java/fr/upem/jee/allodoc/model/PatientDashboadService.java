@@ -5,10 +5,12 @@ import fr.upem.jee.allodoc.controller.PatientController;
 import fr.upem.jee.allodoc.controller.PhysicianController;
 import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,8 +58,9 @@ class PatientDashboadService {
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
         controller.save();
-
     }
+
+
 
     public List<Physician> getListOfPhysician(String name) throws ParseException {
         getDummyPhysicianData();

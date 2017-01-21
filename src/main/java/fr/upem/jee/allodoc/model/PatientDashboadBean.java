@@ -3,7 +3,7 @@ package fr.upem.jee.allodoc.model;
 
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
-import fr.upem.jee.allodoc.utilities.Parser;
+//import fr.upem.jee.allodoc.utilities.Parser;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -40,12 +40,14 @@ public class PatientDashboadBean {
 
     public static HashMap<Integer,String> getPostalCodeList() throws IOException {
         HashMap<Integer,String> toReturn = new HashMap<>();
-        List<Location> locations = Parser.parseCSVPostCode(Paths.get("D:\\workspace\\jee-project\\src\\main\\resources\\XLS\\laposte_hexasmal.csv"));
-        for (Location location : locations){
-            toReturn.put(location.getPostalCode(), location.getCity());
-        }
+//        List<Location> locations = Parser.parseCSVPostCode(Paths.get("D:\\workspace\\jee-project\\src\\main\\resources\\XLS\\laposte_hexasmal.csv"));
+//        for (Location location : locations){
+//            toReturn.put(location.getPostalCode(), location.getCity());
+//        }
+
         return toReturn;
     }
+
     public void setSearchBean(SearchBean searchBean) {
         this.searchBean = searchBean;
     }

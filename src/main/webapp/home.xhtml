@@ -17,7 +17,7 @@
 
 <f:view>
 
-
+    #{registerBean.loadFakeData}
     <div id="container">
         <div id="headerBanner" class="row">
             <div id="logoAlloDoc" class="col col-md-8">
@@ -37,10 +37,30 @@
                     <!--<p:autoComplete id="postalCode" value="#{searchBean.postalCodeList}" completeMethod="#{searchBean.regionList}" />-->
 
 
-                    <h:selectOneMenu id="postalCode" value="#{searchBean.postalCode}">
-                        <f:selectItems value="#{searchBean.postalCodeList}" />
+                    <h:selectOneMenu id="postdalCode" value="#{searchBean.postalCode}">
+                        <f:selectItems value="#{searchBean.postalCodeList}"/>
                     </h:selectOneMenu>
 
+
+                    <p:autoComplete id="practiceArea" value="#{registerBean.selectedPracticeArea}" var="p" filter="true"
+                                    filterMatchMode="contains" scrollHeight="50">
+                        <f:selectItems value="#{registerBean.allPraticeAreas}" var="area" itemLabel="#{area.postalCode}"
+                                       itemValue="#{area}"/>
+
+                        <p:column>
+                            <h:outputText value="#{p.city} - #{p.postalCode}"/>
+                        </p:column>
+                    </p:autoComplete>
+
+                    <p:autoComplete id="anum" minQueryLength="1" value="#{registerBean.selectedPracticeArea}"
+                                    forceSelection="true" completeMethod="#{registerBean.allPraticeAreas}"
+                                    dropdown="true">
+                    </p:autoComplete>
+
+
+                    Gendarme
+                    RAMA DIOUF
+                    DIENG ak séne patron bi NDOYE
 
                     <!--<p:inputText value="#{searchBean.postalCode}" id="postalCode"/>&#45;&#45;-->
 
