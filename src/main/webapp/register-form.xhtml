@@ -3,64 +3,130 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <title>Sign in</title>
 </h:head>
 <h:body>
+    <c:if test="#{registerBean.type}">
+    </c:if>
     <h2>Sign up !</h2>
     <h:form>
+        <p:messages id="messages" showDetail="true" autoUpdate="true"/>
         <p:panelGrid id="registration-form-grid" columns="2" cellpadding="5">
             <!-- FIRSTNAME-->
             <h:outputText value="First Name: "/>
-            <p:inputText label="First Name" value="#{userBean.firstName}" placeholder="Enter your first name"
+            <p:inputText label="First Name" value="#{registerBean.firstName}" placeholder="Enter your first name"
                          required="true"/>
 
             <!--LASTNAME-->
-            <h:outputText value="LastName: "/>
-            <p:inputText label="Last Name" value="#{userBean.lastName}" placeholder="Enter your last name"
+            <h:outputText value="Last name: "/>
+            <p:inputText label="Last Name" value="#{registerBean.lastName}" placeholder="Enter your last name"
                          required="true"/>
+
+            <!--BIRTHDATE-->
+            <h:outputText value="Birth date: "/>
+            <p:calendar label="Birth date" value="#{registerBean.birthDate}" placeholder="Birth date"
+                        required="true" converter="dateConverter"
+                        pattern="yyyy-mm-dd" navigator="true"/>
 
             <!--ADDRESS-->
             <h:outputText value="Address:"/>
-            <p:inputText label="Address" value="#{userBean.address}" placeholder="Enter your address" required="true"/>
+            <p:panelGrid id="address-form-grid" columns="2" cellpadding="5">
+                <h:outputText value="Street number: "/>
+                <p:inputText size="6" maxlength="6" label="Street" value="#{registerBean.address.streetNumber}"
+                             placeholder="XXX"
+                             required="true"/>
+
+                <h:outputText value="Street name: "/>
+                <p:inputText label="Street name" value="#{registerBean.address.streetName}"
+                             placeholder="Enter your street name"
+                             required="true"/>
+
+                <h:outputText value="Postal code: "/>
+                <p:inputNumber maxlength="10" label="PostCod" value="#{registerBean.address.location.postalCode}"
+                               placeholder="Postal code" thousandSeparator=""
+                               required="true" decimalPlaces="0"/>
+
+                <h:outputText value="City: "/>
+                <p:inputText label="City" value="#{registerBean.address.location.city}"
+                             placeholder="Enter the city name"
+                             required="true"/>
+
+            </p:panelGrid>
+
 
             <!--EMAIL-->
             <h:outputText value="Email: "/>
-            <p:inputText label="Email" type="email" value="#{userBean.email}" placeholder="Enter your email"
+            <p:inputText label="Email" type="email" value="#{registerBean.email}" placeholder="Enter your email"
                          required="true"/>
 
 
         </p:panelGrid>
         <p:separator/>
-        <p:messages id="messages" showDetail="true" autoUpdate="true"/>
         <p:panelGrid columns="2" id="password-confirm" cellpadding="5">
 
             <!--PASSWORD-->
             <h:outputLabel for="password" value="Password: "/>
             <p:password id="password" label="Password"
-                        value="#{userBean.password}"
+                        value="#{registerBean.password}"
                         placeholder="Enter your password"
                         match="passwordConfirmation"
                         feedback="true" required="true"/>
 
             <h:outputLabel for="passwordConfirmation" value="Confirm password"/>
             <p:password id="passwordConfirmation" label="Password Confirmation"
-                        value="#{userBean.password}"
+                        value="#{registerBean.password}"
                         placeholder="Confirm password"
                         required="true"/>
 
-            <p:commandButton update="registration-form-grid" value="Confirm" action="#{userBean.registerAsPatient()}"/>
         </p:panelGrid>
 
         <!--FOR PHYSICIAN-->
-        <h:panelGroup layout="block" rendered="#{userBean.type == 'PHYSICIAN'}">
-            <h:outputText value="BLABLABLA PHYSICIAN"/>
+        <h:panelGroup layout="block" rendered="#{registerBean.type == 'PHYSICIAN'}">
+            <!-- LIST BOX : fieldOfActivity-->
+            <p:selectOneListbox id="fieldOfActivity" label="Field of activity"
+                                value="#{registerBean.selectedFieldOfActivity}" var="f" filter="true"
+                                filterMatchMode="contains" scrollHeight="50"
+                                converter="fieldOfActivityConverter" required="true">
+                <f:selectItems value="#{registerBean.fieldOfActivities}" var="field" itemLabel="#{field.name}"
+                               itemValue="#{field}"/>
+                <p:column>
+                    <h:outputText value="#{f.name}"/>
+                </p:column>
+            </p:selectOneListbox>
+
+            <!--LISTBOX : status-->
+            <p:selectOneListbox id="status" value="#{registerBean.status}">
+                <f:selectItem itemLabel="Private" itemValue="Private" />
+                <f:selectItem itemLabel="Public" itemValue="Public" />
+            </p:selectOneListbox>
+
+            <!--LISTBOX : practiceArea-->
+            <p:selectOneListbox id="practiceArea" label="Practice area" value="#{registerBean.selectedPracticeArea}"
+                                var="p" filter="true" required="true"
+                                filterMatchMode="contains" scrollHeight="50"
+                                converter="locationConverter">
+                <f:selectItems value="#{registerBean.allPracticeAreas}" var="area" itemLabel="#{area.postalCode}"
+                               itemValue="#{area}"/>
+
+                <p:column>
+                    <h:outputText value="#{p.postalCode}-#{p.city}"/>
+                </p:column>
+            </p:selectOneListbox>
+
+            <p:commandButton update="registration-form-grid" value="Confirm"
+                             action="#{registerBean.registerAsPhysician()}" icon="ui-icon-disk"
+                             styleClass="ui-priority-primary"/>
         </h:panelGroup>
 
         <!--FOR PATIENT-->
-        <h:panelGroup layout="block" rendered="#{userBean.type == 'PATIENT'}">
+        <h:panelGroup layout="block" rendered="#{registerBean.type == 'PATIENT'}">
             <h:outputText value="BLABLABLA PATIENT"/>
+            <p:commandButton update="registration-form-grid" value="Confirm"
+                             action="#{registerBean.registerAsPatient()}"/>
         </h:panelGroup>
     </h:form>
 </h:body>
