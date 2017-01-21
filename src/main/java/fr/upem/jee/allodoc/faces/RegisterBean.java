@@ -20,9 +20,6 @@ import java.util.List;
 @SessionScoped
 public class RegisterBean implements Serializable {
 
-    public static final String TYPE_PHYSICIAN = "PHYSICIAN";
-    public static final String TYPE_PATIENT = "PATIENT";
-
     private String type;
     private String firstName;
     private String lastName;

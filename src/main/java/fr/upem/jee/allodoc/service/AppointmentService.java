@@ -14,9 +14,9 @@ import java.util.Optional;
 /**
  * Created by Sirpapy on 11/01/2017.
  */
-public class AppointmentController extends Controller<Appointment> {
+public class AppointmentService extends Service<Appointment> {
 
-    public AppointmentController() {
+    public AppointmentService() {
         super();
     }
 

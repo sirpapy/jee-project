@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 <<<<<<< HEAD
 import fr.upem.jee.allodoc.entity.Appointment;
@@ -30,29 +30,29 @@ public class PatientControllerTest {
     @Test(expected= NoResultException.class)
     public void getFromId(){
         Patient patient = new Patient();
-        PatientController controller = new PatientController(patient);
+        PatientController service = new PatientController(patient);
         patient.setLastName("raptao");
         patient.setFirstName("thierry");
-        controller.save(patient);
+        service.save(patient);
 
-        Patient fromId = controller.getFromId(1L);
+        Patient fromId = service.getFromId(1L);
         assertEquals(patient.getFirstName(), fromId.getFirstName());
-        controller.remove(fromId);
-        controller.getFromId(1L);
+        service.remove(fromId);
+        service.getFromId(1L);
     }
 
     @Test
     public void getAppointments() throws ParseException {
         Patient patient = new Patient();
-        PatientController controller = new PatientController(patient);
+        PatientController service = new PatientController(patient);
         patient.setLastName("raptao");
         patient.setFirstName("thierry");
 //        Patient.setId(2L);
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save(patient);
+        service.save(patient);
 
-        Patient p = controller.getFromId(patient.getId());
+        Patient p = service.getFromId(patient.getId());
         assertFalse(p.getAppointments().isEmpty());
         assertEquals(2, p.getAppointments().size());
 

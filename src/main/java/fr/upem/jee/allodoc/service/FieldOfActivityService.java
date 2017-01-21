@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class FieldOfActivityService extends Controller<FieldOfActivity>{
+public class FieldOfActivityService extends Service<FieldOfActivity> {
 
     public static Optional<FieldOfActivity> getByName(String name){
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();

@@ -41,7 +41,7 @@ public class AppointmentTest {
 //        PatientService patientController = new PatientService(patient);
 //        assertTrue(patient.getAppointments().size() == 0);
 //
-//        AppointmentController appointmentController = new AppointmentController();
+//        AppointmentService appointmentController = new AppointmentService();
 //
 //        appointmentController.setAppointment(patient, physician, 2);
 //        patientController.save();

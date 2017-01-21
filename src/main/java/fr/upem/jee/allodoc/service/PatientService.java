@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PatientService extends UserController<Patient> {
+public class PatientService extends UserServiceImpl<Patient> {
 
     private Patient patient;
 

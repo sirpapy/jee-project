@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 <<<<<<< HEAD
 import fr.upem.jee.allodoc.entity.Availability;
@@ -30,34 +30,34 @@ public class PhysicianControllerTest {
     @Test
     public void getFromId(){
         Physician physician = new Physician();
-        PhysicianController controller = new PhysicianController(physician);
+        PhysicianController service = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
-        controller.save();
+        service.save();
 
         Physician fromId = PhysicianController.getFromId(1L);
         assertNotNull(fromId);
         assertEquals(physician.getFirstName(), fromId.getFirstName());
 
-        controller.remove(fromId);
+        service.remove(fromId);
         assertNull(PhysicianController.getFromId(1L));
     }
 
     @Test
     public void getAvailabilities() throws ParseException {
         Physician physician = new Physician();
-        PhysicianController controller = new PhysicianController(physician);
+        PhysicianController service = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        service.save();
 
         List<Physician> search = new PhysicianController(new Physician()).search("thierry", "raptao");
         assertFalse(search.isEmpty());
         Physician physician1 = search.get(0);
         assertEquals(2, physician1.getAvailabilities().size());
-//        Collection<Availability> availabilities = controller.getAvailabilities();
+//        Collection<Availability> availabilities = service.getAvailabilities();
 //        assertEquals(2, availabilities.size());
     }
 
@@ -65,12 +65,12 @@ public class PhysicianControllerTest {
     @Test
     public void searchByName() throws ParseException {
         Physician physician = new Physician();
-        PhysicianController controller = new PhysicianController(physician);
+        PhysicianController service = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        service.save();
 
         PhysicianController searchController = new PhysicianController();
         assertEquals(searchController.searchByName("raptao").size(),1);
@@ -78,7 +78,7 @@ public class PhysicianControllerTest {
     @Test
     public void searchByFieldOfActivity() throws ParseException {
         Physician physician = new Physician();
-        PhysicianController controller = new PhysicianController(physician);
+        PhysicianController service = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         FieldOfActivityController fieldOfActivityService = new FieldOfActivityController();
@@ -87,7 +87,7 @@ public class PhysicianControllerTest {
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        service.save();
 
         PhysicianController searchController = new PhysicianController();
         assertEquals(searchController.searchByFieldOfActivity("GENERALISTE").size(),1);
@@ -100,7 +100,7 @@ public class PhysicianControllerTest {
     @Test
     public void searchByFieldOfActivityNameLocation() throws ParseException {
         Physician physician = new Physician();
-        PhysicianController controller = new PhysicianController(physician);
+        PhysicianController service = new PhysicianController(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         FieldOfActivityController fieldOfActivityService = new FieldOfActivityController();
@@ -114,7 +114,7 @@ public class PhysicianControllerTest {
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
 
-        controller.save();
+        service.save();
 
         PhysicianController searchController = new PhysicianController();
         assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, "GENERALISTE", location).size(),1);

@@ -43,7 +43,7 @@ public class PhysicianBean {
         }
         User u = authenticate.get();
         physician = PhysicianService.getFromId(u.getId());
-        return Pages.PAGE_HOME;
+        return Pages.PAGE_INDEX;
     }
 
 

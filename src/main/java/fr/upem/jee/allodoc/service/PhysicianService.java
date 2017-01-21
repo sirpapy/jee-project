@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PhysicianService extends UserController<Physician> {
+public class PhysicianService extends UserServiceImpl<Physician> {
 
     private Physician physician;
 
