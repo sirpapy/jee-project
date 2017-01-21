@@ -21,8 +21,13 @@
                          required="true"/>
 
             <!--LASTNAME-->
-            <h:outputText value="LastName: "/>
+            <h:outputText value="Last name: "/>
             <p:inputText label="Last Name" value="#{registerBean.lastName}" placeholder="Enter your last name"
+                         required="true"/>
+
+            <!--LASTNAME-->
+            <h:outputText value="Birth date: "/>
+            <p:calendar label="BirthDate" value="#{registerBean.birthDate}" placeholder="BirthDate"
                          required="true"/>
 
             <!--ADDRESS-->
@@ -43,7 +48,7 @@
                 <h:outputText value="City: "/>
                 <p:inputText label="City" value="#{registerBean.address.location.city}" placeholder="Enter the city name"
                              required="true"/>
-                
+
             </p:panelGrid>
 
 

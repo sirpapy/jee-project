@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 
@@ -54,6 +55,7 @@ public class Patient extends User implements Serializable {
         private String email;
         private String password;
         private Address address;
+        private Date birthDate;
 
         public Builder setFirstName(String firstName) {
             this.firstName = firstName;
@@ -82,6 +84,11 @@ public class Patient extends User implements Serializable {
 
         public Builder setPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder setBirthDate(Date birthDate) {
+            this.birthDate = birthDate;
             return this;
         }
 
