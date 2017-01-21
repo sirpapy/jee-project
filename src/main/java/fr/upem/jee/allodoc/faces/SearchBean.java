@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.model;
+package fr.upem.jee.allodoc.faces;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;

@@ -2,6 +2,7 @@ package fr.upem.jee.allodoc.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.
@@ -21,7 +22,7 @@ public class User implements Serializable {
     String phoneNumber;
     String email;
     String password;
-
+    Date birthDate;
     @OneToOne
     Address address;
 
@@ -34,10 +35,16 @@ public class User implements Serializable {
         this.address = address;
     }
 
-
     public User() {
     }
 
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
 
     public Long getId() {
         return id;

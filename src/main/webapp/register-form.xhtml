@@ -14,6 +14,7 @@
     </c:if>
     <h2>Sign up !</h2>
     <h:form>
+        <p:messages id="messages" showDetail="true" autoUpdate="true"/>
         <p:panelGrid id="registration-form-grid" columns="2" cellpadding="5">
             <!-- FIRSTNAME-->
             <h:outputText value="First Name: "/>
@@ -21,14 +22,41 @@
                          required="true"/>
 
             <!--LASTNAME-->
-            <h:outputText value="LastName: "/>
+            <h:outputText value="Last name: "/>
             <p:inputText label="Last Name" value="#{registerBean.lastName}" placeholder="Enter your last name"
                          required="true"/>
 
+            <!--BIRTHDATE-->
+            <h:outputText value="Birth date: "/>
+            <p:calendar label="Birth date" value="#{registerBean.birthDate}" placeholder="Birth date"
+                        required="true" converter="dateConverter"
+                        pattern="yyyy-mm-dd" navigator="true"/>
+
             <!--ADDRESS-->
             <h:outputText value="Address:"/>
-            <p:inputText label="Address" value="#{registerBean.address}" placeholder="Enter your address"
-                         required="true"/>
+            <p:panelGrid id="address-form-grid" columns="2" cellpadding="5">
+                <h:outputText value="Street number: "/>
+                <p:inputText size="6" maxlength="6" label="Street" value="#{registerBean.address.streetNumber}"
+                             placeholder="XXX"
+                             required="true"/>
+
+                <h:outputText value="Street name: "/>
+                <p:inputText label="Street name" value="#{registerBean.address.streetName}"
+                             placeholder="Enter your street name"
+                             required="true"/>
+
+                <h:outputText value="Postal code: "/>
+                <p:inputNumber maxlength="10" label="PostCod" value="#{registerBean.address.location.postalCode}"
+                               placeholder="Postal code" thousandSeparator=""
+                               required="true" decimalPlaces="0"/>
+
+                <h:outputText value="City: "/>
+                <p:inputText label="City" value="#{registerBean.address.location.city}"
+                             placeholder="Enter the city name"
+                             required="true"/>
+
+            </p:panelGrid>
+
 
             <!--EMAIL-->
             <h:outputText value="Email: "/>
@@ -38,7 +66,6 @@
 
         </p:panelGrid>
         <p:separator/>
-        <p:messages id="messages" showDetail="true" autoUpdate="true"/>
         <p:panelGrid columns="2" id="password-confirm" cellpadding="5">
 
             <!--PASSWORD-->
@@ -59,32 +86,39 @@
 
         <!--FOR PHYSICIAN-->
         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PHYSICIAN'}">
-            <p:selectOneListbox id="advanced" value="#{registerBean.selectedFieldOfActivity}" var="f" filter="true"
-                                filterMatchMode="contains" scrollHeight="50">
+            <!-- LIST BOX : fieldOfActivity-->
+            <p:selectOneListbox id="fieldOfActivity" label="Field of activity"
+                                value="#{registerBean.selectedFieldOfActivity}" var="f" filter="true"
+                                filterMatchMode="contains" scrollHeight="50"
+                                converter="fieldOfActivityConverter" required="true">
                 <f:selectItems value="#{registerBean.fieldOfActivities}" var="field" itemLabel="#{field.name}"
                                itemValue="#{field}"/>
-
-                <!--<p:column>-->
-                <!--<h:outputText styleClass="ui-theme ui-theme-#{}" />-->
-                <!--</p:column>-->
-
                 <p:column>
                     <h:outputText value="#{f.name}"/>
                 </p:column>
             </p:selectOneListbox>
 
-            <p:selectOneListbox id="practiceArea" value="#{registerBean.selectedPracticeArea}" var="p" filter="true"
-                                filterMatchMode="contains" scrollHeight="50">
-                <f:selectItems value="#{registerBean.allPraticeAreas}" var="area" itemLabel="#{area.postalCode}"
+            <!--LISTBOX : status-->
+            <p:selectOneListbox id="status" value="#{registerBean.status}">
+                <f:selectItem itemLabel="Private" itemValue="Private" />
+                <f:selectItem itemLabel="Public" itemValue="Public" />
+            </p:selectOneListbox>
+
+            <!--LISTBOX : practiceArea-->
+            <p:selectOneListbox id="practiceArea" label="Practice area" value="#{registerBean.selectedPracticeArea}"
+                                var="p" filter="true" required="true"
+                                filterMatchMode="contains" scrollHeight="50"
+                                converter="locationConverter">
+                <f:selectItems value="#{registerBean.allPracticeAreas}" var="area" itemLabel="#{area.postalCode}"
                                itemValue="#{area}"/>
 
                 <p:column>
-                    <h:outputText value="#{p.city} - #{p.postalCode}"/>
+                    <h:outputText value="#{p.postalCode}-#{p.city}"/>
                 </p:column>
             </p:selectOneListbox>
 
             <p:commandButton update="registration-form-grid" value="Confirm"
-                             action="#{registerBean.registerAsPatient()}" icon="ui-icon-disk"
+                             action="#{registerBean.registerAsPhysician()}" icon="ui-icon-disk"
                              styleClass="ui-priority-primary"/>
         </h:panelGroup>
 
@@ -92,7 +126,7 @@
         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PATIENT'}">
             <h:outputText value="BLABLABLA PATIENT"/>
             <p:commandButton update="registration-form-grid" value="Confirm"
-                             action="#{registerBean.registerAsPhysician()}"/>
+                             action="#{registerBean.registerAsPatient()}"/>
         </h:panelGroup>
     </h:form>
 </h:body>

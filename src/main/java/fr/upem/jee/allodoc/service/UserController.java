@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.User;

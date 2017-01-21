@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -104,11 +105,14 @@ public class Physician extends User implements Serializable {
         private String firstName;
         private String lastName;
         private FieldOfActivity fieldOfActivity;
-        private String dateAccreditation;
-        private String nomDepartement;
-        private String regionExercice;
-        private String finess;
         private String status;
+        private Date birthDate;
+        private Address address;
+
+        public Builder setAddress(Address address) {
+            this.address = address;
+            return this;
+        }
 
         private String email;
         private String password;
@@ -134,25 +138,6 @@ public class Physician extends User implements Serializable {
             return this;
         }
 
-        public Builder setDateAccreditation(String dateAccreditation) {
-            this.dateAccreditation = dateAccreditation;
-            return this;
-        }
-
-        public Builder setNomDepartement(String nomDepartement) {
-            this.nomDepartement = nomDepartement;
-            return this;
-        }
-
-        public Builder setRegionExercice(String regionExercice) {
-            this.regionExercice = regionExercice;
-            return this;
-        }
-
-        public Builder setFiness(String finess) {
-            this.finess = finess;
-            return this;
-        }
 
         public Builder setEmail(String email) {
             this.email = email;
@@ -170,17 +155,15 @@ public class Physician extends User implements Serializable {
         }
 
         public Physician build() {
-            return new Physician(firstName, lastName, status, fieldOfActivity, practiceArea
-            );
+            Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
+            physician.setBirthDate(birthDate);
+            return physician;
         }
 
-
+        public Builder setBirthDate(Date birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
     }
 
-    //Function made by me
-//    public void validateAppointment(long idAppointment) {
-//        Preconditions.checkArgument(idAppointment>=0, "The appointment ID must be greater than 0");
-//        Preconditions.checkArgument(this.availabilities.get((int) idAppointment) == null, "This time slot is not available");
-//        this.availabilities.remove(idAppointment);
-//    }
 }

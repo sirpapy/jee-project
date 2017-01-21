@@ -29,7 +29,11 @@ public class Location implements Serializable {
         Preconditions.checkArgument(postalCode > 0, "postalCode must be > 0");
         this.postalCode = postalCode;
         this.city = Preconditions.checkNotNull(city, "city should not be null");
-        this.country = country == null ? DEFAULT_COUNTRY_NAME : country;
+        this.country = Preconditions.checkNotNull(country, "country should not bet null");
+    }
+
+    public Location(Integer postalCode, String city) {
+        this(postalCode, city, DEFAULT_COUNTRY_NAME);
     }
 
     public Integer getPostalCode() {
@@ -56,6 +60,20 @@ public class Location implements Serializable {
         this.country = country;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || !(o instanceof Location)) return false;
+
+        Location location = (Location) o;
+
+        return postalCode.equals(location.postalCode) &&
+                city.equals(location.city) &&
+                country.equals(location.country);
+    }
+
+
     public static class Builder {
         private int postalCode;
         private String city;
@@ -77,6 +95,9 @@ public class Location implements Serializable {
         }
 
         public Location build() {
+            if( country == null){
+                return new Location(postalCode, city);
+            }
             return new Location(postalCode, city, country);
         }
     }

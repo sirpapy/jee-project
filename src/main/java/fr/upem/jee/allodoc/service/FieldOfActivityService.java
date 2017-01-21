@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class FieldOfActivityController extends Controller<FieldOfActivity>{
+public class FieldOfActivityService extends Controller<FieldOfActivity>{
 
     public static Optional<FieldOfActivity> getByName(String name){
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();

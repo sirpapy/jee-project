@@ -11,8 +11,6 @@ import java.util.Objects;
  */
 @Entity
 public class Availability implements Serializable {
-
-
     @Id
     @GeneratedValue
     private Long id;

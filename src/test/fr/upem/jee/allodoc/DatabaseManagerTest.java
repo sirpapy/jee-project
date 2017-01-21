@@ -1,6 +1,6 @@
 package fr.upem.jee.allodoc;
 
-import fr.upem.jee.allodoc.controller.FieldOfActivityController;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.User;
 import org.junit.Test;
@@ -47,9 +47,9 @@ public class DatabaseManagerTest {
         FieldOfActivity b = new FieldOfActivity("b");
         FieldOfActivity c = new FieldOfActivity("c");
         manager.save(a, b, c);
-        assertEquals(3, FieldOfActivityController.getAll().size());
+        assertEquals(3, FieldOfActivityService.getAll().size());
         manager.clear(FieldOfActivity.class);
-        assertTrue(FieldOfActivityController.getAll().isEmpty());
+        assertTrue(FieldOfActivityService.getAll().isEmpty());
     }
 
 }

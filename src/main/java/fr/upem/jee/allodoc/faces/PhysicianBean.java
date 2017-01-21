@@ -1,12 +1,10 @@
-package fr.upem.jee.allodoc.model;
+package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.controller.PhysicianController;
+import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
 import fr.upem.jee.allodoc.utilities.Pages;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -17,7 +15,7 @@ public class PhysicianBean {
     private Physician physician;
     private String password;
     private String email;
-    private PhysicianController controller;
+    private PhysicianService controller;
 
     public PhysicianBean() {
     }
@@ -44,7 +42,7 @@ public class PhysicianBean {
             return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
         }
         User u = authenticate.get();
-        physician = PhysicianController.getFromId(u.getId());
+        physician = PhysicianService.getFromId(u.getId());
         return Pages.PAGE_HOME;
     }
 

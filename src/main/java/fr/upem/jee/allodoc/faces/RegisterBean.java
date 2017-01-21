@@ -1,17 +1,15 @@
-package fr.upem.jee.allodoc.model;
+package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.controller.FieldOfActivityController;
-import fr.upem.jee.allodoc.controller.PatientController;
-import fr.upem.jee.allodoc.controller.PhysicianController;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Patient;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import fr.upem.jee.allodoc.service.PatientService;
+import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Pages;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,28 +28,31 @@ public class RegisterBean implements Serializable {
     private String lastName;
     private String email;
     private String password;
-    private String address;
-    private PatientController patientController;
-    private PhysicianController physicianController;
-
+    private Date birthDate;
+    private Address address;
+    private PatientService patientService;
+    private PhysicianService physicianService;
     private Location selectedPracticeArea;
-    private List<Location> allPraticeAreas;
-
+    private List<Location> allPracticeAreas;
     private String status;
     private FieldOfActivity selectedFieldOfActivity;
     private List<FieldOfActivity> fieldOfActivities;
 
     public RegisterBean() {
-        System.out.println("REGISTERBEAN INSTANCIATED");
-        patientController = new PatientController();
-        physicianController = new PhysicianController();
-//        fieldOfActivities = FieldOfActivityController.getAll();
+        patientService = new PatientService();
+        physicianService = new PhysicianService();
+        address = new Address();
+        address.setLocation(new Location());
+//        fieldOfActivities = FieldOfActivityService.getAll();
         loadFakeData();
     }
 
-    public RegisterBean(String email, String password) {
-        this.email = email;
-        this.password = password;
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 
     public Location getSelectedPracticeArea() {
@@ -62,12 +63,12 @@ public class RegisterBean implements Serializable {
         this.selectedPracticeArea = selectedPracticeArea;
     }
 
-    public List<Location> getAllPraticeAreas() {
-        return allPraticeAreas;
+    public List<Location> getAllPracticeAreas() {
+        return allPracticeAreas;
     }
 
-    public void setAllPraticeAreas(List<Location> allPraticeAreas) {
-        this.allPraticeAreas = allPraticeAreas;
+    public void setAllPracticeAreas(List<Location> allPracticeAreas) {
+        this.allPracticeAreas = allPracticeAreas;
     }
 
     public String getStatus() {
@@ -94,11 +95,11 @@ public class RegisterBean implements Serializable {
         this.selectedFieldOfActivity = selectedFieldOfActivity;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -153,10 +154,11 @@ public class RegisterBean implements Serializable {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
+                .setBirthDate(birthDate)
                 .setPassword(password)
                 .build();
-        patientController.takeControl(p);
-        patientController.save();
+        patientService.takeControl(p);
+        patientService.save();
         return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
@@ -165,13 +167,15 @@ public class RegisterBean implements Serializable {
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setEmail(email)
+                .setBirthDate(birthDate)
+                .setAddress(address)
                 .setPassword(password)
                 .setFieldOfActivity(selectedFieldOfActivity)
                 .setPracticeArea(selectedPracticeArea)
                 .setStatus(status)
                 .build();
-        physicianController.takeControl(physician);
-        physicianController.save();
+        physicianService.takeControl(physician);
+        physicianService.save();
         return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
@@ -180,7 +184,7 @@ public class RegisterBean implements Serializable {
      * loads data from database
      */
     private void loadData() {
-        fieldOfActivities = FieldOfActivityController.getAll();
+        fieldOfActivities = FieldOfActivityService.getAll();
     }
 
     private void loadFakeData() {
@@ -189,11 +193,11 @@ public class RegisterBean implements Serializable {
         fieldOfActivities.add(new FieldOfActivity("dentist field"));
         fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
         fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
-        allPraticeAreas = new ArrayList<>();
-        allPraticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
-        allPraticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
-        allPraticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
-        allPraticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
-        allPraticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
+        allPracticeAreas = new ArrayList<>();
+        allPracticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
+        allPracticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
+        allPracticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
+        allPracticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
+        allPracticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
     }
 }

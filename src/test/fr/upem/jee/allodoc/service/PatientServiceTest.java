@@ -1,17 +1,9 @@
-package fr.upem.jee.allodoc.controller;
+package fr.upem.jee.allodoc.service;
 
-<<<<<<< HEAD
 import fr.upem.jee.allodoc.entity.Appointment;
 import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
-=======
-import fr.upem.jee.allodoc.DatabaseManager;
-import fr.upem.jee.allodoc.jpa.Appointment;
-import fr.upem.jee.allodoc.jpa.Availability;
-import fr.upem.jee.allodoc.jpa.Patient;
-import fr.upem.jee.allodoc.jpa.Physician;
->>>>>>> origin/patientAppointmentController
 import org.junit.Test;
 
 import javax.persistence.NoResultException;
@@ -24,13 +16,13 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by raptao on 12/22/2016.
  */
-public class PatientControllerTest {
+public class PatientServiceTest {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
     @Test(expected= NoResultException.class)
     public void getFromId(){
         Patient patient = new Patient();
-        PatientController controller = new PatientController(patient);
+        PatientService controller = new PatientService(patient);
         patient.setLastName("raptao");
         patient.setFirstName("thierry");
         controller.save(patient);
@@ -44,7 +36,7 @@ public class PatientControllerTest {
     @Test
     public void getAppointments() throws ParseException {
         Patient patient = new Patient();
-        PatientController controller = new PatientController(patient);
+        PatientService controller = new PatientService(patient);
         patient.setLastName("raptao");
         patient.setFirstName("thierry");
 //        Patient.setId(2L);
@@ -62,7 +54,7 @@ public class PatientControllerTest {
 
     @Test
     public void setAppointmentTest() throws ParseException {
-        PhysicianController phController = new PhysicianController();
+        PhysicianService phController = new PhysicianService();
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
@@ -70,10 +62,10 @@ public class PatientControllerTest {
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
         phController.save(physician);
         Patient patient = new Patient();
-        PatientController patientController = new PatientController(patient);
+        PatientService patientService = new PatientService(patient);
         assertTrue(patient.getAppointments().size() == 0);
-        patientController.setNewAppointment(physician, physician.getAvailabilities().get(0).getId(), physician.getAvailabilities().get(0).getId());
-        patientController.save();
+        patientService.setNewAppointment(physician, physician.getAvailabilities().get(0).getId(), physician.getAvailabilities().get(0).getId());
+        patientService.save();
         assertTrue(patient.getAppointments().size() == 1);
 
     }
