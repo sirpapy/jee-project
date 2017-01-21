@@ -3,12 +3,10 @@ package fr.upem.jee.allodoc.model;
 import fr.upem.jee.allodoc.controller.FieldOfActivityController;
 import fr.upem.jee.allodoc.controller.PatientController;
 import fr.upem.jee.allodoc.controller.PhysicianController;
-import fr.upem.jee.allodoc.jpa.Availability;
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
-import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.entity.Availability;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Physician;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;

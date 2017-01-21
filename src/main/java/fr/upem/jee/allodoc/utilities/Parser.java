@@ -1,5 +1,6 @@
 package fr.upem.jee.allodoc.utilities;
 
+import fr.upem.jee.allodoc.controller.FieldOfActivityController;
 import fr.upem.jee.allodoc.entity.Address;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;

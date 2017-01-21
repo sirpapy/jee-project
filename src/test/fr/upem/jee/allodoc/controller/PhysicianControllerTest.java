@@ -1,9 +1,9 @@
 package fr.upem.jee.allodoc.controller;
 
 import fr.upem.jee.allodoc.entity.Availability;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
-import fr.upem.jee.allodoc.jpa.FieldOfActivity;
-import fr.upem.jee.allodoc.jpa.Location;
 import org.junit.Test;
 
 import java.text.ParseException;

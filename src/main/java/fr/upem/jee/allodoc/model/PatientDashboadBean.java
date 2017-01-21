@@ -1,8 +1,9 @@
 package fr.upem.jee.allodoc.model;
 
-import fr.upem.jee.allodoc.jpa.Location;
-import fr.upem.jee.allodoc.jpa.Parser;
-import fr.upem.jee.allodoc.jpa.Physician;
+
+import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.utilities.Parser;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
