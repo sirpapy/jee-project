@@ -26,12 +26,17 @@ public class FieldOfActivityController extends Controller<FieldOfActivity>{
         return databaseManager.findAll(FieldOfActivity.class);
     }
 
+<<<<<<< HEAD
     public static void distinctSave(FieldOfActivity fieldOfActivity){
         Objects.requireNonNull(fieldOfActivity);
         Optional<FieldOfActivity> byName = getByName(fieldOfActivity.getName());
         if( !byName.isPresent()){
             DatabaseManager.getDatabaseManager().save(fieldOfActivity);
         }
+=======
+    public void save(FieldOfActivity fieldOfActivity) {
+        super.save(fieldOfActivity);
+>>>>>>> origin/patientAppointmentController
     }
 
 }

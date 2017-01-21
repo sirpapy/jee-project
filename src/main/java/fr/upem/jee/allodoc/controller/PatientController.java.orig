@@ -1,8 +1,15 @@
 package fr.upem.jee.allodoc.controller;
 
 import com.google.common.base.Preconditions;
+<<<<<<< HEAD
 import fr.upem.jee.allodoc.entity.*;
-
+=======
+import fr.upem.jee.allodoc.jpa.Appointment;
+import fr.upem.jee.allodoc.jpa.Availability;
+import fr.upem.jee.allodoc.jpa.Patient;
+import fr.upem.jee.allodoc.jpa.Physician;
+import fr.upem.jee.allodoc.DatabaseManager;
+>>>>>>> origin/patientAppointmentController
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -50,7 +57,17 @@ public class PatientController extends UserController<Patient> {
         Preconditions.checkArgument(appointmentId >= 0);
         PhysicianController physicianController = new PhysicianController(physician);
         if (!physicianController.isAvailableAt(availabilityId)) {
+<<<<<<< HEAD
+            Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = "+appointmentId+" WHERE physician_id ="+physician.getId()+" AND availability_id = "+availabilityId+"");
+=======
+
+            // TODO complete section
+            // taper sur la table physician_appointment
+            // update physician_availability set appointment_id = appointmentId
+            // where physician_id = physician.getId() and availability_id = availabilityId
+
             Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
+>>>>>>> origin/patientAppointmentController
             query.getFirstResult();
             Availability appointment = manager().getEntityManager().find(Availability.class, appointmentId);
             patient.addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability()));

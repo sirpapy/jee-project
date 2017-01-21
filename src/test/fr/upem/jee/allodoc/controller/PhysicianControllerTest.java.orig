@@ -1,13 +1,22 @@
 package fr.upem.jee.allodoc.controller;
 
+<<<<<<< HEAD
 import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.Physician;
+=======
+import fr.upem.jee.allodoc.jpa.Availability;
 import fr.upem.jee.allodoc.jpa.FieldOfActivity;
 import fr.upem.jee.allodoc.jpa.Location;
+import fr.upem.jee.allodoc.jpa.Physician;
+>>>>>>> origin/patientAppointmentController
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
+=======
+import java.util.Collection;
+>>>>>>> origin/patientAppointmentController
 import java.util.List;
 
 import static junit.framework.TestCase.*;

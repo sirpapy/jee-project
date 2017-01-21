@@ -19,6 +19,16 @@ import java.util.Objects;
 
         @NamedQuery(name = "findPhysicianFirstnameLastName",
                 query = "SELECT p from Physician p where p.firstName = :pFirstName and p.lastName = :pLastName"),
+
+
+        @NamedQuery(name = "findPhysicianName",
+                query = "SELECT p from Physician p where p.firstName like :pName or p.lastName like :pName"),
+
+        @NamedQuery(name = "findPhysicianFieldOfActivity",
+                query = "SELECT p from Physician p where p.fieldOfActivity.name like :pField"),
+
+        @NamedQuery(name = "findPhysicianByNameFieldOfActivityLocation",
+                query = "SELECT p from Physician p where p.fieldOfActivity.name like :pField and  p.practiceArea.city = :pCity and p.firstName like :pName or p.lastName like :pName "),
 })
 
 public class Physician extends User implements Serializable {
