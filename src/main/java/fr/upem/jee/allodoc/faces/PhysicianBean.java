@@ -42,7 +42,7 @@ public class PhysicianBean {
             return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
         }
         User u = authenticate.get();
-        physician = PhysicianService.getFromId(u.getId());
+        physician = PhysicianService.getById(u.getId());
         return Pages.PAGE_INDEX;
     }
 

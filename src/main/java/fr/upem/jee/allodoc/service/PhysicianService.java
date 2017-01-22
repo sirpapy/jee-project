@@ -39,7 +39,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      * @param id the id of the physician
      * @return the {@link Physician} object with the id
      */
-    public static Physician getFromId(Long id) {
+    public static Physician getById(Long id) {
         return DatabaseManager.getDatabaseManager().getEntityManager().find(Physician.class, id);
     }
 

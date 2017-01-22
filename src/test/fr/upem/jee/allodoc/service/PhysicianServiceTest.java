@@ -27,12 +27,12 @@ public class PhysicianServiceTest {
         physician.setFirstName("thierry");
         controller.save();
 
-        Physician fromId = PhysicianService.getFromId(1L);
+        Physician fromId = PhysicianService.getById(1L);
         assertNotNull(fromId);
         assertEquals(physician.getFirstName(), fromId.getFirstName());
 
         controller.remove(fromId);
-        assertNull(PhysicianService.getFromId(1L));
+        assertNull(PhysicianService.getById(1L));
     }
 
     @Test

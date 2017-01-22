@@ -40,7 +40,7 @@ public class PatientDashboadBean {
 
     public static HashMap<Integer,String> getPostalCodeList() throws IOException {
         HashMap<Integer,String> toReturn = new HashMap<>();
-        List<Location> locations = Parser.parseCSVPostCode(Paths.get("D:\\workspace\\jee-project\\src\\main\\resources\\XLS\\laposte_hexasmal.csv"));
+        List<Location> locations = Parser.parseCSVPostCode(Paths.get("XLS/laposte_hexasmal.csv"));
         for (Location location : locations){
             toReturn.put(location.getPostalCode(), location.getCity());
         }
