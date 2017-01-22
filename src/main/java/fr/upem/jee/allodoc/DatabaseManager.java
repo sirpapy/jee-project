@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc;
 
+import org.hibernate.Session;
+
 import javax.persistence.*;
 import java.io.IOException;
 import java.util.List;
@@ -52,8 +54,11 @@ public class DatabaseManager {
      *
      * @param entities
      */
-    public void save(Object... entities) {
-        applyTransaction(em::persist, entities);
+    public void save( Object... entities) {
+        applyTransaction((entity) -> {
+            Session session = em.unwrap(Session.class);
+            session.saveOrUpdate(entity);
+        }, entities);
     }
 
 
@@ -93,16 +98,16 @@ public class DatabaseManager {
         return em.find(className, id);
     }
 
-    public <T> List<T> findAll(Class<T> className){
+    public <T> List<T> findAll(Class<T> className) {
         String name = className.getName();
-        String query = "Select c from "+name+" c";
+        String query = "Select c from " + name + " c";
         TypedQuery<T> selectQuery = em.createQuery(query, className);
         return selectQuery.getResultList();
     }
 
-    public <T> void clear(Class<T> className){
+    public <T> void clear(Class<T> className) {
         String name = className.getName();
-        String deleteQuery = "DELETE from "+name;
+        String deleteQuery = "DELETE from " + name;
         Query query = em.createQuery(deleteQuery);
         em.getTransaction().begin();
         query.executeUpdate();

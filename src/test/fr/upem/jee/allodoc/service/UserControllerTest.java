@@ -6,7 +6,7 @@ package fr.upem.jee.allodoc.service;
 public class UserControllerTest {
 //    @Test
 //    public void controllerTest() throws Exception {
-//        UserController controller = new UserController();
+//        UserServiceImpl controller = new UserServiceImpl();
 //        User u = new User();
 //        u.setFirstName("thierry");
 //        u.setLastName("rabearijao");

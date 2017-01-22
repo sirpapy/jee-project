@@ -17,7 +17,7 @@ import java.util.List;
 
 
 
-class PatientDashboadService {
+class PatientDashboardService {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
     private PhysicianService physicianService = new PhysicianService();
     private PatientService patientService = new PatientService();

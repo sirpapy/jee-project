@@ -6,6 +6,7 @@ import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
 import org.junit.Test;
 
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -26,14 +27,40 @@ public class PhysicianServiceTest {
         physician.setFirstName("thierry");
         controller.save();
 
-        Physician fromId = PhysicianService.getFromId(1L);
+        Physician fromId = PhysicianService.getById(1L);
         assertNotNull(fromId);
         assertEquals(physician.getFirstName(), fromId.getFirstName());
 
         controller.remove(fromId);
-        assertNull(PhysicianService.getFromId(1L));
+        assertNull(PhysicianService.getById(1L));
     }
 
+    @Test
+    public void register(){
+        Physician physician = new Physician.Builder()
+                .setEmail("email")
+                .setPassword("password")
+                .setFirstName("firstName")
+                .setLastName("lastName")
+                .setFieldOfActivity(new FieldOfActivity("science field"))
+                .setBirthDate(Date.valueOf("1992-09-28"))
+                .setPracticeArea(new Location(93, "sd"))
+                .setStatus("public").build();
+        PhysicianService service = new PhysicianService(physician);
+        service.save();
+
+        List<Physician> search = service.search("firstName", "lastName");
+        assertFalse(search.isEmpty());
+        assertEquals(1, search.size());
+
+        Physician retrieved = search.get(0);
+        assertEquals(retrieved.getFirstName(), physician.getFirstName());
+        assertEquals(retrieved.getLastName(), physician.getLastName());
+        assertEquals(retrieved.getEmail(), physician.getEmail());
+        assertEquals(retrieved.getPassword(), physician.getPassword());
+        assertEquals(retrieved.getStatus(), physician.getStatus());
+        assertEquals(retrieved.getBirthDate(), physician.getBirthDate());
+    }
     @Test
     public void getAvailabilities() throws ParseException {
         Physician physician = new Physician();
@@ -100,7 +127,7 @@ public class PhysicianServiceTest {
         physician.setFieldOfActivity(fieldOfActivity);
         LocationService locationService = new LocationService();
         locationService.add(75020, "Paris", "France");
-        Location location = locationService.getByPostalCode(75020);
+        Location location = locationService.getByPostalCode(75020).get();
         physician.setPracticeArea(location);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));

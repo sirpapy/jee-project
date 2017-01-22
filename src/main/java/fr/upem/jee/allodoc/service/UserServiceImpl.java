@@ -10,9 +10,9 @@ import java.util.Optional;
 /**
  * Created by raptao on 12/13/2016.
  */
-abstract class UserController<U extends User> extends Controller<U>{
+abstract class UserServiceImpl<U extends User> extends Service<U> implements UserService<U>{
 
-    public UserController(){
+    public UserServiceImpl(){
         super();
     }
 
@@ -22,7 +22,8 @@ abstract class UserController<U extends User> extends Controller<U>{
      * @param password
      * @return the authenticated {@link User}
      */
-    public Optional<User> authenticate(String email, String password ){
+    @Override
+    public Optional<User> authenticate(String email, String password){
         Preconditions.checkNotNull(email);
         Preconditions.checkNotNull(password);
         TypedQuery<User> authenticateUser = manager().getEntityManager().createNamedQuery("getAuthenticatedUser", User.class);
@@ -32,7 +33,4 @@ abstract class UserController<U extends User> extends Controller<U>{
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
 
-    public abstract void takeControl(U user);
-
-    public abstract void save();
 }

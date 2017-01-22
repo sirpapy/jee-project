@@ -17,11 +17,11 @@ public class FieldOfActivityServiceTest {
     public void getByName() throws Exception {
         FieldOfActivity fieldOfActivity = new FieldOfActivity("scienceField");
         FieldOfActivityService.distinctSave(fieldOfActivity);
-        Controller<FieldOfActivity> controller = new Controller<>();
-        FieldOfActivity retrievedFieldOfActivity = controller.findByLongId(FieldOfActivity.class, 1L);
+        Service<FieldOfActivity> service = new Service<>();
+        FieldOfActivity retrievedFieldOfActivity = service.findByLongId(FieldOfActivity.class, 1L);
         assertNotNull(retrievedFieldOfActivity);
         assertEquals(fieldOfActivity.getName(), retrievedFieldOfActivity.getName());
-        controller.remove(retrievedFieldOfActivity);
+        service.remove(retrievedFieldOfActivity);
     }
 
     @Test
