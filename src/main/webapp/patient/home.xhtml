@@ -3,19 +3,20 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
 >
 <h:head>
+    <title>Patient home</title>
     <h:outputStylesheet library="css" name="style.css"/>
-    <h:outputStylesheet library="css" name="bootstrap/bootstrap-theme.min.css"/>
-    <h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>
-    <h:outputScript library="js" name="jquery/jquery-2.2.0.min.js"/>
-    <h:outputScript library="js" name="bootstrap/bootstrap.min.js"/>
+    <!--<h:outputStylesheet library="css" name="bootstrap/bootstrap-theme.min.css"/>-->
+    <!--<h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>-->
+    <!--<h:outputScript library="js" name="jquery/jquery-2.2.0.min.js"/>-->
+    <!--<h:outputScript library="js" name="bootstrap/bootstrap.min.js"/>-->
 </h:head>
 
-<f:view>
+<h:body>
+
+
 
 
     <div id="container">
@@ -38,11 +39,11 @@
 
 
                     <h:selectOneMenu id="postalCode" value="#{searchBean.postalCode}">
-                        <f:selectItems value="#{searchBean.postalCodeList}" />
+                        <f:selectItems value="#{searchBean.postalCodeList}"/>
                     </h:selectOneMenu>
 
 
-                    <!--<p:inputText value="#{searchBean.postalCode}" id="postalCode"/>&#45;&#45;-->
+                    <!--<p:inputText value="#{searchBean.postalCode}" id="postalCode"/>-->
 
 
                 </div>
@@ -55,5 +56,5 @@
             </h:form>
         </div>
     </div>
-</f:view>
+</h:body>
 </html>
