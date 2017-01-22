@@ -19,7 +19,7 @@ public class SearchBean implements Serializable{
     private String name;
     private String fieldOfActivity;
     private String postalCode;
-    private Set<Integer> postalCodeList = PatientDashboadBean.getPostalCodeList().keySet();
+    private List<Integer> postalCodeList = PatientDashboadBean.getPostalCodeList().keySet().stream().collect(Collectors.toList());
     private List<String> RegionList = PatientDashboadBean.getPostalCodeList().values().stream().collect(Collectors.toList());
     private HashMap<Integer, String> Location = PatientDashboadBean.getPostalCodeList();
 
@@ -63,11 +63,11 @@ public class SearchBean implements Serializable{
         return "patientDashBoard";
     }
 
-        public Set<Integer> getPostalCodeList() {
+        public List<Integer> getPostalCodeList() {
             return postalCodeList;
         }
 
-        public void setPostalCodeList(Set<Integer> postalCodeList) {
+        public void setPostalCodeList(List<Integer> postalCodeList) {
             this.postalCodeList = postalCodeList;
         }
 

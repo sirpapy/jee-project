@@ -44,6 +44,10 @@ public class PatientDashboadBean {
 //        for (Location location : locations){
 //            toReturn.put(location.getPostalCode(), location.getCity());
 //        }
+        toReturn.put(75020,"Paris 20");
+        toReturn.put(75018,"Paris 18");
+        toReturn.put(75015,"Paris 15");
+        toReturn.put(75010,"Paris 10");
 
         return toReturn;
     }

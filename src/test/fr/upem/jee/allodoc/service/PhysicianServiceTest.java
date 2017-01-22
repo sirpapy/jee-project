@@ -100,7 +100,7 @@ public class PhysicianServiceTest {
         physician.setFieldOfActivity(fieldOfActivity);
         LocationService locationService = new LocationService();
         locationService.add(75020, "Paris", "France");
-        Location location = locationService.getByPostalCode(75020);
+        Location location = locationService.getByPostalCode(75020).get()    ;
         physician.setPracticeArea(location);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));

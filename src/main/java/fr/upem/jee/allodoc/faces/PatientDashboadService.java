@@ -34,7 +34,7 @@ class PatientDashboadService {
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityService.save(fieldOfActivity);
+//        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
@@ -43,7 +43,7 @@ class PatientDashboadService {
         physician.setLastName("NDIAYE");
         physician.setFirstName("PAPE");
         fieldOfActivity = new FieldOfActivity("Gynéco");
-        fieldOfActivityService.save(fieldOfActivity);
+//        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
@@ -53,7 +53,7 @@ class PatientDashboadService {
         physician.setLastName("NDIAYE");
         physician.setFirstName("PAPEZ");
         fieldOfActivity = new FieldOfActivity("Neurologue");
-        fieldOfActivityService.save(fieldOfActivity);
+//        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
