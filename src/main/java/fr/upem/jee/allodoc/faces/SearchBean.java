@@ -4,8 +4,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,11 +19,11 @@ public class SearchBean implements Serializable{
     private String name;
     private String fieldOfActivity;
     private String postalCode;
-    private Set<Integer> postalCodeList = PatientDashboadBean.getPostalCodeList().keySet();
-    private List<String> RegionList = PatientDashboadBean.getPostalCodeList().values().stream().collect(Collectors.toList());
-    private HashMap<Integer, String> Location = PatientDashboadBean.getPostalCodeList();
+    private Set<Integer> postalCodeList = PatientDashboardBean.getPostalCodeList().keySet();
+    private List<String> RegionList = PatientDashboardBean.getPostalCodeList().values().stream().collect(Collectors.toList());
+    private Map<Integer, String> Location = PatientDashboardBean.getPostalCodeList();
 
-    PatientDashboadBean patientDashboadBean = new PatientDashboadBean();
+    PatientDashboardBean patientDashboardBean = new PatientDashboardBean();
 
     public SearchBean() throws IOException {
     }

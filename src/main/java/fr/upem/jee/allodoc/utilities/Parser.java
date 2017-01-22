@@ -1,11 +1,13 @@
 package fr.upem.jee.allodoc.utilities;
 
-import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.entity.Address;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -57,8 +59,8 @@ public class Parser {
         return toReturn;
     }
 
-    public static List<Location> parseCSVPostCode(Path path) throws IOException {
-        List<String> dataOnPostCodeCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
+    public static List<Location> parseCSVPostCode(InputStream csvInputStream) throws IOException {
+        List<String> dataOnPostCodeCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
         dataOnPostCodeCSV.remove(0);
         List<Location> toReturn = new ArrayList<>();
         int cpt=0;
