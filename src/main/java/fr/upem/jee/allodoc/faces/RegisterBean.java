@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by raptao on 1/10/2017.
@@ -89,7 +90,14 @@ public class RegisterBean implements Serializable {
     }
 
     public void setSelectedFieldOfActivity(FieldOfActivity selectedFieldOfActivity) {
-        this.selectedFieldOfActivity = selectedFieldOfActivity;
+        Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(selectedFieldOfActivity.getName());
+        if(byName.isPresent()){
+            this.selectedFieldOfActivity = byName.get();
+        }else{
+            FieldOfActivityService service = new FieldOfActivityService();
+            service.save(selectedFieldOfActivity);
+            this.selectedFieldOfActivity = FieldOfActivityService.getByName(selectedFieldOfActivity.getName()).get();
+        }
     }
 
     public Address getAddress() {

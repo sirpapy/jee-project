@@ -146,7 +146,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      */
     @Override
     public void save() {
-        super.save(physician);
+        save(physician);
     }
 
 

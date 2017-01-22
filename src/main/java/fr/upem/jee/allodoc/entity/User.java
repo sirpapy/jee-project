@@ -23,7 +23,7 @@ public class User implements Serializable {
     String email;
     String password;
     Date birthDate;
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL)
     Address address;
 
     User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {

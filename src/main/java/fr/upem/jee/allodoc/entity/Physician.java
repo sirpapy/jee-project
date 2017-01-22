@@ -36,10 +36,10 @@ public class Physician extends User implements Serializable {
 
     private String status;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private FieldOfActivity fieldOfActivity;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Location practiceArea;
 
 
@@ -48,7 +48,6 @@ public class Physician extends User implements Serializable {
     private List<Availability> availabilities;
 
     public Physician() {
-
     }
 
     private Physician(String firstName, String lastName, String status, FieldOfActivity fieldOfActivity, Location practiceArea) {
@@ -108,15 +107,14 @@ public class Physician extends User implements Serializable {
         private String status;
         private Date birthDate;
         private Address address;
+        private String email;
+        private String password;
+        private Location practiceArea;
 
         public Builder setAddress(Address address) {
             this.address = address;
             return this;
         }
-
-        private String email;
-        private String password;
-        private Location practiceArea;
 
         public Builder setPracticeArea(Location practiceArea) {
             this.practiceArea = practiceArea;
@@ -156,7 +154,10 @@ public class Physician extends User implements Serializable {
 
         public Physician build() {
             Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
+            physician.setEmail(email);
+            physician.setPassword(password);
             physician.setBirthDate(birthDate);
+            physician.setAddress(address);
             return physician;
         }
 
