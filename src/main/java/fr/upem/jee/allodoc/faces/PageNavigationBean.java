@@ -21,7 +21,7 @@ public class PageNavigationBean implements Serializable {
     SearchBean searchBean;
 
     public String goToHome() {
-        return Pages.PAGE_HOME_SEARCH;
+        return Pages.PAGE_PATIENT_HOME;
     }
 
 

@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.*;
 
 
@@ -13,7 +14,7 @@ import java.util.Objects;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PatientService extends UserController<Patient> {
+public class PatientService extends UserServiceImpl<Patient> {
 
     private Patient patient;
 
@@ -26,22 +27,11 @@ public class PatientService extends UserController<Patient> {
         super();
     }
 
+    public static Patient getById(long patientId){
+        DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
+        return  databaseManager.findByLongId(Patient.class, patientId);
 
-//    PatientService patientController = new PatientService(patient);
-//    PhysicianService physicianController = new PhysicianService(physician);
-//
-//    Appointment appointment;
-//    Optional<Availability> avs = physicianController.getAvailabilities().stream().filter(e -> e.getId() == idAppointment).findFirst();
-//        if (avs.isPresent()) {
-//        appointment = new Appointment(avs.get().getBeginAvailability(), avs.get().getEndAvailability());
-////            physician.validateAppointment(idAppointment);
-//        patient.addAppointment(appointment);
-//        patientController.save(patient);
-//        return true;
-//
-//    }
-//        return false;
-//
+    }
 
 
     public boolean setNewAppointment(Physician physician, long availabilityId, long appointmentId) {

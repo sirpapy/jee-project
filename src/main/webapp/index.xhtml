@@ -8,17 +8,23 @@
 >
 <h:outputStylesheet library="css" name="style.css"/>
 <h:head>
-    <title>Hello JSF 2!</title>
+    <title>Allo-doc</title>
 </h:head>
 
 
 <h:body>
-    <f:view>
-        <h:outputLabel value="Hello, world"/>
-    </f:view>
-    #{welcomeBean.getMessage()}
 
+    <h:link  outcome="login">go to login page</h:link>
     <h:form>
+
+        <p:inputText value="#{loginBean.email}" placeholder="Enter your email"/>
+        <p:password value="#{loginBean.password}" placeholder="Enter your password"/>
+        <p:commandButton styleClass="ui-priority-primary"
+                         action="#{loginBean.signIn()}"
+                         id="signInAsPatient"
+                         value="Sign in"
+                         icon="ui-icon-star"/>
+        <p:separator/>
 
         <p:commandButton styleClass="ui-priority-primary"
                          action="#{welcomeBean.registerPhysician()}"
@@ -31,6 +37,7 @@
                          id="signupPatient"
                          value="Sign up as Patient"
                          icon="ui-icon-star"/>
+
         <p:commandButton styleClass="ui-priority-primary"
                          action="#{navigationBean.goToHome()}"
                          id="goToHome"

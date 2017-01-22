@@ -16,3 +16,7 @@ div#aPhysician {
 #container {
     background-color: #d2d2d2;
 }
+
+body{
+    background: rgba(144, 188, 164, 0.46) !important;
+}

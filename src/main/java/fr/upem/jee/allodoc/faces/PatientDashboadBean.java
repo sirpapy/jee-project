@@ -33,7 +33,7 @@ public class PatientDashboadBean {
 
     @ManagedProperty("#{searchBean}")
     private SearchBean searchBean;
-    PatientDashboadService patientDashboadService = new PatientDashboadService();
+    PatientDashboardService patientDashboadService = new PatientDashboardService();
     public List<Physician> getDoctorResult() throws ParseException {
         return patientDashboadService.getListOfPhysician(searchBean.getName());
     }

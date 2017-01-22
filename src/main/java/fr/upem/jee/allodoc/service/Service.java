@@ -5,11 +5,11 @@ import fr.upem.jee.allodoc.DatabaseManager;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class Controller<T> {
+public class Service<T> {
 
     private DatabaseManager manager;
 
-    public Controller() {
+    public Service() {
         manager = DatabaseManager.getDatabaseManager();
     }
 

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * Created by raptao on 12/14/2016.
  */
-public class PhysicianService extends UserController<Physician> {
+public class PhysicianService extends UserServiceImpl<Physician> {
 
     private Physician physician;
 
@@ -39,7 +39,7 @@ public class PhysicianService extends UserController<Physician> {
      * @param id the id of the physician
      * @return the {@link Physician} object with the id
      */
-    public static Physician getFromId(Long id) {
+    public static Physician getById(Long id) {
         return DatabaseManager.getDatabaseManager().getEntityManager().find(Physician.class, id);
     }
 
@@ -146,7 +146,7 @@ public class PhysicianService extends UserController<Physician> {
      */
     @Override
     public void save() {
-        super.save(physician);
+        save(physician);
     }
 
 

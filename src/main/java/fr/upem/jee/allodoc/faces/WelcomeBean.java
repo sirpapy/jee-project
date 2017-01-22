@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.utilities.Pages;
+import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -33,13 +34,13 @@ public class WelcomeBean implements Serializable {
 
     public String registerPhysician() {
         initializeRegisterBean();
-        this.registerBean.setType(RegisterBean.TYPE_PHYSICIAN);
+        this.registerBean.setType(UserType.PHYSICIAN.name());
         return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
     public String registerPatient() {
         initializeRegisterBean();
-        registerBean.setType(RegisterBean.TYPE_PATIENT);
+        registerBean.setType(UserType.PATIENT.name());
         return Pages.PAGE_REGISTER + Pages.TAG_AVOIDING_EXPIRED_VIEW;
     }
 

@@ -11,9 +11,6 @@ import java.util.Objects;
  * Created by raptao on 12/14/2016.
  */
 @Entity
-@Table(uniqueConstraints =
-@UniqueConstraint(name = "unique_field_of_activity_name",
-        columnNames = {"name"}))
 @NamedQueries({
         @NamedQuery(name = "findFAByName", query = "select fa from FieldOfActivity fa where name = :fa_name"),
 
@@ -53,7 +50,7 @@ public class FieldOfActivity implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof FieldOfActivity)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         FieldOfActivity that = (FieldOfActivity) o;
         return name.equals(that.name);
     }

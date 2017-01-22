@@ -117,15 +117,14 @@
                 </p:column>
             </p:selectOneListbox>
 
-            <p:commandButton update="registration-form-grid" value="Confirm"
+            <p:commandButton update="registration-form-grid" value="Confirm physician registration"
                              action="#{registerBean.registerAsPhysician()}" icon="ui-icon-disk"
                              styleClass="ui-priority-primary"/>
         </h:panelGroup>
 
         <!--FOR PATIENT-->
         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PATIENT'}">
-            <h:outputText value="BLABLABLA PATIENT"/>
-            <p:commandButton update="registration-form-grid" value="Confirm"
+            <p:commandButton update="registration-form-grid" value="Confirm user registration"
                              action="#{registerBean.registerAsPatient()}"/>
         </h:panelGroup>
     </h:form>

@@ -3,17 +3,38 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
 >
 <h:head>
     <title>Sign in</title>
+    <h:outputStylesheet library="css" name="style.css"/>
 </h:head>
 <h:body>
 
     <h:form>
+        <h3>Sign in !</h3>
+        <p:growl id="msg" showDetail="true" life="2500"/>
+        <h:panelGrid columns="2" cellpadding="5">
+            <h:outputLabel for="email" value="Email:"/>
+            <p:inputText id="email" value="#{loginBean.email}" placeholder="Enter your email"/>
 
-    <p:inputText value="#{registerBean.email}" placeholder="Enter your email"></p:inputText>
-    <p:password value="#{registerBean.password}" placeholder="Enter your password"></p:password>
+
+            <h:outputLabel for="password" value="Password:"/>
+            <p:password id="password" value="#{loginBean.password}" placeholder="Enter your password"/>
+
+
+            <h:outputLabel value="Log as a physician ? "/>
+            <p:selectBooleanCheckbox value="#{loginBean.asPhysician}">
+                <p:ajax update="msg" listener="#{loginBean.addLoginTypeMessage()}"/>
+            </p:selectBooleanCheckbox>
+
+            <f:facet name="footer">
+                <p:commandButton value="Sign in" update="msg"
+                                 action="#{loginBean.signIn()}" icon="ui-icon-star"
+                                 styleClass="ui-priority-primary"/>
+
+            </f:facet>
+        </h:panelGrid>
     </h:form>
 </h:body>
 </html>
