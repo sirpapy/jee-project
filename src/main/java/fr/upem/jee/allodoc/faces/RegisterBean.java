@@ -39,7 +39,7 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
-        address = new Address();
+        address = new AddressBuilder().createAddress();
         address.setLocation(new Location());
 //        fieldOfActivities = FieldOfActivityService.getAll();
         loadFakeData();

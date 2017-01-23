@@ -1,9 +1,11 @@
 package fr.upem.jee.allodoc.service;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.Location;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -33,5 +35,14 @@ public class LocationService extends Service<Location> {
             return newLocation;
         }
         return location.get();
+    }
+
+    public static Location getByNamedArea(String regionName) {
+        Objects.requireNonNull(regionName);
+        DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
+        TypedQuery<Location> findLocationByRegion = databaseManager.getEntityManager().createNamedQuery("findLocationByRegion", Location.class);
+        findLocationByRegion.setParameter("region", regionName);
+        List<Location> resultList = findLocationByRegion.getResultList();
+        return resultList.isEmpty() ? new Location.Builder().setCity(regionName).build() : resultList.get(0);
     }
 }

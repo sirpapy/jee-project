@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import java.io.Serializable;
 
@@ -11,8 +12,12 @@ import java.io.Serializable;
  * Created by raptao on 12/14/2016.
  */
 @Entity
-@NamedQuery(name = "findByPostalCode",
-        query = "Select l from Location l where l.postalCode = :pc")
+@NamedQueries({
+        @NamedQuery(name = "findByPostalCode",
+                query = "Select l from Location l where l.postalCode = :pc"),
+        @NamedQuery(name = "findLocationByRegion",
+                query = "Select l from Location  l where l.city = :region")
+})
 public class Location implements Serializable {
 
     private static final String DEFAULT_COUNTRY_NAME = "France";
@@ -95,7 +100,7 @@ public class Location implements Serializable {
         }
 
         public Location build() {
-            if( country == null){
+            if (country == null) {
                 return new Location(postalCode, city);
             }
             return new Location(postalCode, city, country);

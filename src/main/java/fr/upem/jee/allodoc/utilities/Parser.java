@@ -1,20 +1,18 @@
 package fr.upem.jee.allodoc.utilities;
 
 import fr.upem.jee.allodoc.entity.Address;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
-import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import fr.upem.jee.allodoc.service.LocationService;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -24,48 +22,48 @@ public class Parser {
     public static final Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
     public static final String CONSTANT_FRANCE = "France";
 
-    public static List<Physician> parseCSVDoctor(Path path) throws IOException {
-        List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
-        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
-        List<Physician> toReturn = new ArrayList<>();
+    /**
+     * Returns a list of physicians with any data associated with those physician.
+     * This method parses an {@link InputStream} of a CSV file.
+     * @param csvInputStream the input stream of the csv file containing all data about physicians
+     * @return a list of {@link Physician} object
+     * @throws IOException in case of I/O errors
+     */
+    private static List<Physician> parseCSVPhysicians(InputStream csvInputStream) throws IOException {
+        List<String> dataOnDoctorCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
+        List<Physician> physicians = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
             String[] columns = line.split(";");
             String lastName = columns[0];
             String firstName = columns[1];
-            // TODO : what to do with those variables?
             String fieldOfActivity = columns[2];
-            String dateAccreditation = columns[3];
-            String nomDepartement = columns[5];
-            String regionExercice = columns[6];
+            String practiceAreaDepartment = columns[5];
+            String practiceAreaRegion = columns[6];
             String status = columns[8];
-            Physician ph = new Physician.Builder()
+            Physician physician = new Physician.Builder()
                     .setFirstName(firstName)
                     .setLastName(lastName)
+                    .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
+                    .setPracticeArea(LocationService.getByNamedArea(practiceAreaRegion))
                     .setStatus(status).build();
-
-            // TODO finish it
-//            FieldOfActivity foc = FieldOfActivityService.getSelectedFieldOfActivity(fieldOfActivity);
-//            if (foc != null) {
-//                ph.setSelectedFieldOfActivity(foc);
-//            } else {
-//                save(new FieldOfActivity(fieldOfActivity));
-//            }
-            Address address = new Address();
-            address.setStreetName("");
-            address.setStreetNumber("");
-            ph.setAddress(address);
-            toReturn.add(ph);
+            Address address = new Address.Builder()
+                    .setLocation(LocationService.getByNamedArea(practiceAreaDepartment))
+                    .createAddress();
+            physician.setAddress(address);
+            physicians.add(physician);
         }
-        return toReturn;
+        return physicians;
     }
 
     public static List<Location> parseCSVPostCode(InputStream csvInputStream) throws IOException {
         List<String> dataOnPostCodeCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
         dataOnPostCodeCSV.remove(0);
         List<Location> toReturn = new ArrayList<>();
-        int cpt=0;
+        int cpt = 0;
         for (String line : dataOnPostCodeCSV) {
-            if(cpt==4){break;}
+            if (cpt == 4) {
+                break;
+            }
             String[] columns = line.split(";");
             String name = columns[1];
             String postCode = columns[2];
@@ -75,4 +73,7 @@ public class Parser {
         return toReturn;
     }
 
+    public static void fillDatabaseWithPhysicians() {
+
+    }
 }

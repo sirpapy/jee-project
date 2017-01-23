@@ -22,6 +22,12 @@ public class Address implements Serializable {
     @OneToOne
     private Location location;
 
+    private Address(String streetNumber, String streetName, Location location) {
+        this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.location = Objects.requireNonNull(location, "location shouldn't be null");
+    }
+
     public Address() {
     }
 
@@ -76,5 +82,30 @@ public class Address implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, streetNumber, streetName, location);
+    }
+
+    public static class Builder {
+        private String streetNumber;
+        private String streetName;
+        private Location location;
+
+        public Builder setStreetNumber(String streetNumber) {
+            this.streetNumber = streetNumber;
+            return this;
+        }
+
+        public Builder setStreetName(String streetName) {
+            this.streetName = streetName;
+            return this;
+        }
+
+        public Builder setLocation(Location location) {
+            this.location = location;
+            return this;
+        }
+
+        public Address createAddress() {
+            return new Address(streetNumber, streetName, location);
+        }
     }
 }
