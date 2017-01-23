@@ -68,6 +68,7 @@ public class DatabaseManager {
 
     /**
      * Saves entities in the database ( not updating )
+     *
      * @param entities entities to be saved
      */
     public void save(Object... entities) {
@@ -129,14 +130,16 @@ public class DatabaseManager {
     public void fillDatabaseWithPhysicians() throws IOException {
         try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
             List<Physician> physicians = Parser.parseCSVPhysicians(physiciansStream);
-            save(physicians);
+            Physician[] physiciansArray = physicians.toArray(new Physician[physicians.size()]);
+            save(physiciansArray);
         }
     }
 
     public void fillDatabaseWithLocations() throws IOException {
         try (InputStream locationsStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
             List<Location> locations = Parser.parseCSVPostCode(locationsStream);
-            save(locations);
+            Location[] locationsArray = locations.toArray(new Location[locations.size()]);
+            save(locationsArray);
         }
     }
 }

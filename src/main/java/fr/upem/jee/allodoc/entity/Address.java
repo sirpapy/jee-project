@@ -104,7 +104,7 @@ public class Address implements Serializable {
             return this;
         }
 
-        public Address createAddress() {
+        public Address build() {
             return new Address(streetNumber, streetName, location);
         }
     }

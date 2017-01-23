@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc;
 
+import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.User;
@@ -7,7 +9,11 @@ import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 
+import java.io.IOException;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 /**
@@ -50,6 +56,23 @@ public class DatabaseManagerTest {
         assertEquals(3, FieldOfActivityService.getAll().size());
         manager.clear(FieldOfActivity.class);
         assertTrue(FieldOfActivityService.getAll().isEmpty());
+    }
+
+    @Test
+    public void fillWithPhysicians() throws IOException {
+        DatabaseManager manager = new DatabaseManager("DEV-MODE");
+        manager.fillDatabaseWithPhysicians();
+        List<Physician> all = manager.findAll(Physician.class);
+        assertFalse(all.isEmpty());
+    }
+
+    @Test
+    public void fillWithLocations() throws IOException {
+        DatabaseManager manager = new DatabaseManager("DEV-MODE");
+        manager.fillDatabaseWithLocations();
+        List<Location> all = manager.findAll(Location.class);
+        System.out.println("SIZE = "+all.size());
+        assertFalse(all.isEmpty());
     }
 
 }

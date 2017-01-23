@@ -13,6 +13,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -49,29 +50,34 @@ public class Parser {
                     .setStatus(status).build();
             Address address = new Address.Builder()
                     .setLocation(LocationService.getByNamedArea(practiceAreaDepartment))
-                    .createAddress();
+                    .build();
             physician.setAddress(address);
             physicians.add(physician);
         }
         return physicians;
     }
 
+    /**
+     * Returns a distinct list of {@link Location} objects fetched from the csvInputStream.
+     *
+     * @param csvInputStream input stream where data are fetched from
+     * @return the list of location
+     * @throws IOException in case of I/O error
+     */
     public static List<Location> parseCSVPostCode(InputStream csvInputStream) throws IOException {
         List<String> dataOnPostCodeCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
         dataOnPostCodeCSV.remove(0);
-        List<Location> toReturn = new ArrayList<>();
-        int cpt = 0;
-        for (String line : dataOnPostCodeCSV) {
-            if (cpt == 4) {
-                break;
-            }
-            String[] columns = line.split(";");
-            String name = columns[1];
-            String postCode = columns[2];
-            toReturn.add(new Location.Builder().setPostalCode(Integer.valueOf(postCode)).setCity(name).setCountry(CONSTANT_FRANCE).build());
-            cpt++;
-        }
-        return toReturn;
+        return dataOnPostCodeCSV.stream()
+                .skip(1)
+                .map(line -> line.split(";"))
+                .map(tokens -> {
+                    String name = tokens[1];
+                    String postCode = tokens[2];
+                    return new Location.Builder()
+                            .setPostalCode(Integer.parseInt(postCode))
+                            .setCity(name).build();
+                })
+                .distinct().collect(Collectors.toList());
     }
 
 }
