@@ -4,7 +4,7 @@ import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
-import fr.upem.jee.allodoc.utilities.Pages;
+import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -164,7 +164,7 @@ public class RegisterBean implements Serializable {
                 .build();
         patientService.takeControl(p);
         patientService.save();
-        return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
+        return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
     public String registerAsPhysician() {
@@ -181,7 +181,7 @@ public class RegisterBean implements Serializable {
                 .build();
         physicianService.takeControl(physician);
         physicianService.save();
-        return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
+        return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 

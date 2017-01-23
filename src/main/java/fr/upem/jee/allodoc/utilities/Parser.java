@@ -25,11 +25,12 @@ public class Parser {
     /**
      * Returns a list of physicians with any data associated with those physician.
      * This method parses an {@link InputStream} of a CSV file.
+     *
      * @param csvInputStream the input stream of the csv file containing all data about physicians
      * @return a list of {@link Physician} object
      * @throws IOException in case of I/O errors
      */
-    private static List<Physician> parseCSVPhysicians(InputStream csvInputStream) throws IOException {
+    public static List<Physician> parseCSVPhysicians(InputStream csvInputStream) throws IOException {
         List<String> dataOnDoctorCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
         List<Physician> physicians = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
@@ -73,7 +74,4 @@ public class Parser {
         return toReturn;
     }
 
-    public static void fillDatabaseWithPhysicians() {
-
-    }
 }

@@ -1,9 +1,14 @@
 package fr.upem.jee.allodoc;
 
+import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.utilities.Parser;
+import fr.upem.jee.allodoc.utilities.Resources;
 import org.hibernate.Session;
 
 import javax.persistence.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -52,15 +57,22 @@ public class DatabaseManager {
     /**
      * Saves or updates entities in the database
      *
-     * @param entities
+     * @param entities entities to be saved or updated
      */
-    public void save( Object... entities) {
+    public void saveOrUpdate(Object... entities) {
         applyTransaction((entity) -> {
             Session session = em.unwrap(Session.class);
             session.saveOrUpdate(entity);
         }, entities);
     }
 
+    /**
+     * Saves entities in the database ( not updating )
+     * @param entities entities to be saved
+     */
+    public void save(Object... entities) {
+        applyTransaction(em::persist, entities);
+    }
 
     /**
      * Removes entities from database
@@ -112,5 +124,19 @@ public class DatabaseManager {
         em.getTransaction().begin();
         query.executeUpdate();
         em.getTransaction().commit();
+    }
+
+    public void fillDatabaseWithPhysicians() throws IOException {
+        try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
+            List<Physician> physicians = Parser.parseCSVPhysicians(physiciansStream);
+            save(physicians);
+        }
+    }
+
+    public void fillDatabaseWithLocations() throws IOException {
+        try (InputStream locationsStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
+            List<Location> locations = Parser.parseCSVPostCode(locationsStream);
+            save(locations);
+        }
     }
 }

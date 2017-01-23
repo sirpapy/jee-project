@@ -5,5 +5,4 @@ package fr.upem.jee.allodoc.utilities;
  */
 public enum UserType {
     PATIENT, PHYSICIAN
-
 }

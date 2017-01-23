@@ -24,11 +24,11 @@ public class DatabaseManagerTest {
         u.setFirstName("thierry");
         u.setLastName("rabearijao");
         u.setEmail("thierryrabearijao@mail.com");
-        manager.save(u);
+        manager.saveOrUpdate(u);
         TypedQuery<User> query = manager.getEntityManager().createQuery("Select u from User u where u.firstName='thierry' and u.lastName='rabearijao'", User.class);
         User singleResult = query.getResultList().get(0);
 
-        // test save
+        // test saveOrUpdate
         assertEquals( u.getFirstName(), singleResult.getFirstName());
         assertEquals( u.getLastName(), singleResult.getLastName());
         assertEquals( u.getEmail(), singleResult.getEmail());
@@ -46,7 +46,7 @@ public class DatabaseManagerTest {
         FieldOfActivity a = new FieldOfActivity("a");
         FieldOfActivity b = new FieldOfActivity("b");
         FieldOfActivity c = new FieldOfActivity("c");
-        manager.save(a, b, c);
+        manager.saveOrUpdate(a, b, c);
         assertEquals(3, FieldOfActivityService.getAll().size());
         manager.clear(FieldOfActivity.class);
         assertTrue(FieldOfActivityService.getAll().isEmpty());
