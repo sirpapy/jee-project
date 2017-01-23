@@ -58,20 +58,13 @@ public class DatabaseManagerTest {
         assertTrue(FieldOfActivityService.getAll().isEmpty());
     }
 
-    @Test
-    public void fillWithPhysicians() throws IOException {
-        DatabaseManager manager = new DatabaseManager("DEV-MODE");
-        manager.fillDatabaseWithPhysicians();
-        List<Physician> all = manager.findAll(Physician.class);
-        assertFalse(all.isEmpty());
-    }
+
 
     @Test
     public void fillWithLocations() throws IOException {
         DatabaseManager manager = new DatabaseManager("DEV-MODE");
         manager.fillDatabaseWithLocations();
         List<Location> all = manager.findAll(Location.class);
-        System.out.println("SIZE = "+all.size());
         assertFalse(all.isEmpty());
     }
 

@@ -54,7 +54,9 @@ public class Parser {
             physician.setAddress(address);
             physicians.add(physician);
         }
-        return physicians;
+        return physicians
+                // TODO : delete the line below for prod
+                .stream().limit(100).collect(Collectors.toList());
     }
 
     /**

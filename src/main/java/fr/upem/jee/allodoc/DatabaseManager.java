@@ -1,10 +1,8 @@
 package fr.upem.jee.allodoc;
 
 import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.utilities.Parser;
 import fr.upem.jee.allodoc.utilities.Resources;
-import org.hibernate.Session;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -61,8 +59,9 @@ public class DatabaseManager {
      */
     public void saveOrUpdate(Object... entities) {
         applyTransaction((entity) -> {
-            Session session = em.unwrap(Session.class);
-            session.saveOrUpdate(entity);
+            em.merge(entity);
+//            Session session = em.unwrap(Session.class);
+//            session.saveOrUpdate(entity);
         }, entities);
     }
 
@@ -71,9 +70,9 @@ public class DatabaseManager {
      *
      * @param entities entities to be saved
      */
-    public void save(Object... entities) {
-        applyTransaction(em::persist, entities);
-    }
+//    public void save(Object... entities) {
+//        applyTransaction(em::persist, entities);
+//    }
 
     /**
      * Removes entities from database
@@ -127,19 +126,13 @@ public class DatabaseManager {
         em.getTransaction().commit();
     }
 
-    public void fillDatabaseWithPhysicians() throws IOException {
-        try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
-            List<Physician> physicians = Parser.parseCSVPhysicians(physiciansStream);
-            Physician[] physiciansArray = physicians.toArray(new Physician[physicians.size()]);
-            save(physiciansArray);
-        }
-    }
+
 
     public void fillDatabaseWithLocations() throws IOException {
         try (InputStream locationsStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
             List<Location> locations = Parser.parseCSVPostCode(locationsStream);
             Location[] locationsArray = locations.toArray(new Location[locations.size()]);
-            save(locationsArray);
+            saveOrUpdate(locationsArray);
         }
     }
 }

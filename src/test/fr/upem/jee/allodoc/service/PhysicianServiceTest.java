@@ -6,6 +6,7 @@ import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +21,7 @@ public class PhysicianServiceTest {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
     @Test
-    public void getFromId(){
+    public void getFromId() {
         Physician physician = new Physician();
         PhysicianService controller = new PhysicianService(physician);
         physician.setLastName("raptao");
@@ -36,7 +37,7 @@ public class PhysicianServiceTest {
     }
 
     @Test
-    public void register(){
+    public void register() {
         Physician physician = new Physician.Builder()
                 .setEmail("email")
                 .setPassword("password")
@@ -61,6 +62,7 @@ public class PhysicianServiceTest {
         assertEquals(retrieved.getStatus(), physician.getStatus());
         assertEquals(retrieved.getBirthDate(), physician.getBirthDate());
     }
+
     @Test
     public void getAvailabilities() throws ParseException {
         Physician physician = new Physician();
@@ -81,6 +83,38 @@ public class PhysicianServiceTest {
 
 
     @Test
+    public void distinctSave() {
+        Physician physician = new Physician.Builder()
+                .setEmail("email")
+                .setPassword("password")
+                .setFirstName("firstName")
+                .setLastName("lastName")
+                .setFieldOfActivity(new FieldOfActivity("science field"))
+                .setBirthDate(Date.valueOf("1992-09-28"))
+                .setPracticeArea(new Location(93, "sd"))
+                .setStatus("public").build();
+
+        Physician physician2 = new Physician.Builder()
+                .setEmail("email")
+                .setPassword("password")
+                .setFirstName("firstName")
+                .setLastName("lastName")
+                .setFieldOfActivity(new FieldOfActivity("science field"))
+                .setBirthDate(Date.valueOf("1992-09-28"))
+                .setPracticeArea(new Location(93, "sd"))
+                .setStatus("public").build();
+
+        PhysicianService physicianService = new PhysicianService(physician);
+        physicianService.save();
+        physicianService.takeControl(physician2);
+        physicianService.save();
+
+        assertEquals(2, PhysicianService.getAll().size());
+        assertEquals(1, FieldOfActivityService.getAll().size());
+
+    }
+
+    @Test
     public void searchByName() throws ParseException {
         Physician physician = new Physician();
         PhysicianService controller = new PhysicianService(physician);
@@ -91,8 +125,9 @@ public class PhysicianServiceTest {
         controller.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByName("raptao").size(),1);
+        assertEquals(searchController.searchByName("raptao").size(), 1);
     }
+
     @Test
     public void searchByFieldOfActivity() throws ParseException {
         Physician physician = new Physician();
@@ -108,11 +143,9 @@ public class PhysicianServiceTest {
         controller.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByFieldOfActivity("GENERALISTE").size(),1);
+        assertEquals(searchController.searchByFieldOfActivity("GENERALISTE").size(), 1);
 
     }
-
-
 
 
     @Test
@@ -135,9 +168,15 @@ public class PhysicianServiceTest {
         controller.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, "GENERALISTE", location).size(),1);
+        assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, "GENERALISTE", location).size(), 1);
 
     }
 
+    @Test
+    public void fillWithPhysicians() throws IOException {
+        PhysicianService.fillDatabaseWithPhysicians();
+        List<Physician> all = PhysicianService.getAll();
+        assertFalse(all.isEmpty());
+    }
 
 }

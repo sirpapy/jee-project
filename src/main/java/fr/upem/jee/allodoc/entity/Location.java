@@ -19,6 +19,7 @@ import java.util.Objects;
 public class Location implements Serializable {
 
     private static final String DEFAULT_COUNTRY_NAME = "France";
+    public static final int DEFAULT_NO_POSTAL_CODE = 999999;
     @Id
     @GeneratedValue
 
@@ -27,6 +28,7 @@ public class Location implements Serializable {
     private Integer postalCode;
     private String city;
     private String country;
+
     public Location() {
     }
 
@@ -39,6 +41,10 @@ public class Location implements Serializable {
 
     public Location(Integer postalCode, String city) {
         this(postalCode, city, DEFAULT_COUNTRY_NAME);
+    }
+
+    private static String cleanCityString(String city) {
+        return city.replace("-", " ").toUpperCase();
     }
 
     @Override
@@ -91,23 +97,19 @@ public class Location implements Serializable {
                 country.equals(location.country);
     }
 
-    private String cleanCityString( String city ){
-        return city.replace("-", " ").toUpperCase();
-    }
-
     public static class Builder {
         private int postalCode;
         private String city;
         private String country;
 
         public Builder setPostalCode(int postalCode) {
-            Preconditions.checkArgument(postalCode>0, "postal code is < 0 :: "+postalCode);
+            Preconditions.checkArgument(postalCode > 0, "postal code is < 0 :: " + postalCode);
             this.postalCode = postalCode;
             return this;
         }
 
         public Builder setCity(String city) {
-            this.city = city;
+            this.city = cleanCityString(city);
             return this;
         }
 
@@ -117,6 +119,9 @@ public class Location implements Serializable {
         }
 
         public Location build() {
+            if( postalCode == 0){
+                postalCode = DEFAULT_NO_POSTAL_CODE;
+            }
             if (country == null) {
                 return new Location(postalCode, city);
             }

@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,7 +16,7 @@ public class Address implements Serializable {
     private String streetNumber;
     private String streetName;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL)
     private Location location;
 
     private Address(String streetNumber, String streetName, Location location) {
