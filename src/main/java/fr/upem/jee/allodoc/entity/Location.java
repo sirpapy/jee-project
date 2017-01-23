@@ -101,6 +101,7 @@ public class Location implements Serializable {
         private String country;
 
         public Builder setPostalCode(int postalCode) {
+            Preconditions.checkArgument(postalCode>0, "postal code is < 0 :: "+postalCode);
             this.postalCode = postalCode;
             return this;
         }

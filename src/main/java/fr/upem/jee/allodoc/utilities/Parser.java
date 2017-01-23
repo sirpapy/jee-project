@@ -69,6 +69,7 @@ public class Parser {
         dataOnPostCodeCSV.remove(0);
         return dataOnPostCodeCSV.stream()
                 .skip(1)
+                .limit(100) // TODO : delete line this for prod
                 .map(line -> line.split(";"))
                 .map(tokens -> {
                     String name = tokens[1];
