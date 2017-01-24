@@ -1,13 +1,13 @@
 package fr.upem.jee.allodoc.entity;
 
-import javax.management.relation.Role;
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by raptao on 1/24/2017.
  */
 @Entity
-@Table(name = "user_account")
+@Table(name = "roles")
 public class UserAccount {
 
     @Id
@@ -20,10 +20,23 @@ public class UserAccount {
     @Column(name = "user_password")
     private String password;
 
-    @OneToOne
-    private UserRole role;
+    @ManyToMany
+    private List<UserRole> roles;
 
     public UserAccount() {
+    }
+
+    public UserAccount(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 
     public long getId() {

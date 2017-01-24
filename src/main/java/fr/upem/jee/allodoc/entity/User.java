@@ -21,9 +21,11 @@ public class User implements Serializable {
     String lastName;
     String phoneNumber;
     String email;
-    String password;
+
+    @OneToOne
+    UserAccount account;
     Date birthDate;
-    @OneToOne( cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     Address address;
 
     User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
@@ -31,11 +33,19 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.password = password;
+        this.account = new UserAccount(email, password);
         this.address = address;
     }
 
     public User() {
+    }
+
+    public UserAccount getAccount() {
+        return account;
+    }
+
+    public void setAccount(UserAccount account) {
+        this.account = account;
     }
 
     public Date getBirthDate() {
@@ -92,14 +102,6 @@ public class User implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
 }
