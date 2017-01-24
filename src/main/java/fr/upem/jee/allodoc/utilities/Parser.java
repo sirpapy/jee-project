@@ -4,12 +4,10 @@ import fr.upem.jee.allodoc.entity.Address;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
-import fr.upem.jee.allodoc.service.LocationService;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +18,6 @@ import java.util.stream.Collectors;
  * Created by Sirpapy on 30/11/2016.
  */
 public class Parser {
-    public static final Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
-    public static final String CONSTANT_FRANCE = "France";
 
     /**
      * Returns a list of physicians with any data associated with those physician.
@@ -33,6 +29,7 @@ public class Parser {
      */
     public static List<Physician> parseCSVPhysicians(InputStream csvInputStream) throws IOException {
         List<String> dataOnDoctorCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
+        dataOnDoctorCSV.remove(0);
         List<Physician> physicians = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
             String[] columns = line.split(";");
@@ -46,10 +43,10 @@ public class Parser {
                     .setFirstName(firstName)
                     .setLastName(lastName)
                     .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
-                    .setPracticeArea(LocationService.getByNamedArea(practiceAreaRegion))
+                    .setPracticeArea(new Location.Builder().setCity(practiceAreaRegion).build())
                     .setStatus(status).build();
             Address address = new Address.Builder()
-                    .setLocation(LocationService.getByNamedArea(practiceAreaDepartment))
+                    .setLocation(new Location.Builder().setCity(practiceAreaDepartment).build())
                     .build();
             physician.setAddress(address);
             physicians.add(physician);

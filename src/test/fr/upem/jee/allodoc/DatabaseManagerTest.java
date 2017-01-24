@@ -60,12 +60,6 @@ public class DatabaseManagerTest {
 
 
 
-    @Test
-    public void fillWithLocations() throws IOException {
-        DatabaseManager manager = new DatabaseManager("DEV-MODE");
-        manager.fillDatabaseWithLocations();
-        List<Location> all = manager.findAll(Location.class);
-        assertFalse(all.isEmpty());
-    }
+
 
 }

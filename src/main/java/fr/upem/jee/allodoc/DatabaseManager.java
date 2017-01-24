@@ -128,11 +128,4 @@ public class DatabaseManager {
 
 
 
-    public void fillDatabaseWithLocations() throws IOException {
-        try (InputStream locationsStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
-            List<Location> locations = Parser.parseCSVPostCode(locationsStream);
-            Location[] locationsArray = locations.toArray(new Location[locations.size()]);
-            saveOrUpdate(locationsArray);
-        }
-    }
 }
