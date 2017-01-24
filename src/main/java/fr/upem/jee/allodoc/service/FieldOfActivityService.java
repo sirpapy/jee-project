@@ -30,7 +30,7 @@ public class FieldOfActivityService extends Service<FieldOfActivity> {
         Objects.requireNonNull(fieldOfActivity);
         Optional<FieldOfActivity> byName = getByName(fieldOfActivity.getName());
         if( !byName.isPresent()){
-            DatabaseManager.getDatabaseManager().save(fieldOfActivity);
+            DatabaseManager.getDatabaseManager().saveOrUpdate(fieldOfActivity);
         }
     }
 

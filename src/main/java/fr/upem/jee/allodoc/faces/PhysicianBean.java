@@ -3,7 +3,7 @@ package fr.upem.jee.allodoc.faces;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
-import fr.upem.jee.allodoc.utilities.Pages;
+import fr.upem.jee.allodoc.utilities.Resources;
 
 import java.util.Optional;
 
@@ -39,11 +39,11 @@ public class PhysicianBean {
     public String authenticate() {
         Optional<User> authenticate = controller.authenticate(email, password);
         if( !authenticate.isPresent()){
-            return Pages.PAGE_LOGIN_FORM + Pages.TAG_AVOIDING_EXPIRED_VIEW;
+            return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
         }
         User u = authenticate.get();
         physician = PhysicianService.getById(u.getId());
-        return Pages.PAGE_INDEX;
+        return Resources.PAGE_INDEX;
     }
 
 

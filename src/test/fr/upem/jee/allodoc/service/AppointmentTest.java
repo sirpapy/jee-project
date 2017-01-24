@@ -34,7 +34,7 @@ public class AppointmentTest {
 //        physician.setFirstName("thierry");
 //        physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
 //        physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-//        phController.save(physician);
+//        phController.saveOrUpdate(physician);
 //
 //
 //        Patient patient = new Patient();
@@ -44,7 +44,7 @@ public class AppointmentTest {
 //        AppointmentService appointmentController = new AppointmentService();
 //
 //        appointmentController.setAppointment(patient, physician, 2);
-//        patientController.save();
+//        patientController.saveOrUpdate();
 //        assertTrue(patient.getAppointments().size() == 1);
 //
 //    }

@@ -1,6 +1,6 @@
 package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.utilities.Pages;
+import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -21,7 +21,7 @@ public class PageNavigationBean implements Serializable {
     SearchBean searchBean;
 
     public String goToHome() {
-        return Pages.PAGE_PATIENT_HOME;
+        return Resources.PAGE_PATIENT_HOME;
     }
 
 

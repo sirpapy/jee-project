@@ -2,17 +2,19 @@ package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
-import fr.upem.jee.allodoc.entity.Availability;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
+import fr.upem.jee.allodoc.utilities.Parser;
+import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -146,7 +148,38 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      */
     @Override
     public void save() {
+        FieldOfActivity fieldOfActivity = physician.getFieldOfActivity();
+        Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
+        if( byName.isPresent()){
+            physician.setFieldOfActivity(byName.get());
+        }
+        Location practiceArea = physician.getPracticeArea();
+        Optional<Location> byNamedArea = LocationService.getByNamedArea(practiceArea.getCity());
+        if(byNamedArea.isPresent()){
+            physician.setPracticeArea(byNamedArea.get());
+        }
+        Address address = physician.getAddress();
+        AddressService addressService = new AddressService( address );
+        Optional<Location> existingLocation = addressService.existingLocation();
+        if( existingLocation.isPresent()){
+            address.setLocation(existingLocation.get());
+        }
         save(physician);
+    }
+
+    public static void fillDatabaseWithPhysicians() throws IOException {
+        PhysicianService physicianService = new PhysicianService();
+        try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
+            List<Physician> physicians = Parser.parseCSVPhysicians(physiciansStream);
+            physicians.forEach(p->{
+                physicianService.takeControl(p);
+                physicianService.save();
+            });
+        }
+    }
+
+    public static List<Physician> getAll(){
+        return DatabaseManager.getDatabaseManager().findAll(Physician.class);
     }
 
 

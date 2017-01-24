@@ -2,23 +2,30 @@ package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Created by raptao on 12/14/2016.
  */
 @Entity
-@NamedQuery(name = "findByPostalCode",
-        query = "Select l from Location l where l.postalCode = :pc")
+@NamedQueries({
+        @NamedQuery(name = "findByPostalCode",
+                query = "Select l from Location l where l.postalCode = :pc"),
+        @NamedQuery(name = "findLocationByRegion",
+                query = "Select l from Location  l where l.city = :region")
+})
 public class Location implements Serializable {
 
     private static final String DEFAULT_COUNTRY_NAME = "France";
+    public static final int DEFAULT_NO_POSTAL_CODE = 999999;
     @Id
-    private Integer postalCode;
+    @GeneratedValue
 
+
+    private long id;
+    private Integer postalCode;
     private String city;
     private String country;
 
@@ -26,7 +33,7 @@ public class Location implements Serializable {
     }
 
     public Location(int postalCode, String city, String country) {
-        Preconditions.checkArgument(postalCode > 0, "postalCode must be > 0");
+        Preconditions.checkArgument(postalCode > 0, "postalCode must be > 0 : yours :" + postalCode);
         this.postalCode = postalCode;
         this.city = Preconditions.checkNotNull(city, "city should not be null");
         this.country = Preconditions.checkNotNull(country, "country should not bet null");
@@ -34,6 +41,23 @@ public class Location implements Serializable {
 
     public Location(Integer postalCode, String city) {
         this(postalCode, city, DEFAULT_COUNTRY_NAME);
+    }
+
+    private static String cleanCityString(String city) {
+        return city.replace("-", " ").toUpperCase();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(postalCode, city, country);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Integer getPostalCode() {
@@ -69,10 +93,9 @@ public class Location implements Serializable {
         Location location = (Location) o;
 
         return postalCode.equals(location.postalCode) &&
-                city.equals(location.city) &&
+                cleanCityString(city).equals(cleanCityString(location.city)) &&
                 country.equals(location.country);
     }
-
 
     public static class Builder {
         private int postalCode;
@@ -80,12 +103,13 @@ public class Location implements Serializable {
         private String country;
 
         public Builder setPostalCode(int postalCode) {
+            Preconditions.checkArgument(postalCode > 0, "postal code is < 0 :: " + postalCode);
             this.postalCode = postalCode;
             return this;
         }
 
         public Builder setCity(String city) {
-            this.city = city;
+            this.city = cleanCityString(city);
             return this;
         }
 
@@ -95,7 +119,10 @@ public class Location implements Serializable {
         }
 
         public Location build() {
-            if( country == null){
+            if( postalCode == 0){
+                postalCode = DEFAULT_NO_POSTAL_CODE;
+            }
+            if (country == null) {
                 return new Location(postalCode, city);
             }
             return new Location(postalCode, city, country);

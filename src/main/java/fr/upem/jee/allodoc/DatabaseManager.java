@@ -1,9 +1,12 @@
 package fr.upem.jee.allodoc;
 
-import org.hibernate.Session;
+import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.utilities.Parser;
+import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.persistence.*;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -52,15 +55,24 @@ public class DatabaseManager {
     /**
      * Saves or updates entities in the database
      *
-     * @param entities
+     * @param entities entities to be saved or updated
      */
-    public void save( Object... entities) {
+    public void saveOrUpdate(Object... entities) {
         applyTransaction((entity) -> {
-            Session session = em.unwrap(Session.class);
-            session.saveOrUpdate(entity);
+            em.merge(entity);
+//            Session session = em.unwrap(Session.class);
+//            session.saveOrUpdate(entity);
         }, entities);
     }
 
+    /**
+     * Saves entities in the database ( not updating )
+     *
+     * @param entities entities to be saved
+     */
+//    public void save(Object... entities) {
+//        applyTransaction(em::persist, entities);
+//    }
 
     /**
      * Removes entities from database
@@ -113,4 +125,7 @@ public class DatabaseManager {
         query.executeUpdate();
         em.getTransaction().commit();
     }
+
+
+
 }

@@ -18,7 +18,7 @@ public class Service<T> {
     }
 
     public void save(T object) {
-        manager.save(object);
+        manager.saveOrUpdate(object);
     }
 
     public void remove(T object) {

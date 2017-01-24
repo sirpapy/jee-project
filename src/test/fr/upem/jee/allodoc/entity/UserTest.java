@@ -49,7 +49,7 @@ public class UserTest {
 
     @Test
     public void setAndGetAddress() throws Exception {
-        Address address = new Address();
+        Address address = new Address.Builder().build();
         address.setId(1L);
         address.setRegion(93 , "Seine Saint-Denis", "France");
         address.setStreetName("streetName");
