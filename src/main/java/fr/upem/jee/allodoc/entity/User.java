@@ -11,7 +11,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "getAuthenticatedUser", query = "Select u from User u where u.email= :userEmail and u.account.password= :userPassword")
+@NamedQuery(name = "getAuthenticatedUser", query = "Select u from User u where u.email= :userEmail and u.password= :userPassword")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
     @Id
@@ -21,11 +21,9 @@ public class User implements Serializable {
     String lastName;
     String phoneNumber;
     String email;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    UserAccount account;
+    String password;
     Date birthDate;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne( cascade = CascadeType.ALL)
     Address address;
 
     User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
@@ -33,19 +31,11 @@ public class User implements Serializable {
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.email = email;
-        this.account = new UserAccount(email, password);
+        this.password = password;
         this.address = address;
     }
 
     public User() {
-    }
-
-    public UserAccount getAccount() {
-        return account;
-    }
-
-    public void setAccount(UserAccount account) {
-        this.account = account;
     }
 
     public Date getBirthDate() {
@@ -102,6 +92,14 @@ public class User implements Serializable {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 }
