@@ -9,6 +9,7 @@ import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Pages;
 import fr.upem.jee.allodoc.utilities.Parser;
+import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -30,7 +31,7 @@ import java.util.Map;
 public class PatientDashboardBean {
 
 
-    public static final String RESSOURCE_XLS_LAPOSTE_HEXASMAL_CSV = "/XLS/laposte_hexasmal.csv";
+
     PatientDashboardService patientDashboardService = new PatientDashboardService();
     private String doctorName;
     private long postalCode;
@@ -52,7 +53,7 @@ public class PatientDashboardBean {
 
     public static Map<Integer, String> getPostalCodeList() throws IOException {
         HashMap<Integer, String> toReturn = new HashMap<>();
-        try (InputStream resourceAsStream = PatientDashboardBean.class.getResourceAsStream(RESSOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
+        try (InputStream resourceAsStream = PatientDashboardBean.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
             List<Location> locations = Parser.parseCSVPostCode(resourceAsStream);
             for (Location location : locations) {
                 toReturn.put(location.getPostalCode(), location.getCity());

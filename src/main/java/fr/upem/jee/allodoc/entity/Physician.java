@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -132,7 +134,9 @@ public class Physician extends User implements Serializable {
         }
 
         public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
+            Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
             this.fieldOfActivity = fieldOfActivity;
+
             return this;
         }
 

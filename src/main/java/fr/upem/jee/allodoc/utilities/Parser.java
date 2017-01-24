@@ -1,78 +1,83 @@
 package fr.upem.jee.allodoc.utilities;
 
 import fr.upem.jee.allodoc.entity.Address;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
-import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
  * Created by Sirpapy on 30/11/2016.
  */
 public class Parser {
-    public static final Charset CHARSET_UTF8 = StandardCharsets.UTF_8;
-    public static final String CONSTANT_FRANCE = "France";
 
-    public static List<Physician> parseCSVDoctor(Path path) throws IOException {
-        List<String> dataOnDoctorCSV = Files.readAllLines(Objects.requireNonNull(path), CHARSET_UTF8);
-        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
-        List<Physician> toReturn = new ArrayList<>();
+    /**
+     * Returns a list of physicians with any data associated with those physician.
+     * This method parses an {@link InputStream} of a CSV file.
+     *
+     * @param csvInputStream the input stream of the csv file containing all data about physicians
+     * @return a list of {@link Physician} object
+     * @throws IOException in case of I/O errors
+     */
+    public static List<Physician> parseCSVPhysicians(InputStream csvInputStream) throws IOException {
+        List<String> dataOnDoctorCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
+        dataOnDoctorCSV.remove(0);
+        List<Physician> physicians = new ArrayList<>();
         for (String line : dataOnDoctorCSV) {
             String[] columns = line.split(";");
             String lastName = columns[0];
             String firstName = columns[1];
-            // TODO : what to do with those variables?
             String fieldOfActivity = columns[2];
-            String dateAccreditation = columns[3];
-            String nomDepartement = columns[5];
-            String regionExercice = columns[6];
-            String status = columns[8];
-            Physician ph = new Physician.Builder()
+            String practiceAreaDepartment = columns[5];
+            String practiceAreaRegion = columns[6];
+            String status = columns[columns.length -1];
+            Physician physician = new Physician.Builder()
                     .setFirstName(firstName)
                     .setLastName(lastName)
+                    .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
+                    .setPracticeArea(new Location.Builder().setCity(practiceAreaRegion).build())
                     .setStatus(status).build();
-
-            // TODO finish it
-//            FieldOfActivity foc = FieldOfActivityService.getSelectedFieldOfActivity(fieldOfActivity);
-//            if (foc != null) {
-//                ph.setSelectedFieldOfActivity(foc);
-//            } else {
-//                save(new FieldOfActivity(fieldOfActivity));
-//            }
-            Address address = new Address();
-            address.setStreetName("");
-            address.setStreetNumber("");
-            ph.setAddress(address);
-            toReturn.add(ph);
+            Address address = new Address.Builder()
+                    .setLocation(new Location.Builder().setCity(practiceAreaDepartment).build())
+                    .build();
+            physician.setAddress(address);
+            physicians.add(physician);
         }
-        return toReturn;
+        return physicians
+                // TODO : delete the line below for prod
+                .stream().limit(100).collect(Collectors.toList());
     }
 
+    /**
+     * Returns a distinct list of {@link Location} objects fetched from the csvInputStream.
+     *
+     * @param csvInputStream input stream where data are fetched from
+     * @return the list of location
+     * @throws IOException in case of I/O error
+     */
     public static List<Location> parseCSVPostCode(InputStream csvInputStream) throws IOException {
         List<String> dataOnPostCodeCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
         dataOnPostCodeCSV.remove(0);
-        List<Location> toReturn = new ArrayList<>();
-        int cpt=0;
-        for (String line : dataOnPostCodeCSV) {
-            if(cpt==4){break;}
-            String[] columns = line.split(";");
-            String name = columns[1];
-            String postCode = columns[2];
-            toReturn.add(new Location.Builder().setPostalCode(Integer.valueOf(postCode)).setCity(name).setCountry(CONSTANT_FRANCE).build());
-            cpt++;
-        }
-        return toReturn;
+        return dataOnPostCodeCSV.stream()
+                .skip(1)
+                .limit(100) // TODO : delete line this for prod
+                .map(line -> line.split(";"))
+                .map(tokens -> {
+                    String name = tokens[1];
+                    String postCode = tokens[2];
+                    return new Location.Builder()
+                            .setPostalCode(Integer.parseInt(postCode))
+                            .setCity(name).build();
+                })
+                .distinct().collect(Collectors.toList());
     }
 
 }

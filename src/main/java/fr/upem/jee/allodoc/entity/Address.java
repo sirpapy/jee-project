@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -19,8 +16,14 @@ public class Address implements Serializable {
     private String streetNumber;
     private String streetName;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.ALL)
     private Location location;
+
+    private Address(String streetNumber, String streetName, Location location) {
+        this.streetNumber = streetNumber;
+        this.streetName = streetName;
+        this.location = Objects.requireNonNull(location, "location shouldn't be null");
+    }
 
     public Address() {
     }
@@ -76,5 +79,30 @@ public class Address implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, streetNumber, streetName, location);
+    }
+
+    public static class Builder {
+        private String streetNumber;
+        private String streetName;
+        private Location location;
+
+        public Builder setStreetNumber(String streetNumber) {
+            this.streetNumber = streetNumber;
+            return this;
+        }
+
+        public Builder setStreetName(String streetName) {
+            this.streetName = streetName;
+            return this;
+        }
+
+        public Builder setLocation(Location location) {
+            this.location = location;
+            return this;
+        }
+
+        public Address build() {
+            return new Address(streetNumber, streetName, location);
+        }
     }
 }

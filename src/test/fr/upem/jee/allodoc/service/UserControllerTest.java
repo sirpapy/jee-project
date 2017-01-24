@@ -12,7 +12,7 @@ public class UserControllerTest {
 //        u.setLastName("rabearijao");
 //        u.setEmail("thierryrabearijao@mail.com");
 //        u.setPassword("password");
-//        controller.save(u);
+//        controller.saveOrUpdate(u);
 //        Optional<User> authenticate = controller.authenticate("thierryrabearijao@mail.com", "password");
 //        assertTrue( authenticate.isPresent());
 //        controller.remove(u);

@@ -5,7 +5,7 @@ import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
-import fr.upem.jee.allodoc.utilities.Pages;
+import fr.upem.jee.allodoc.utilities.Resources;
 import org.primefaces.context.RequestContext;
 
 import javax.faces.application.FacesMessage;
@@ -89,8 +89,8 @@ public class LoginBean {
             if (fromId == null) {
                 return failedLogin();
             }
-            completeLogin(patient.getLastName());
-            return Pages.PAGE_PATIENT_HOME;
+            completeSuccessfulLogin(patient.getLastName());
+            return Resources.PAGE_PATIENT_HOME;
         }
         return failedLogin();
 
@@ -106,13 +106,13 @@ public class LoginBean {
             if (fromId == null) {
                 return failedLogin();
             }
-            completeLogin(physician.getLastName());
-            return Pages.PAGE_PHYSICIAN_HOME;
+            completeSuccessfulLogin(physician.getLastName());
+            return Resources.PAGE_PHYSICIAN_HOME;
         }
         return failedLogin();
     }
 
-    private void completeLogin(String userName) {
+    private void completeSuccessfulLogin(String userName) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage welcome = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", userName);
         FacesContext.getCurrentInstance().addMessage(null, welcome);
@@ -124,7 +124,7 @@ public class LoginBean {
         FacesMessage error = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "Invalid credentials");
         FacesContext.getCurrentInstance().addMessage(null, error);
         context.addCallbackParam("loggedIn", false);
-        return Pages.PAGE_LOGIN_FORM;
+        return Resources.PAGE_LOGIN_FORM;
     }
 
     public void addLoginTypeMessage() {
