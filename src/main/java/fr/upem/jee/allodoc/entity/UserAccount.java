@@ -7,7 +7,7 @@ import java.util.List;
  * Created by raptao on 1/24/2017.
  */
 @Entity
-@Table(name = "roles")
+@Table(name = "user_account")
 public class UserAccount {
 
     @Id
@@ -20,8 +20,8 @@ public class UserAccount {
     @Column(name = "user_password")
     private String password;
 
-    @ManyToMany
-    private List<UserRole> roles;
+    @OneToOne
+    private UserRole role;
 
     public UserAccount() {
     }
@@ -31,12 +31,12 @@ public class UserAccount {
         this.password = password;
     }
 
-    public List<UserRole> getRoles() {
-        return roles;
+    public UserRole getRole() {
+        return role;
     }
 
-    public void setRoles(List<UserRole> roles) {
-        this.roles = roles;
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public long getId() {

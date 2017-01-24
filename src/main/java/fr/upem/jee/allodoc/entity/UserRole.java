@@ -16,9 +16,6 @@ public class UserRole {
     @Column(name = "role_name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private List<UserAccount> accounts;
-
     public UserRole() {
     }
 
@@ -28,14 +25,6 @@ public class UserRole {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<UserAccount> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<UserAccount> accounts) {
-        this.accounts = accounts;
     }
 
     public long getId() {

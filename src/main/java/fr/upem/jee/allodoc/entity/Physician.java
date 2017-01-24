@@ -101,6 +101,10 @@ public class Physician extends User implements Serializable {
         this.status = status;
     }
 
+    public void setAccountPassword(String accountPassword) {
+        this.account.setPassword(accountPassword);
+    }
+
 
     public static class Builder {
         private String firstName;
@@ -159,7 +163,7 @@ public class Physician extends User implements Serializable {
         public Physician build() {
             Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
             physician.setEmail(email);
-            physician.setPassword(password);
+            physician.setAccountPassword(password);
             physician.setBirthDate(birthDate);
             physician.setAddress(address);
             return physician;

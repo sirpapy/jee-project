@@ -60,11 +60,5 @@ public class UserTest {
 
     }
 
-    @Test
-    public void setAndGetPassword() throws Exception {
-        u.setPassword("password");
-        assertEquals("password", u.getPassword());
-    }
-
 
 }

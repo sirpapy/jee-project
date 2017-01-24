@@ -58,7 +58,6 @@ public class PhysicianServiceTest {
         assertEquals(retrieved.getFirstName(), physician.getFirstName());
         assertEquals(retrieved.getLastName(), physician.getLastName());
         assertEquals(retrieved.getEmail(), physician.getEmail());
-        assertEquals(retrieved.getPassword(), physician.getPassword());
         assertEquals(retrieved.getStatus(), physician.getStatus());
         assertEquals(retrieved.getBirthDate(), physician.getBirthDate());
     }
