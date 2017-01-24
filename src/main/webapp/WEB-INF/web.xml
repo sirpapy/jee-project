@@ -35,6 +35,32 @@
         <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
 
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Patient pages</web-resource-name>
+            <url-pattern>/patient/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PATIENT</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Physician pages</web-resource-name>
+            <url-pattern>/physician/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>PHYSICIAN</role-name>
+        </auth-constraint>
+    </security-constraint>
+
+    <security-role>
+        <role-name>PATIENT</role-name>
+    </security-role>
+    <security-role>
+        <role-name>PHYSICIAN</role-name>
+    </security-role>
     <error-page>
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/errorpages/expired.xhtml</location>
