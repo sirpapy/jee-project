@@ -9,4 +9,9 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ConnectedUserBean {
+    private int id;
+
+    public ConnectedUserBean(){
+
+    }
 }

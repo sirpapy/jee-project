@@ -24,8 +24,6 @@ public class SearchBean implements Serializable{
     private List<String> RegionList = PatientDashboardBean.getPostalCodeList().values().stream().collect(Collectors.toList());
     private Map<Integer, String> Location = PatientDashboardBean.getPostalCodeList();
 
-    PatientDashboardBean patientDashboardBean = new PatientDashboardBean();
-
     public SearchBean() throws IOException {
     }
 
