@@ -38,7 +38,7 @@ public class Parser {
             String fieldOfActivity = columns[2];
             String practiceAreaDepartment = columns[5];
             String practiceAreaRegion = columns[6];
-            String status = columns[8];
+            String status = columns[columns.length -1];
             Physician physician = new Physician.Builder()
                     .setFirstName(firstName)
                     .setLastName(lastName)
