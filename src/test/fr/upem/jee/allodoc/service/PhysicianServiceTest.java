@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.service;
 
-import fr.upem.jee.allodoc.entity.Availability;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -39,8 +36,7 @@ public class PhysicianServiceTest {
     @Test
     public void register() {
         Physician physician = new Physician.Builder()
-                .setEmail("email")
-                .setPassword("password")
+                .setAccount(new Account("email", "password"))
                 .setFirstName("firstName")
                 .setLastName("lastName")
                 .setFieldOfActivity(new FieldOfActivity("science field"))
@@ -57,7 +53,6 @@ public class PhysicianServiceTest {
         Physician retrieved = search.get(0);
         assertEquals(retrieved.getFirstName(), physician.getFirstName());
         assertEquals(retrieved.getLastName(), physician.getLastName());
-        assertEquals(retrieved.getEmail(), physician.getEmail());
         assertEquals(retrieved.getStatus(), physician.getStatus());
         assertEquals(retrieved.getBirthDate(), physician.getBirthDate());
     }
@@ -84,8 +79,6 @@ public class PhysicianServiceTest {
     @Test
     public void distinctSave() {
         Physician physician = new Physician.Builder()
-                .setEmail("email")
-                .setPassword("password")
                 .setFirstName("firstName")
                 .setLastName("lastName")
                 .setFieldOfActivity(new FieldOfActivity("science field"))
@@ -94,8 +87,6 @@ public class PhysicianServiceTest {
                 .setStatus("public").build();
 
         Physician physician2 = new Physician.Builder()
-                .setEmail("email")
-                .setPassword("password")
                 .setFirstName("firstName")
                 .setLastName("lastName")
                 .setFieldOfActivity(new FieldOfActivity("science field"))

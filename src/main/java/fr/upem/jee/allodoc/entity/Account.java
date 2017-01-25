@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -13,12 +10,12 @@ import java.util.List;
 public class Account {
 
     @Id
-    @Column(name = "user_name")
+    @Column(name = "username")
     private String userName;
 
-    @Column(name = "user_password")
+    @Column(name = "password")
     private String password;
-    @ManyToMany
+    @ManyToMany( cascade = CascadeType.ALL)
     private List<Role> roles;
 
     public Account() {
@@ -52,4 +49,6 @@ public class Account {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

@@ -101,10 +101,6 @@ public class Physician extends User implements Serializable {
         this.status = status;
     }
 
-    public void setAccountPassword(String accountPassword) {
-        this.account.setPassword(accountPassword);
-    }
-
 
     public static class Builder {
         private String firstName;
@@ -113,10 +109,13 @@ public class Physician extends User implements Serializable {
         private String status;
         private Date birthDate;
         private Address address;
-        private String email;
-        private String password;
         private Location practiceArea;
         private Account account;
+
+        public Builder setAccount(Account account) {
+            this.account = account;
+            return this;
+        }
 
         public Builder setAddress(Address address) {
             this.address = address;
@@ -141,22 +140,6 @@ public class Physician extends User implements Serializable {
         public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
             Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
             this.fieldOfActivity = fieldOfActivity;
-
-            return this;
-        }
-
-        public Builder setAccount(String email, String password) {
-            this.account = new Account(email, password);
-            return this;
-        }
-
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder setPassword(String password) {
-            this.password = password;
             return this;
         }
 
@@ -167,8 +150,6 @@ public class Physician extends User implements Serializable {
 
         public Physician build() {
             Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
-            physician.setEmail(email);
-            physician.setAccountPassword(password);
             physician.setBirthDate(birthDate);
             physician.setAddress(address);
             physician.setAccount(account);
