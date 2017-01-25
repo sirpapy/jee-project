@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,4 +52,10 @@ public class Account {
     }
 
 
+    public void addRole(Role role) {
+        if( this.roles == null){
+            this.roles = new ArrayList<>();
+        }
+        roles.add(role);
+    }
 }

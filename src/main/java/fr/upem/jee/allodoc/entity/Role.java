@@ -9,9 +9,6 @@ import java.util.List;
 @Entity
 public class Role {
     @Id
-    @GeneratedValue
-    private long id;
-
     private String name;
 
     @ManyToMany
@@ -19,6 +16,10 @@ public class Role {
     private List<Account> accounts;
 
     public Role() {
+    }
+
+    public Role(String name) {
+        this.name = name;
     }
 
     public List<Account> getAccounts() {
@@ -37,12 +38,4 @@ public class Role {
         this.name = name;
     }
 
-    public long getId() {
-
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

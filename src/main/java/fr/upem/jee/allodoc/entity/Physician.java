@@ -122,6 +122,14 @@ public class Physician extends User implements Serializable {
             return this;
         }
 
+        public Builder setRole(String role) {
+            if( account == null){
+                throw new IllegalStateException("an account has to be set before role");
+            }
+            this.account.addRole(new Role(role));
+            return this;
+        }
+
         public Builder setPracticeArea(Location practiceArea) {
             this.practiceArea = practiceArea;
             return this;

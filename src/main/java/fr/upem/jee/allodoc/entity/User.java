@@ -97,4 +97,7 @@ public class User implements Serializable {
         this.address = address;
     }
 
+    public void setRole(Role role){
+        account.addRole(role);
+    }
 }
