@@ -1,6 +1,9 @@
 package fr.upem.jee.allodoc.utilities;
 
-import fr.upem.jee.allodoc.entity.*;
+import fr.upem.jee.allodoc.entity.Address;
+import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.entity.Physician;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -16,9 +19,8 @@ import java.util.stream.Collectors;
  */
 public class Parser {
 
-    public static final String ALLODOC_DOMAIN = "@allodoc.fr";
-    public static final String DEFAULT_PHYSICIAN_PASSWORD = "allodocPhysician";
-
+    public static final String DOMAIN_ALLODOC_FR = "allodoc.fr";
+    private static final String DEFAULT_PHYSICIAN_PASSWORD = "allodocPhysician";
 
     /**
      * Returns a list of physicians with any data associated with those physician.
@@ -43,9 +45,9 @@ public class Parser {
             Physician physician = new Physician.Builder()
                     .setFirstName(firstName)
                     .setLastName(lastName)
-                    .setEmail(defaultEmailBuilder(firstName, lastName))
+                    .setEmail(buildDefaultEmail(firstName, lastName))
                     .setPassword(DEFAULT_PHYSICIAN_PASSWORD)
-                    .setRole(new UserRole(UserType.PHYSICIAN.name()))
+
                     .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
                     .setPracticeArea(new Location.Builder().setCity(practiceAreaRegion).build())
                     .setStatus(status).build();
@@ -58,6 +60,14 @@ public class Parser {
         return physicians
                 // TODO : delete the line below for prod
                 .stream().limit(100).collect(Collectors.toList());
+    }
+
+    private static String buildDefaultEmail(String firstName, String lastName) {
+        return cleanName(firstName + "." + lastName) + "@" + DOMAIN_ALLODOC_FR;
+    }
+
+    private static String cleanName(String name) {
+        return name.toLowerCase().replace(" ", "");
     }
 
     /**
@@ -84,11 +94,4 @@ public class Parser {
                 .distinct().collect(Collectors.toList());
     }
 
-    public static String defaultEmailBuilder(String firstName, String lastName) {
-        return cleanName(firstName) + "." + cleanName(lastName) + ALLODOC_DOMAIN;
-    }
-
-    private static String cleanName(String name) {
-        return name.toLowerCase().replace(" ","");
-    }
 }

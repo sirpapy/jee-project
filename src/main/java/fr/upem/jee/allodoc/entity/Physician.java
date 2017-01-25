@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
+import fr.upem.jee.allodoc.service.FieldOfActivityService;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -99,6 +101,11 @@ public class Physician extends User implements Serializable {
         this.status = status;
     }
 
+    public void setAccountPassword(String accountPassword) {
+        this.account.setPassword(accountPassword);
+    }
+
+
     public static class Builder {
         private String firstName;
         private String lastName;
@@ -109,12 +116,7 @@ public class Physician extends User implements Serializable {
         private String email;
         private String password;
         private Location practiceArea;
-        private UserRole role;
-
-        public Builder setRole(UserRole role) {
-            this.role = role;
-            return this;
-        }
+        private Account account;
 
         public Builder setAddress(Address address) {
             this.address = address;
@@ -137,10 +139,16 @@ public class Physician extends User implements Serializable {
         }
 
         public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
+            Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
             this.fieldOfActivity = fieldOfActivity;
+
             return this;
         }
 
+        public Builder setAccount(String email, String password) {
+            this.account = new Account(email, password);
+            return this;
+        }
 
         public Builder setEmail(String email) {
             this.email = email;
@@ -160,10 +168,10 @@ public class Physician extends User implements Serializable {
         public Physician build() {
             Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
             physician.setEmail(email);
-            physician.setPassword(password);
+            physician.setAccountPassword(password);
             physician.setBirthDate(birthDate);
             physician.setAddress(address);
-            physician.setRole(role);
+            physician.setAccount(account);
             return physician;
         }
 

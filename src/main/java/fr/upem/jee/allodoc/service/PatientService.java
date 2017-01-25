@@ -3,7 +3,6 @@ package fr.upem.jee.allodoc.service;
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.*;
-import org.apache.commons.lang3.StringUtils;
 
 
 import javax.persistence.Query;
@@ -16,7 +15,6 @@ import java.util.Objects;
  * Created by raptao on 12/14/2016.
  */
 public class PatientService extends UserServiceImpl<Patient> {
-
 
     public PatientService(Patient patient) {
         super(patient);
@@ -50,8 +48,6 @@ public class PatientService extends UserServiceImpl<Patient> {
 
 
 
-
-
     public Patient getFromId(Long id) {
         Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
         TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientnFromId", Patient.class);
@@ -67,5 +63,7 @@ public class PatientService extends UserServiceImpl<Patient> {
         query.setParameter("pFirstName", firstName);
         return query.getResultList();
     }
+
+
 
 }

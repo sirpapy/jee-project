@@ -46,7 +46,6 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      *
      * @param physician the {@link Physician} to be taken control of
      */
-  // takeControl()
 
     /**
      * Searches and returns the list of physician with the firstName and the lastName given in argument
@@ -156,7 +155,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         if( existingLocation.isPresent()){
             address.setLocation(existingLocation.get());
         }
-        super.save();
+        save(getControlledUser());
     }
 
     public static void fillDatabaseWithPhysicians() throws IOException {
