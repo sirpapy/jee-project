@@ -65,4 +65,8 @@
         <exception-type>javax.faces.application.ViewExpiredException</exception-type>
         <location>/errorpages/expired.xhtml</location>
     </error-page>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>tomcat-realm</realm-name>
+    </login-config>
 </web-app>
