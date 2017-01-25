@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.utilities;
 
-import fr.upem.jee.allodoc.entity.Address;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
@@ -48,6 +45,7 @@ public class Parser {
                     .setLastName(lastName)
                     .setEmail(defaultEmailBuilder(firstName, lastName))
                     .setPassword(DEFAULT_PHYSICIAN_PASSWORD)
+                    .setRole(new UserRole(UserType.PHYSICIAN.name()))
                     .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
                     .setPracticeArea(new Location.Builder().setCity(practiceAreaRegion).build())
                     .setStatus(status).build();

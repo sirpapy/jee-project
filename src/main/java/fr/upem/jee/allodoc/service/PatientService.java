@@ -17,11 +17,9 @@ import java.util.Objects;
  */
 public class PatientService extends UserServiceImpl<Patient> {
 
-    private Patient patient;
 
     public PatientService(Patient patient) {
-        super();
-        this.patient = patient;
+        super(patient);
     }
 
     public PatientService() {
@@ -44,21 +42,14 @@ public class PatientService extends UserServiceImpl<Patient> {
             Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
             query.getFirstResult();
             Availability appointment = manager().getEntityManager().find(Availability.class, appointmentId);
-            patient.addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability()));
+            getControlledUser().addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability()));
             return true;
         }
         return false;
     }
 
-    /**
-     * This methods takes control of a new {@link Patient} object.
-     *
-     * @param patient the {@link Patient} to be taken control of
-     */
-    public void takeControl(Patient patient) {
-        Objects.requireNonNull(patient);
-        this.patient = patient;
-    }
+
+
 
 
     public Patient getFromId(Long id) {

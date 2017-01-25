@@ -23,7 +23,10 @@ public class User implements Serializable {
     String email;
     String password;
     Date birthDate;
-    @OneToOne( cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.ALL)
+    UserRole role;
+    @OneToOne(cascade = CascadeType.ALL)
     Address address;
 
     User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
@@ -36,6 +39,14 @@ public class User implements Serializable {
     }
 
     public User() {
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 
     public Date getBirthDate() {

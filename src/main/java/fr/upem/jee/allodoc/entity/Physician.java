@@ -1,7 +1,6 @@
 package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.service.FieldOfActivityService;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +8,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Created by raptao on 12/14/2016.
@@ -111,6 +109,12 @@ public class Physician extends User implements Serializable {
         private String email;
         private String password;
         private Location practiceArea;
+        private UserRole role;
+
+        public Builder setRole(UserRole role) {
+            this.role = role;
+            return this;
+        }
 
         public Builder setAddress(Address address) {
             this.address = address;
@@ -133,9 +137,7 @@ public class Physician extends User implements Serializable {
         }
 
         public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
-            Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
             this.fieldOfActivity = fieldOfActivity;
-
             return this;
         }
 
@@ -161,6 +163,7 @@ public class Physician extends User implements Serializable {
             physician.setPassword(password);
             physician.setBirthDate(birthDate);
             physician.setAddress(address);
+            physician.setRole(role);
             return physician;
         }
 
