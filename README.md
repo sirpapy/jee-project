@@ -98,6 +98,21 @@ You also need to configure your **${HOME}/.m2/settings.xml** file, by adding :
         <pluginGroup>org.apache.tomcat.maven</pluginGroup>
     </pluginGroups>
 ```
+###### Authentication requirements
+
+The project uses tomcat container realm for authentication.
+To make it possible, you have to configure your tomcat, by adding these lines in the file : 
+`${TOMCAT_HOME}/conf/server.xml`:
+
+```xml
+<Realm className="org.apache.catalina.realm.JDBCRealm"
+      driverName="org.postgresql.Driver"
+      resourceName="tomcat-realm"
+   connectionURL="jdbc:postgresql://localhost:5432/allodoc?currentSchema=allodoc&amp;user=allodoc&amp;password=allodocPassword"
+       userTable="users" userNameCol="email" userCredCol="password"
+   userRoleTable="user_roles" roleNameCol="role_name"/>
+```
+
 
 **Now, you should be able to deploy**:
 
