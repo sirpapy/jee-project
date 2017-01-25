@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -22,15 +21,12 @@ import java.util.stream.Collectors;
  */
 public class PhysicianService extends UserServiceImpl<Physician> {
 
-    private Physician physician;
-
     /**
      * Initializes a newly created {@link PhysicianService} object.
      * This controller will take control of a new {@link Physician}
      */
     public PhysicianService(Physician physician) {
-        super();
-        this.physician = Objects.requireNonNull(physician);
+        super(physician);
     }
 
     public PhysicianService() {
@@ -50,11 +46,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      *
      * @param physician the {@link Physician} to be taken control of
      */
-    @Override
-    public void takeControl(Physician physician) {
-        Objects.requireNonNull(physician);
-        this.physician = physician;
-    }
+  // takeControl()
 
     /**
      * Searches and returns the list of physician with the firstName and the lastName given in argument
@@ -122,7 +114,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
     // TODO remove this uneeded method
     public Collection<Availability> getAvailabilities() {
         // retrieving all availability_id for the physician
-        Query query = manager().getEntityManager().createNativeQuery("select availability_id from physician_availability where physician_id = " + physician.getId());
+        Query query = manager().getEntityManager().createNativeQuery("select availability_id from physician_availability where physician_id = " + getControlledUser().getId());
         List<BigInteger> resultList = query.getResultList();
         String collect = resultList.stream()
                 .map(String::valueOf)
@@ -137,7 +129,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      * @return true if the controlled physician is available on the time specified by the availability id
      */
     public boolean isAvailableAt(long availabilityId) {
-        String queryString = String.format("select appointment_id FROM  physician_availability where availability_id = %d and physician_id = %d ", availabilityId, physician.getId());
+        String queryString = String.format("select appointment_id FROM  physician_availability where availability_id = %d and physician_id = %d ", availabilityId, getControlledUser().getId());
         Query appointmentIdQuery = manager().getEntityManager().createNativeQuery(queryString);
         List resultList = appointmentIdQuery.getResultList();
         return resultList.isEmpty();
@@ -148,23 +140,23 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      */
     @Override
     public void save() {
-        FieldOfActivity fieldOfActivity = physician.getFieldOfActivity();
+        FieldOfActivity fieldOfActivity = getControlledUser().getFieldOfActivity();
         Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
         if( byName.isPresent()){
-            physician.setFieldOfActivity(byName.get());
+            getControlledUser().setFieldOfActivity(byName.get());
         }
-        Location practiceArea = physician.getPracticeArea();
+        Location practiceArea = getControlledUser().getPracticeArea();
         Optional<Location> byNamedArea = LocationService.getByNamedArea(practiceArea.getCity());
         if(byNamedArea.isPresent()){
-            physician.setPracticeArea(byNamedArea.get());
+            getControlledUser().setPracticeArea(byNamedArea.get());
         }
-        Address address = physician.getAddress();
+        Address address = getControlledUser().getAddress();
         AddressService addressService = new AddressService( address );
         Optional<Location> existingLocation = addressService.existingLocation();
         if( existingLocation.isPresent()){
             address.setLocation(existingLocation.get());
         }
-        save(physician);
+        super.save();
     }
 
     public static void fillDatabaseWithPhysicians() throws IOException {

@@ -3,6 +3,7 @@ package fr.upem.jee.allodoc.service;
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.*;
+import org.apache.commons.lang3.StringUtils;
 
 
 import javax.persistence.Query;
@@ -75,11 +76,5 @@ public class PatientService extends UserServiceImpl<Patient> {
         query.setParameter("pFirstName", firstName);
         return query.getResultList();
     }
-
-
-    public void save() {
-        super.save(patient);
-    }
-
 
 }

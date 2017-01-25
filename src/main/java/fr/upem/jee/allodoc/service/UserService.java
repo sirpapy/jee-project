@@ -13,4 +13,5 @@ public interface UserService<U> {
     public void takeControl(U user);
 
     public void save();
+
 }

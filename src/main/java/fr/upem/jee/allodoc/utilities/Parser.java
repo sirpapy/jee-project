@@ -19,6 +19,10 @@ import java.util.stream.Collectors;
  */
 public class Parser {
 
+    public static final String ALLODOC_DOMAIN = "@allodoc.fr";
+    public static final String DEFAULT_PHYSICIAN_PASSWORD = "allodocPhysician";
+
+
     /**
      * Returns a list of physicians with any data associated with those physician.
      * This method parses an {@link InputStream} of a CSV file.
@@ -38,10 +42,12 @@ public class Parser {
             String fieldOfActivity = columns[2];
             String practiceAreaDepartment = columns[5];
             String practiceAreaRegion = columns[6];
-            String status = columns[columns.length -1];
+            String status = columns[columns.length - 1];
             Physician physician = new Physician.Builder()
                     .setFirstName(firstName)
                     .setLastName(lastName)
+                    .setEmail(defaultEmailBuilder(firstName, lastName))
+                    .setPassword(DEFAULT_PHYSICIAN_PASSWORD)
                     .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
                     .setPracticeArea(new Location.Builder().setCity(practiceAreaRegion).build())
                     .setStatus(status).build();
@@ -80,4 +86,11 @@ public class Parser {
                 .distinct().collect(Collectors.toList());
     }
 
+    public static String defaultEmailBuilder(String firstName, String lastName) {
+        return cleanName(firstName) + "." + cleanName(lastName) + ALLODOC_DOMAIN;
+    }
+
+    private static String cleanName(String name) {
+        return name.toLowerCase().replace(" ","");
+    }
 }
