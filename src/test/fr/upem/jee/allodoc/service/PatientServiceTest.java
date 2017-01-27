@@ -27,10 +27,10 @@ public class PatientServiceTest {
         patient.setFirstName("thierry");
         controller.save(patient);
 
-        Patient fromId = controller.getFromId(1L);
+        Patient fromId = PatientService.getById(1L);
         assertEquals(patient.getFirstName(), fromId.getFirstName());
         controller.remove(fromId);
-        controller.getFromId(1L);
+        PatientService.getById(1L);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class PatientServiceTest {
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
         controller.save(patient);
 
-        Patient p = controller.getFromId(patient.getId());
+        Patient p = PatientService.getById(patient.getId());
         assertFalse(p.getAppointments().isEmpty());
         assertEquals(2, p.getAppointments().size());
 

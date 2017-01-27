@@ -29,7 +29,7 @@
                 <div id="listOfPhysician">
                     <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
                         <div>
-                            <h:commandLink id="aPhysician_#{value.id}" ajax="false" actionListener="#{patientDashboadBean.selectAPhysician(value.id)}" action="physicianProfil">
+                            <h:commandLink id="aPhysician_#{value.id}" ajax="false" actionListener="#{patientDashboadBean.selectAPhysician(value.id)}" action="physicianPage">
                                 <p:panelGrid columns="2">
                                     <f:facet name="header">
                                         <!--<p:graphicImage name="" />-->

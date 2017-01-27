@@ -39,8 +39,7 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
-        address = new Address.Builder().build();
-        address.setLocation(new Location());
+        address = new Address.Builder().setLocation(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build()).setLocation(new Location.Builder().setCity("PARIS").setPostalCode(75000).build()).setLocation(new Location.Builder().setCity("NICE").setPostalCode(234234).build()).build();
 //        fieldOfActivities = FieldOfActivityService.getAll();
         loadFakeData();
     }
@@ -91,9 +90,9 @@ public class RegisterBean implements Serializable {
 
     public void setSelectedFieldOfActivity(FieldOfActivity selectedFieldOfActivity) {
         Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(selectedFieldOfActivity.getName());
-        if(byName.isPresent()){
+        if (byName.isPresent()) {
             this.selectedFieldOfActivity = byName.get();
-        }else{
+        } else {
             FieldOfActivityService service = new FieldOfActivityService();
             service.save(selectedFieldOfActivity);
             this.selectedFieldOfActivity = FieldOfActivityService.getByName(selectedFieldOfActivity.getName()).get();

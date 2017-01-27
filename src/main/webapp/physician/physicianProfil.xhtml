@@ -22,17 +22,19 @@
         </div>
         <div class="row">
             <h:form>
-            <h:outputText value="Nom:"/>
-            <h:outputText value="#{patientDashboadBean.getSelectedPhysician.firstName}"/><br/>
-            <h:outputText value="Domaine d'activité:"/>
-            <h:outputText value="#{patientDashboadBean.getSelectedPhysician.fieldOfActivity.name}"/><br/>
-            <h:outputText value="Région:"/>
-            <h:outputText value="#{patientDashboadBean.getSelectedPhysician.address.location.city}"/><br/>
-            <h:outputText value="Availabilities:"/>
-            <p:selectOneRadio id="availabilityRadio" value="#{patientDashboadBean.selectAvailabilityID}">
-                <f:selectItems value="#{patientDashboadBean.getSelectedPhysician.availabilities}" var="avail" itemLabel="Begin : #{avail.beginAvailability} ---- End #{avail.endAvailability}" itemValue="#{avail.id}" />
-            </p:selectOneRadio>
-            <p:commandButton value="Validate appointment"  id="validateAppointment" onclick="index" actionListener="#{patientDashboadBean.validateAppointment(loginBean.)}" action="index"/>
+                <h:outputText value="Nom:"/>
+                <h:outputText value="#{connectedUserBean.user.firstName}"/><br/>
+                <h:outputText value="Région:"/>
+                <h:outputText value="#{connectedUserBean.user.address.location.city}"/><br/>
+                <h:outputText value="Availabilities:"/>
+                <!--<p:selectOneRadio id="availabilityRadio" value="#{patientDashboadBean.selectAvailabilityID}">-->
+                <!--<f:selectItems value="#{patientDashboadBean.getSelectedPhysician.availabilities}" var="avail"-->
+                <!--itemLabel="Begin : #{avail.beginAvailability} &#45;&#45;&#45;&#45; End #{avail.endAvailability}"-->
+                <!--itemValue="#{avail.id}"/>-->
+                <!--</p:selectOneRadio>-->
+                <!--<p:commandButton value="Validate appointment" id="validateAppointment" onclick="index"-->
+                <!--actionListener="#{patientDashboadBean.validateAppointment()}"-->
+                <!--action="index"/>-->
             </h:form>
         </div>
     </div>

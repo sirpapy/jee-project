@@ -60,12 +60,12 @@ public class PatientService extends UserServiceImpl<Patient> {
     }
 
 
-    public Patient getFromId(Long id) {
-        Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
-        TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientnFromId", Patient.class);
-        query.setParameter("pId", id);
-        return query.getSingleResult();
-    }
+//    public Patient getFromId(Long id) {
+//        Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
+//        TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientFromId", Patient.class);
+//        query.setParameter("pId", id);
+//        return query.getSingleResult();
+//    }
 
     public List<Patient> search(String firstName, String lastName) {
         Preconditions.checkNotNull(firstName, "firstName should not be null");

@@ -38,6 +38,7 @@
                     </h:selectOneMenu>
                 </div>
                 <p:commandButton value="Search" id="search" action="#{searchBean.startSearch}"/>
+                <p:commandButton value="Show profil" id="showProfil" action="#{connectedUserBean.showPatientProfil(loginBean.connectedUserBean.user.id)}"/>
             </h:form>
         </div>
     </div>

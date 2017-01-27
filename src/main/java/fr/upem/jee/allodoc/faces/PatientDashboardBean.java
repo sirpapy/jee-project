@@ -7,7 +7,6 @@ import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
-import fr.upem.jee.allodoc.utilities.Pages;
 import fr.upem.jee.allodoc.utilities.Parser;
 import fr.upem.jee.allodoc.utilities.Resources;
 
@@ -90,16 +89,14 @@ public class PatientDashboardBean {
         this.getSelectedPhysician = getSelectedPhysician;
     }
 
-    public String validateAppointment() {
-        System.out.println(patientID);
-        System.out.println(selectAvailabilityID);
-        PatientService patientService = new PatientService();
-        Patient patient = new Patient();
-        patientService.save(patient);
-        Patient lePatient = patientService.getFromId(patientID);
-        patientService.takeControl(lePatient);
+    public String validateAppointment(int id) {
+        Preconditions.checkArgument(id>=0, "The user ID sent by search is not valid");
+        this.patientID = id;
+        Patient patient = PatientService.getById(id);
+        PatientService patientService = new PatientService(patient);
         patientService.setNewAppointment(getSelectedPhysician, selectAvailabilityID, selectAvailabilityID);
-        return Pages.PAGE_INDEX;
+        patientService.save(patient);
+        return Resources.PAGE_INDEX;
     }
 
     public int getSelectAvailabilityID() {
