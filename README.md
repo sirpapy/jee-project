@@ -108,9 +108,12 @@ To make it possible, you have to configure your tomcat, by adding these lines in
 <Realm className="org.apache.catalina.realm.JDBCRealm"
       driverName="org.postgresql.Driver"
       resourceName="tomcat-realm"
-   connectionURL="jdbc:postgresql://localhost:5432/allodoc?currentSchema=allodoc&amp;user=allodoc&amp;password=allodocPassword"
-       userTable="users" userNameCol="email" userCredCol="password"
-   userRoleTable="user_roles" roleNameCol="role_name"/>
+   connectionURL="jdbc:postgresql://localhost:5432/allodoc?currentSchema=allodoc"
+   connectionName="allodoc"
+   connectionPassword="allodocPassword"
+       userTable="account" userNameCol="username" userCredCol="password"
+   userRoleTable="account_role" roleNameCol="role_name"/>
+      </Realm>
 ```
 
 
