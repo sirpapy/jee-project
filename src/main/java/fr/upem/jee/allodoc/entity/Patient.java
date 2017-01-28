@@ -55,6 +55,12 @@ public class Patient extends User implements Serializable {
         private String password;
         private Address address;
         private Date birthDate;
+        private Account account;
+
+        public Builder setAccount(Account account) {
+            this.account = account;
+            return this;
+        }
 
         public Builder setFirstName(String firstName) {
             this.firstName = firstName;
@@ -94,7 +100,16 @@ public class Patient extends User implements Serializable {
         public Patient build() {
             Patient patient = new Patient(firstName, lastName, email, phoneNumber, address, password);
             patient.setBirthDate(birthDate);
+            patient.setAccount(account);
             return patient;
+        }
+
+        public Builder setRole(String role) {
+            if( account == null){
+                throw new IllegalStateException("an account has to be set before role");
+            }
+            this.account.addRole(new Role(role));
+            return this;
         }
     }
 }

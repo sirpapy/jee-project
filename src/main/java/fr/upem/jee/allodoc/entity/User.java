@@ -11,7 +11,8 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "users")
-@NamedQuery(name = "getAuthenticatedUser", query = "Select u from User u where u.email= :userEmail and u.password= :userPassword")
+// TODO
+//@NamedQuery(name = "getAuthenticatedUser", query = "Select u from User u where u.email= :userEmail and u.account.password= :userPassword")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User implements Serializable {
     @Id
@@ -20,22 +21,32 @@ public class User implements Serializable {
     String firstName;
     String lastName;
     String phoneNumber;
-    String email;
-    String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    Account account;
+
     Date birthDate;
-    @OneToOne( cascade = CascadeType.ALL)
+
+    @OneToOne(cascade = CascadeType.ALL)
     Address address;
 
     User(String firstName, String lastName, String phoneNumber, String email, String password, Address address) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.password = password;
+        this.account = new Account(email, password);
         this.address = address;
     }
 
     public User() {
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Date getBirthDate() {
@@ -70,14 +81,6 @@ public class User implements Serializable {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -94,12 +97,7 @@ public class User implements Serializable {
         this.address = address;
     }
 
-    public String getPassword() {
-        return password;
+    public void setRole(Role role){
+        account.addRole(role);
     }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
 }
