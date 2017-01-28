@@ -123,7 +123,7 @@ public class Physician extends User implements Serializable {
         }
 
         public Builder setRole(String role) {
-            if( account == null){
+            if (account == null) {
                 throw new IllegalStateException("an account has to be set before role");
             }
             this.account.addRole(new Role(role));

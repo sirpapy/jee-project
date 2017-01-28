@@ -5,6 +5,7 @@ import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
+import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -39,8 +40,7 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
-        address = new Address.Builder().build();
-        address.setLocation(new Location());
+        address = new Address.Builder().setLocation(new Location()).build();
 //        fieldOfActivities = FieldOfActivityService.getAll();
         loadFakeData();
     }
@@ -91,9 +91,9 @@ public class RegisterBean implements Serializable {
 
     public void setSelectedFieldOfActivity(FieldOfActivity selectedFieldOfActivity) {
         Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(selectedFieldOfActivity.getName());
-        if(byName.isPresent()){
+        if (byName.isPresent()) {
             this.selectedFieldOfActivity = byName.get();
-        }else{
+        } else {
             FieldOfActivityService service = new FieldOfActivityService();
             service.save(selectedFieldOfActivity);
             this.selectedFieldOfActivity = FieldOfActivityService.getByName(selectedFieldOfActivity.getName()).get();
@@ -160,7 +160,10 @@ public class RegisterBean implements Serializable {
                 .setLastName(lastName)
                 .setEmail(email)
                 .setBirthDate(birthDate)
+                .setAddress(address)
                 .setPassword(password)
+                .setAccount(new Account(email, password))
+                .setRole(UserType.PATIENT.name())
                 .build();
         patientService.takeControl(p);
         patientService.save();
@@ -173,6 +176,7 @@ public class RegisterBean implements Serializable {
                 .setLastName(lastName)
                 .setBirthDate(birthDate)
                 .setAccount(new Account(email, password))
+                .setRole(UserType.PHYSICIAN.name())
                 .setAddress(address)
                 .setFieldOfActivity(selectedFieldOfActivity)
                 .setPracticeArea(selectedPracticeArea)
