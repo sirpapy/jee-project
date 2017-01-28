@@ -16,7 +16,10 @@ public class Account {
 
     @Column(name = "password")
     private String password;
+
     @ManyToMany( cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "username"), inverseJoinColumns = @JoinColumn(name = "role_name"))
+
     private List<Role> roles;
 
     public Account() {
