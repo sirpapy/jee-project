@@ -160,12 +160,15 @@ public class PhysicianServiceTest {
     @Test
     public void searchByFieldOfActivityNameLocation() throws ParseException {
         Physician physician = new Physician();
-        PhysicianService controller = new PhysicianService(physician);
+        PhysicianService physicianService = new PhysicianService(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
+        Location paris = new Location.Builder().setCity("paris").build();
+        physician.setPracticeArea(paris);
+        physician.setAddress(new Address.Builder().setLocation(paris).build());
         FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityService.save(fieldOfActivity);
+        fieldOfActivityService.distinctSave(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         LocationService locationService = new LocationService();
         locationService.add(75020, "Paris", "France");
@@ -174,7 +177,7 @@ public class PhysicianServiceTest {
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
 
-        controller.save();
+        physicianService.save();
 
         PhysicianService searchController = new PhysicianService();
         assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, "GENERALISTE", location).size(), 1);

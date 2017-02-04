@@ -164,7 +164,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         if( existingLocation.isPresent()){
             address.setLocation(existingLocation.get());
         }
-        save(physician);
+        super.save();
     }
 
     public static void fillDatabaseWithPhysicians() throws IOException {
