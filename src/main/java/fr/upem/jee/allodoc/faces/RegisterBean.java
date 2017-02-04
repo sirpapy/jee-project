@@ -5,6 +5,7 @@ import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
+import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -159,7 +160,10 @@ public class RegisterBean implements Serializable {
                 .setLastName(lastName)
                 .setEmail(email)
                 .setBirthDate(birthDate)
+                .setAddress(address)
                 .setPassword(password)
+                .setAccount(new Account(email, password))
+                .setRole(UserType.PATIENT.name())
                 .build();
         patientService.takeControl(p);
         patientService.save();
@@ -170,10 +174,10 @@ public class RegisterBean implements Serializable {
         Physician physician = new Physician.Builder()
                 .setFirstName(firstName)
                 .setLastName(lastName)
-                .setEmail(email)
                 .setBirthDate(birthDate)
+                .setAccount(new Account(email, password))
+                .setRole(UserType.PHYSICIAN.name())
                 .setAddress(address)
-                .setPassword(password)
                 .setFieldOfActivity(selectedFieldOfActivity)
                 .setPracticeArea(selectedPracticeArea)
                 .setStatus(status)

@@ -109,12 +109,24 @@ public class Physician extends User implements Serializable {
         private String status;
         private Date birthDate;
         private Address address;
-        private String email;
-        private String password;
         private Location practiceArea;
+        private Account account;
+
+        public Builder setAccount(Account account) {
+            this.account = account;
+            return this;
+        }
 
         public Builder setAddress(Address address) {
             this.address = address;
+            return this;
+        }
+
+        public Builder setRole(String role) {
+            if (account == null) {
+                throw new IllegalStateException("an account has to be set before role");
+            }
+            this.account.addRole(new Role(role));
             return this;
         }
 
@@ -136,18 +148,6 @@ public class Physician extends User implements Serializable {
         public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
             Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
             this.fieldOfActivity = fieldOfActivity;
-
-            return this;
-        }
-
-
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder setPassword(String password) {
-            this.password = password;
             return this;
         }
 
@@ -158,10 +158,9 @@ public class Physician extends User implements Serializable {
 
         public Physician build() {
             Physician physician = new Physician(firstName, lastName, status, fieldOfActivity, practiceArea);
-            physician.setEmail(email);
-            physician.setPassword(password);
             physician.setBirthDate(birthDate);
             physician.setAddress(address);
+            physician.setAccount(account);
             return physician;
         }
 

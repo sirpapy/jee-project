@@ -37,8 +37,7 @@ public class UserTest {
 
     @Test
     public void setAndGetEmail() throws Exception {
-        u.setEmail("user@mail.com");
-        assertEquals("user@mail.com", u.getEmail());
+        // TODO
     }
 
     @Test
@@ -58,12 +57,6 @@ public class UserTest {
         assertEquals(address, u.getAddress());
 
 
-    }
-
-    @Test
-    public void setAndGetPassword() throws Exception {
-        u.setPassword("password");
-        assertEquals("password", u.getPassword());
     }
 
 
