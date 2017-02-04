@@ -1,9 +1,6 @@
 package fr.upem.jee.allodoc.service;
 
-import fr.upem.jee.allodoc.entity.Availability;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,6 +15,16 @@ import static junit.framework.TestCase.*;
  * Created by raptao on 12/22/2016.
  */
 public class PhysicianServiceTest {
+    @Test
+    public void searchByFieldOfActivity1() throws Exception {
+
+    }
+
+    @Test
+    public void searchByNameFieldOfActivityLocation() throws Exception {
+
+    }
+
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
     @Test
@@ -131,19 +138,21 @@ public class PhysicianServiceTest {
     @Test
     public void searchByFieldOfActivity() throws ParseException {
         Physician physician = new Physician();
-        PhysicianService controller = new PhysicianService(physician);
+        PhysicianService physicianService = new PhysicianService(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
-        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
+        Location paris = new Location.Builder().setCity("paris").build();
+        physician.setPracticeArea(paris);
+        physician.setAddress(new Address.Builder().setLocation(paris).build());
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityService.save(fieldOfActivity);
+        FieldOfActivityService.distinctSave(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        physicianService.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByFieldOfActivity("GENERALISTE").size(), 1);
+        assertEquals(searchController.searchByFieldOfActivity(new FieldOfActivity("GENERALISTE")).size(), 1);
 
     }
 
