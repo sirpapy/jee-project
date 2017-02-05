@@ -22,4 +22,11 @@ public class SampleUsers {
                 .setStatus("public").build();
     }
 
+
+    public static Patient patient(){
+        return new Patient.Builder()
+                .setFirstName("raptao")
+                .setLastName("thierry")
+                .build();
+    }
 }

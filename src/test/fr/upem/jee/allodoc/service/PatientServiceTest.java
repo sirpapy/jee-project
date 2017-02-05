@@ -1,16 +1,18 @@
 package fr.upem.jee.allodoc.service;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.Appointment;
 import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.sample.SampleUsers;
+import org.junit.Before;
 import org.junit.Test;
 
-import javax.persistence.NoResultException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -19,18 +21,10 @@ import static org.junit.Assert.assertTrue;
 public class PatientServiceTest {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
-    @Test(expected= NoResultException.class)
-    public void getFromId(){
-        Patient patient = new Patient();
-        PatientService controller = new PatientService(patient);
-        patient.setLastName("raptao");
-        patient.setFirstName("thierry");
-        controller.save(patient);
-
-        Patient fromId = PatientService.getById(1L);
-        assertEquals(patient.getFirstName(), fromId.getFirstName());
-        controller.remove(fromId);
-        PatientService.getById(1L);
+    @Before
+    public void clear() {
+        DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
+        databaseManager.clear(Patient.class);
     }
 
     @Test
@@ -39,17 +33,13 @@ public class PatientServiceTest {
         PatientService controller = new PatientService(patient);
         patient.setLastName("raptao");
         patient.setFirstName("thierry");
-//        Patient.setId(2L);
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         patient.addAppointment(new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
         controller.save(patient);
-
-        Patient p = PatientService.getById(patient.getId());
-        assertFalse(p.getAppointments().isEmpty());
+        Patient p = controller.search(patient.getFirstName(), patient.getLastName()).get(0);
         assertEquals(2, p.getAppointments().size());
 
     }
-
 
 
     @Test
@@ -61,7 +51,7 @@ public class PatientServiceTest {
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
         phController.save(physician);
-        Patient patient = new Patient();
+        Patient patient = SampleUsers.patient();
         PatientService patientService = new PatientService(patient);
         assertTrue(patient.getAppointments().size() == 0);
         patientService.setNewAppointment(physician, physician.getAvailabilities().get(0).getId(), physician.getAvailabilities().get(0).getId());
@@ -91,8 +81,6 @@ public class PatientServiceTest {
 //        a1.removeAppointment();
 //        assertEquals(true, a1.isFree());
 //    }
-
-
 
 
 }

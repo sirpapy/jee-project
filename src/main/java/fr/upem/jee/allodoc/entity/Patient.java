@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class Patient extends User implements Serializable {
 
     public void addAppointment(Appointment newAppointment) {
         Preconditions.checkNotNull(newAppointment, "newAppointment should not be null");
+        if( appointments==null){
+            appointments = new ArrayList<>();
+        }
         appointments.add(newAppointment);
     }
 
@@ -40,6 +44,9 @@ public class Patient extends User implements Serializable {
     }
 
     public Collection<Appointment> getAppointments() {
+        if( appointments == null ){
+            appointments = new ArrayList<>();
+        }
         return appointments;
     }
 
