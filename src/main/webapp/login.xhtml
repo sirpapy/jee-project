@@ -16,11 +16,11 @@
         <p:growl id="msg" showDetail="true" life="2500"/>
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="email" value="Email:"/>
-            <input type="text" id="email" name="j_username" />
+            <input type="text" id="email" name="j_username"/>
 
 
             <h:outputLabel for="password" value="Password:"/>
-            <input type="password" id="password" name="j_password" />
+            <input type="password" id="password" name="j_password"/>
 
 
             <h:outputLabel value="Log as a physician ? "/>
@@ -29,10 +29,6 @@
             </p:selectBooleanCheckbox>
 
             <f:facet name="footer">
-                <!--<p:commandButton value="Sign in" update="msg"-->
-                                 <!--action="#{loginBean.signIn()}" icon="ui-icon-star"-->
-                                 <!--styleClass="ui-priority-primary"/>-->
-
                 <h:commandButton type="submit" value="Submit"/>
             </f:facet>
         </h:panelGrid>

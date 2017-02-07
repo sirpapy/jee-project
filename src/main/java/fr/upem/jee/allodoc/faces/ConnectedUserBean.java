@@ -16,9 +16,9 @@ public class ConnectedUserBean {
     private String connectedUsername;
 
     public String getConnectedUsername() {
-        if( connectedUsername == null ){
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        String name = req.getUserPrincipal().getName();
+        if (connectedUsername == null) {
+            HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String name = req.getUserPrincipal().getName();
             connectedUsername = name;
         }
         return connectedUsername;
