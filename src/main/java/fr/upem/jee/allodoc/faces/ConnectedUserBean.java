@@ -1,13 +1,6 @@
 package fr.upem.jee.allodoc.faces;
 
 import javax.annotation.PostConstruct;
-import fr.upem.jee.allodoc.entity.Patient;
-import fr.upem.jee.allodoc.entity.Physician;
-import fr.upem.jee.allodoc.entity.User;
-import fr.upem.jee.allodoc.service.PatientService;
-import fr.upem.jee.allodoc.service.PhysicianService;
-import fr.upem.jee.allodoc.utilities.Resources;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -39,30 +32,29 @@ public class ConnectedUserBean {
     public void load() {
     }
 
-    }
 
-
-    public String showPhysiciantProfil(int id){
-        Physician physician = new Physician();
-        physician.setLastName("NDIAYE DOC");
-        physician.setFirstName("Pape");
-        PhysicianService physicianService = new PhysicianService();
-        physicianService.save(physician);
-        this.id = physicianService.searchByName("NDIAYE").get(0).getId().intValue();
+//
+//    public String showPhysiciantProfil(int id){
+//        Physician physician = new Physician();
+//        physician.setLastName("NDIAYE DOC");
+//        physician.setFirstName("Pape");
+//        PhysicianService physicianService = new PhysicianService();
+//        physicianService.save(physician);
+//        this.id = physicianService.searchByName("NDIAYE").get(0).getId().intValue();
+////        this.id = id;
+//        this.user = PhysicianService.getById(Long.valueOf(id));
+//        return Resources.PAGE_PHYSICIAN_PROFIL;
+//    }
+//
+//    public ConnectedUserBean(){
+//    }
+//    public ConnectedUserBean(User user){
+//        this.user = user;
+//    }
+//    public int getId(){
+//        return id;
+//    }
+//    public void setId(int id){
 //        this.id = id;
-        this.user = PhysicianService.getById(Long.valueOf(id));
-        return Resources.PAGE_PHYSICIAN_PROFIL;
-    }
-
-    public ConnectedUserBean(){
-    }
-    public ConnectedUserBean(User user){
-        this.user = user;
-    }
-    public int getId(){
-        return id;
-    }
-    public void setId(int id){
-        this.id = id;
-    }
+//    }
 }
