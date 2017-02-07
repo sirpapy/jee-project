@@ -11,16 +11,16 @@
 </h:head>
 <h:body>
 
-    <h:form>
+    <form action="j_security_check" method="POST">
         <h3>Sign in !</h3>
         <p:growl id="msg" showDetail="true" life="2500"/>
         <h:panelGrid columns="2" cellpadding="5">
             <h:outputLabel for="email" value="Email:"/>
-            <p:inputText id="email" value="#{loginBean.email}" placeholder="Enter your email"/>
+            <input type="text" id="email" name="j_username"/>
 
 
             <h:outputLabel for="password" value="Password:"/>
-            <p:password id="password" value="#{loginBean.password}" placeholder="Enter your password"/>
+            <input type="password" id="password" name="j_password"/>
 
 
             <h:outputLabel value="Log as a physician ? "/>
@@ -29,12 +29,9 @@
             </p:selectBooleanCheckbox>
 
             <f:facet name="footer">
-                <p:commandButton value="Sign in" update="msg"
-                                 action="#{loginBean.signIn()}" icon="ui-icon-star"
-                                 styleClass="ui-priority-primary"/>
-
+                <h:commandButton type="submit" value="Submit"/>
             </f:facet>
         </h:panelGrid>
-    </h:form>
+    </form>
 </h:body>
 </html>

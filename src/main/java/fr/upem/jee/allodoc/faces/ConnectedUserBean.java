@@ -1,6 +1,6 @@
 package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.entity.Appointment;
+import javax.annotation.PostConstruct;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
@@ -10,8 +10,8 @@ import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by raptao on 1/21/2017.
@@ -19,25 +19,25 @@ import java.util.stream.Collectors;
 @ManagedBean
 @SessionScoped
 public class ConnectedUserBean {
-    private int id;
-    private User user;
 
-    public User getUser() {
-        return user;
+    private String connectedUsername;
+
+    public String getConnectedUsername() {
+        if (connectedUsername == null) {
+            HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String name = req.getUserPrincipal().getName();
+            connectedUsername = name;
+        }
+        return connectedUsername;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setConnectedUsername(String connectedUsername) {
+        this.connectedUsername = connectedUsername;
     }
 
-    public String showPatientProfil(int id){
-        this.id = id;
-        this.user = PatientService.getById(id);
-        return Resources.PAGE_PATIENT_PROFIL;
+    @PostConstruct
+    public void load() {
     }
-
-    public List<Appointment> getAppointments(){
-        return PatientService.getById(id).getAppointments().stream().collect(Collectors.toList());
 
     }
 

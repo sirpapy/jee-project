@@ -2,3 +2,5 @@
 allo-doc.iml
 target/*
 *.iml
+src/main/**/*.java.orig
+src/main/**/*.orig
