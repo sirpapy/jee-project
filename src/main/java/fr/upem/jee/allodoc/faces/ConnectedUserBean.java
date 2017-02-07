@@ -9,4 +9,19 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class ConnectedUserBean {
+
+    private String connectedUsername;
+
+    public String getConnectedUsername() {
+        return connectedUsername;
+    }
+
+    public void setConnectedUsername(String connectedUsername) {
+        this.connectedUsername = connectedUsername;
+    }
+
+    public String load() {
+
+        return "";
+    }
 }
