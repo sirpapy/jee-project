@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * Created by raptao on 1/10/2017.
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @SessionScoped
 public class RegisterBean implements Serializable {
 
