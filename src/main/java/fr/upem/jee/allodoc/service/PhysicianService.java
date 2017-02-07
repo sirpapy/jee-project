@@ -83,10 +83,10 @@ public class PhysicianService extends UserServiceImpl<Physician> {
      * @param fieldOfActivity the name of the physician (First or last name)
     * @return the list of physician, empty list if there is no physician with that name
      */
-    public List<Physician> searchByFieldOfActivity(String fieldOfActivity) {
+    public List<Physician> searchByFieldOfActivity(FieldOfActivity fieldOfActivity) {
         Preconditions.checkNotNull(fieldOfActivity, "field of activity should not be null");
         TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianFieldOfActivity", Physician.class);
-        query.setParameter("pField", fieldOfActivity);
+        query.setParameter("pField", fieldOfActivity.getName());
         return query.getResultList();
     }
 

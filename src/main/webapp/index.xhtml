@@ -14,7 +14,7 @@
 
 <h:body>
 
-    <h:link  outcome="login">go to login page</h:link>
+    <h:link outcome="login">go to login page</h:link>
     <h:form>
 
         <p:inputText value="#{loginBean.email}" placeholder="Enter your email"/>
@@ -41,7 +41,13 @@
         <p:commandButton styleClass="ui-priority-primary"
                          action="#{navigationBean.goToHome()}"
                          id="goToHome"
-                         value="Go to Home"/>
+                         value="Go to Patient Home"/>
+
+
+        <p:commandButton styleClass="ui-priority-primary"
+                         action="#{navigationBean.goToPhysicianHome()}"
+                         id="goToPhysicianHome"
+                         value="Go to Physician Home"/>
     </h:form>
 </h:body>
 

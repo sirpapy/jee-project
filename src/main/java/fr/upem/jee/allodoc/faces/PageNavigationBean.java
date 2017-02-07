@@ -25,6 +25,11 @@ public class PageNavigationBean implements Serializable {
     }
 
 
+    public String goToPhysicianHome() {
+        return Resources.PAGE_PHYSICIAN_HOME;
+    }
+
+
     public List<String> getFieldOfActivity() {
         return new ArrayList<String>() {{
             add("Generaliste");

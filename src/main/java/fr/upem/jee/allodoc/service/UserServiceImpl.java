@@ -50,13 +50,7 @@ abstract class UserServiceImpl<U extends User> extends Service<U> implements Use
     }
 
     public void save() {
-        user.setLastName(user.getLastName().toUpperCase());
-        user.setFirstName(getCapitalizeLowerCase());
         manager().saveOrUpdate(user);
-    }
-
-    private String getCapitalizeLowerCase() {
-        return StringUtils.capitalize(user.getFirstName().toLowerCase());
     }
 
 

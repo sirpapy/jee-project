@@ -48,15 +48,13 @@ public class UserTest {
 
     @Test
     public void setAndGetAddress() throws Exception {
-        Address address = new Address.Builder().build();
-        address.setId(1L);
-        address.setRegion(93 , "Seine Saint-Denis", "France");
-        address.setStreetName("streetName");
-        address.setStreetNumber("2 bis");
+        Address address = new Address.Builder()
+                .setStreetName("streetName")
+                .setStreetNumber("2 bis")
+                .setLocation(new Location(93, "seine saint denis"))
+                .build();
         u.setAddress(address);
         assertEquals(address, u.getAddress());
-
-
     }
 
 

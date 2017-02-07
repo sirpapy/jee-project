@@ -5,10 +5,12 @@ import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,32 +34,33 @@ class PatientDashboardService {
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
         fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityService.save(fieldOfActivity);
+//        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        controller.save(physician);
 
         physician.setLastName("NDIAYE");
         physician.setFirstName("PAPE");
         fieldOfActivity = new FieldOfActivity("Gynéco");
-        fieldOfActivityService.save(fieldOfActivity);
+//        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        controller.save(physician);
 
 
         physician.setLastName("NDIAYE");
         physician.setFirstName("PAPEZ");
         fieldOfActivity = new FieldOfActivity("Neurologue");
-        fieldOfActivityService.save(fieldOfActivity);
+//        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
-
+        controller.save(physician);
     }
+
+
 
     public List<Physician> getListOfPhysician(String name) throws ParseException {
         getDummyPhysicianData();

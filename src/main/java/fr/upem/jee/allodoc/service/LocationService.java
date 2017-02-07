@@ -51,7 +51,7 @@ public class LocationService extends Service<Location> {
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
 
-    public Location add(Integer postalCode, String city, String country) {
+    public Location save(Integer postalCode, String city, String country) {
         Optional<Location> location = getByPostalCode(postalCode);
         if (!location.isPresent()) {
             Location newLocation = new Location.Builder()

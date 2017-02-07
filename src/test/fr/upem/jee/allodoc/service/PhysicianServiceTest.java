@@ -1,10 +1,12 @@
 package fr.upem.jee.allodoc.service;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.*;
+import fr.upem.jee.allodoc.sample.SampleUsers;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -17,37 +19,33 @@ import static junit.framework.TestCase.*;
 public class PhysicianServiceTest {
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
+    @Before
+    public void clear(){
+        DatabaseManager manager = DatabaseManager.getDatabaseManager();
+        manager.clear(Physician.class);
+        manager.clear(User.class);
+        manager.clear(FieldOfActivity.class);
+        manager.clear(Address.class);
+        manager.clear(Location.class);
+
+    }
     @Test
-    public void getFromId() {
-        Physician physician = new Physician();
-        PhysicianService controller = new PhysicianService(physician);
-        physician.setLastName("raptao");
-        physician.setFirstName("thierry");
-        controller.save();
+    public void searchByFieldOfActivity1() throws Exception {
 
-        Physician fromId = PhysicianService.getById(1L);
-        assertNotNull(fromId);
-        assertEquals(physician.getFirstName(), fromId.getFirstName());
+    }
 
-        controller.remove(fromId);
-        assertNull(PhysicianService.getById(1L));
+    @Test
+    public void searchByNameFieldOfActivityLocation() throws Exception {
+
     }
 
     @Test
     public void register() {
-        Physician physician = new Physician.Builder()
-                .setAccount(new Account("email", "password"))
-                .setFirstName("firstName")
-                .setLastName("lastName")
-                .setFieldOfActivity(new FieldOfActivity("science field"))
-                .setBirthDate(Date.valueOf("1992-09-28"))
-                .setPracticeArea(new Location(93, "sd"))
-                .setStatus("public").build();
+        Physician physician = SampleUsers.physician();
         PhysicianService service = new PhysicianService(physician);
         service.save();
 
-        List<Physician> search = service.search("firstName", "lastName");
-        assertFalse(search.isEmpty());
+        List<Physician> search = service.search(physician.getFirstName(), physician.getLastName());
         assertEquals(1, search.size());
 
         Physician retrieved = search.get(0);
@@ -59,40 +57,24 @@ public class PhysicianServiceTest {
 
     @Test
     public void getAvailabilities() throws ParseException {
-        Physician physician = new Physician();
-        PhysicianService controller = new PhysicianService(physician);
-        physician.setLastName("raptao");
-        physician.setFirstName("thierry");
+        Physician physician = SampleUsers.physician();
+        PhysicianService physicianService = new PhysicianService(physician);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        physicianService.save();
 
-        List<Physician> search = new PhysicianService(new Physician()).search("thierry", "raptao");
+        List<Physician> search = physicianService.search(physician.getFirstName(), physician.getLastName());
         assertFalse(search.isEmpty());
         Physician physician1 = search.get(0);
         assertEquals(2, physician1.getAvailabilities().size());
-//        Collection<Availability> availabilities = controller.getAvailabilities();
-//        assertEquals(2, availabilities.size());
     }
 
 
     @Test
     public void distinctSave() {
-        Physician physician = new Physician.Builder()
-                .setFirstName("firstName")
-                .setLastName("lastName")
-                .setFieldOfActivity(new FieldOfActivity("science field"))
-                .setBirthDate(Date.valueOf("1992-09-28"))
-                .setPracticeArea(new Location(93, "sd"))
-                .setStatus("public").build();
+        Physician physician = SampleUsers.physician();
 
-        Physician physician2 = new Physician.Builder()
-                .setFirstName("firstName")
-                .setLastName("lastName")
-                .setFieldOfActivity(new FieldOfActivity("science field"))
-                .setBirthDate(Date.valueOf("1992-09-28"))
-                .setPracticeArea(new Location(93, "sd"))
-                .setStatus("public").build();
+        Physician physician2 = SampleUsers.physician();
 
         PhysicianService physicianService = new PhysicianService(physician);
         physicianService.save();
@@ -101,61 +83,56 @@ public class PhysicianServiceTest {
 
         assertEquals(2, PhysicianService.getAll().size());
         assertEquals(1, FieldOfActivityService.getAll().size());
-
     }
 
     @Test
     public void searchByName() throws ParseException {
-        Physician physician = new Physician();
+        Physician physician = SampleUsers.physician();
         PhysicianService controller = new PhysicianService(physician);
-        physician.setLastName("raptao");
-        physician.setFirstName("thierry");
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
         controller.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByName("raptao").size(), 1);
+        assertEquals(searchController.searchByName(physician.getFirstName()).size(), 1);
     }
 
     @Test
     public void searchByFieldOfActivity() throws ParseException {
         Physician physician = new Physician();
-        PhysicianService controller = new PhysicianService(physician);
+        PhysicianService physicianService = new PhysicianService(physician);
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
-        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
+        Location paris = new Location.Builder().setCity("paris").build();
+        physician.setPracticeArea(paris);
+        physician.setAddress(new Address.Builder().setLocation(paris).build());
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityService.save(fieldOfActivity);
+        FieldOfActivityService.distinctSave(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        controller.save();
+        physicianService.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByFieldOfActivity("GENERALISTE").size(), 1);
+        assertEquals(searchController.searchByFieldOfActivity(new FieldOfActivity("GENERALISTE")).size(), 1);
 
     }
 
 
     @Test
     public void searchByFieldOfActivityNameLocation() throws ParseException {
-        Physician physician = new Physician();
-        PhysicianService controller = new PhysicianService(physician);
-        physician.setLastName("raptao");
-        physician.setFirstName("thierry");
-        FieldOfActivityService fieldOfActivityService = new FieldOfActivityService();
+        Physician physician = SampleUsers.physician();
+        PhysicianService physicianService = new PhysicianService(physician);
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
-        fieldOfActivityService.save(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
         LocationService locationService = new LocationService();
-        locationService.add(75020, "Paris", "France");
+        locationService.save(75020, "Paris", "France");
         Location location = locationService.getByPostalCode(75020).get();
         physician.setPracticeArea(location);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
 
-        controller.save();
+        physicianService.save();
 
         PhysicianService searchController = new PhysicianService();
         assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, "GENERALISTE", location).size(), 1);

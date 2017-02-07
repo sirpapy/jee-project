@@ -85,6 +85,7 @@ public class LoginBean {
         if (authenticate.isPresent()) {
             User patient = authenticate.get();
             Patient fromId = PatientService.getById(patient.getId());
+            this.setConnectedUserBean(new ConnectedUserBean(fromId));
             // no physician with this id
             if (fromId == null) {
                 return failedLogin();
@@ -102,6 +103,7 @@ public class LoginBean {
         if (authenticate.isPresent()) {
             User physician = authenticate.get();
             Physician fromId = PhysicianService.getById(physician.getId());
+            this.setConnectedUserBean(new ConnectedUserBean(fromId));
             // no physician with this id
             if (fromId == null) {
                 return failedLogin();

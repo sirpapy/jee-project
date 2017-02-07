@@ -2,13 +2,14 @@ package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.DatabaseManager;
-import fr.upem.jee.allodoc.entity.*;
-
+import fr.upem.jee.allodoc.entity.Appointment;
+import fr.upem.jee.allodoc.entity.Availability;
+import fr.upem.jee.allodoc.entity.Patient;
+import fr.upem.jee.allodoc.entity.Physician;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -27,7 +28,6 @@ public class PatientService extends UserServiceImpl<Patient> {
     public static Patient getById(long patientId){
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
         return  databaseManager.findByLongId(Patient.class, patientId);
-
     }
 
 
@@ -48,12 +48,12 @@ public class PatientService extends UserServiceImpl<Patient> {
 
 
 
-    public Patient getFromId(Long id) {
-        Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
-        TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientnFromId", Patient.class);
-        query.setParameter("pId", id);
-        return query.getSingleResult();
-    }
+//    public Patient getFromId(Long id) {
+//        Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
+//        TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientFromId", Patient.class);
+//        query.setParameter("pId", id);
+//        return query.getSingleResult();
+//    }
 
     public List<Patient> search(String firstName, String lastName) {
         Preconditions.checkNotNull(firstName, "firstName should not be null");

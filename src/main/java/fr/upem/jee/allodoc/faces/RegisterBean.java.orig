@@ -40,7 +40,11 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
+<<<<<<< HEAD
         address = new Address.Builder().setLocation(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build()).setLocation(new Location.Builder().setCity("PARIS").setPostalCode(75000).build()).setLocation(new Location.Builder().setCity("NICE").setPostalCode(234234).build()).build();
+=======
+        address = new Address.Builder().setLocation(new Location()).build();
+>>>>>>> origin/develop
 //        fieldOfActivities = FieldOfActivityService.getAll();
         loadFakeData();
     }

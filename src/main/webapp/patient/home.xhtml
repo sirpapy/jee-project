@@ -14,10 +14,6 @@
 </h:head>
 
 <h:body>
-
-
-
-
     <div id="container">
         <div id="headerBanner" class="row">
             <div id="logoAlloDoc" class="col col-md-8">
@@ -28,22 +24,12 @@
         <div id="SearchPhysicienContainer" class="row">
             <h:form id="form">
                 <p:growl id="msgs" showDetail="true"/>
-
-
                 <div class="col-6 col-md-4">--<p:inputText value="#{searchBean.name}" id="physicianName"/>--</div>
                 <div class="col-6 col-md-4">--PostalCode
-
-                    <!--<p:outputLabel value="Simple:" for="postalCode" />-->
-                    <!--<p:autoComplete id="postalCode" value="#{searchBean.postalCodeList}" completeMethod="#{searchBean.regionList}" />-->
-
 
                     <h:selectOneMenu id="postalCode" value="#{searchBean.postalCode}">
                         <f:selectItems value="#{searchBean.postalCodeList}"/>
                     </h:selectOneMenu>
-
-
-                    <!--<p:inputText value="#{searchBean.postalCode}" id="postalCode"/>-->
-
 
                 </div>
                 <div class="col-6 col-md-4">
@@ -52,6 +38,7 @@
                     </h:selectOneMenu>
                 </div>
                 <p:commandButton value="Search" id="search" action="#{searchBean.startSearch}"/>
+                <p:commandButton value="Show profil" id="showProfil" action="#{connectedUserBean.showPatientProfil(loginBean.connectedUserBean.user.id)}"/>
             </h:form>
         </div>
     </div>
