@@ -23,6 +23,7 @@ import java.util.Optional;
 public class RegisterBean implements Serializable {
 
     private String type;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -158,16 +159,14 @@ public class RegisterBean implements Serializable {
         Patient p = new Patient.Builder()
                 .setFirstName(firstName)
                 .setLastName(lastName)
-                .setEmail(email)
                 .setBirthDate(birthDate)
                 .setAddress(address)
-                .setPassword(password)
                 .setAccount(new Account(email, password))
                 .setRole(UserType.PATIENT.name())
                 .build();
         patientService.takeControl(p);
         patientService.save();
-        return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
+        return Resources.PAGE_PATIENT_HOME + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
     public String registerAsPhysician() {
@@ -184,7 +183,7 @@ public class RegisterBean implements Serializable {
                 .build();
         physicianService.takeControl(physician);
         physicianService.save();
-        return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
+        return Resources.PAGE_PHYSICIAN_HOME + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 

@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface UserService<U> {
     public Optional<User> authenticate(String email, String password);
 
+    public Optional<User> findByLogin(String login);
+
     public void takeControl(U user);
 
     public void save();

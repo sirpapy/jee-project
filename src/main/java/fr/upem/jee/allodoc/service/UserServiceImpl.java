@@ -50,8 +50,15 @@ abstract class UserServiceImpl<U extends User> extends Service<U> implements Use
     }
 
     public void save() {
+        System.out.println("LOGIN "+user.getAccount().getUserName());
         manager().saveOrUpdate(user);
     }
 
-
+    @Override
+    public Optional<User> findByLogin(String login) {
+        TypedQuery<User> getUserByLogin = manager().getEntityManager().createNamedQuery("getUserByLogin", User.class);
+        getUserByLogin.setParameter("userEmail", login);
+        List<User> resultList = getUserByLogin.getResultList();
+        return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
+    }
 }

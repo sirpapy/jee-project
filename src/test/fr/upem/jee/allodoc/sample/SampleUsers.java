@@ -27,6 +27,7 @@ public class SampleUsers {
         return new Patient.Builder()
                 .setFirstName("raptao")
                 .setLastName("thierry")
+                .setAccount(new Account("thierry@raptao", "patientPassword"))
                 .build();
     }
 }
