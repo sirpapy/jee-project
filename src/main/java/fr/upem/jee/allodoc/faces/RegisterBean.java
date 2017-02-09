@@ -12,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +41,8 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
-        address = new Address.Builder().setLocation(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build()).setLocation(new Location.Builder().setCity("PARIS").setPostalCode(75000).build()).setLocation(new Location.Builder().setCity("NICE").setPostalCode(234234).build()).build();
-//        fieldOfActivities = FieldOfActivityService.getAll();
-        loadFakeData();
+        address = new Address();
+        loadData();
     }
 
     public Date getBirthDate() {
@@ -194,19 +192,5 @@ public class RegisterBean implements Serializable {
     private void loadData() {
         fieldOfActivities = FieldOfActivityService.getAll();
         allPracticeAreas = LocationService.getAll();
-    }
-
-    private void loadFakeData() {
-        fieldOfActivities = new ArrayList<>();
-        fieldOfActivities.add(new FieldOfActivity("science field"));
-        fieldOfActivities.add(new FieldOfActivity("dentist field"));
-        fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
-        fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
-        allPracticeAreas = new ArrayList<>();
-        allPracticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
-        allPracticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
-        allPracticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
-        allPracticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
-        allPracticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
     }
 }

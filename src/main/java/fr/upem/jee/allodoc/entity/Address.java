@@ -16,16 +16,17 @@ public class Address implements Serializable {
     private String streetNumber;
     private String streetName;
 
-    @OneToOne( cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private Location location;
 
     private Address(String streetNumber, String streetName, Location location) {
         this.streetNumber = streetNumber;
         this.streetName = streetName;
-        this.location = Objects.requireNonNull(location, "location shouldn't be null");
+        this.location = location;
     }
 
     public Address() {
+        location = new Location();
     }
 
 

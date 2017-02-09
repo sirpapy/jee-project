@@ -30,6 +30,7 @@
                                 <p:inputText label="First Name" value="#{registerBean.firstName}"
                                              placeholder="Enter your first name..."
                                              required="true" styleClass="form-control"/>
+
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Last Name</label>
@@ -39,11 +40,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Birthdate</label>
-                            <br/>
-                            <p:calendar label="Birth date" value="#{registerBean.birthDate}" placeholder="Birth date"
-                                        required="true" converter="dateConverter"
-                                        pattern="yyyy-mm-dd" navigator="true" id="birthdate-picker"
+                            <b:dateTimePicker label="Birth date" value="#{registerBean.birthDate}"
+                                              placeholder="Birth date"
+                                              required="true" converter="dateConverter"
+                                              pattern="yyyy-mm-dd" navigator="true" id="birthdate-picker"
+                                              showTime="false" format="YYYY-MM-DD"
+                                              changeYear="true" changeMonth="true"
                             />
                         </div>
                         <div class="row">
@@ -83,9 +85,12 @@
                         </div>
                         <p:separator/>
                         <div class="form-group">
-                            <label>Email Address
-                                <small>(this will be used as login)</small>
+                            <label>Email address
+                                <small>(this will be used as your login)</small>
                             </label>
+                            <f:facet name="prepend">
+                                <b:iconAwesome name="envelope-o" title="form of address"/>
+                            </f:facet>
                             <p:inputText label="Email" type="email" value="#{registerBean.email}"
                                          placeholder="Enter your email"
                                          required="true" styleClass="form-control"/>
@@ -93,6 +98,9 @@
                         <div class="row">
                             <div class="col-sm-6 form-group">
                                 <label>Password</label>
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="lock" title="form of address"/>
+                                </f:facet>
                                 <p:password id="password" label="Password"
                                             value="#{registerBean.password}"
                                             placeholder="Enter your password"
@@ -102,6 +110,9 @@
                             </div>
                             <div class="col-sm-6 form-group">
                                 <label>Confirm password</label>
+                                <f:facet name="prepend">
+                                    <b:iconAwesome name="lock" title="form of address"/>
+                                </f:facet>
                                 <p:password id="passwordConfirmation" label="Password Confirmation"
                                             value="#{registerBean.password}"
                                             placeholder="Confirm password"
@@ -121,6 +132,9 @@
                                                      filter="true"
                                                      filterMatchMode="contains" scrollHeight="50"
                                                      converter="fieldOfActivityConverter" required="true">
+                                        <f:facet name="prepend">
+                                            <b:iconAwesome name="mortar-board" title="form of address"/>
+                                        </f:facet>
                                         <f:selectItems value="#{registerBean.fieldOfActivities}" var="field"
                                                        itemLabel="#{field.name}"
                                                        itemValue="#{field}"/>
@@ -134,9 +148,10 @@
                                     <label>Choose your status</label>
                                     <!--LISTBOX : status-->
                                     <b:selectOneMenu id="status" value="#{registerBean.status}"
-                                                     tooltip="Choose beetwen Private and Public" required="true">
+                                                     tooltip="Choose beetwen Private and Public" required="true"
+                                    >
                                         <f:facet name="prepend">
-                                            <b:iconAwesome name="comment" title="form of address"/>
+                                            <b:iconAwesome name="asterisk" title="form of address"/>
                                         </f:facet>
                                         <f:selectItem itemLabel="(Please select)" itemDisabled="true"/>
                                         <f:selectItem itemLabel="Private" itemValue="Private"/>
@@ -148,13 +163,16 @@
                             <div class="form-group">
                                 <!--LISTBOX : practiceArea-->
                                 <b:selectOneMenu id="practiceArea" label="Practice area"
-                                                    value="#{registerBean.selectedPracticeArea}"
-                                                    var="p" filter="true" required="true"
-                                                    filterMatchMode="contains" scrollHeight="50"
-                                                    converter="locationConverter">
+                                                 value="#{registerBean.selectedPracticeArea}"
+                                                 var="p" filter="true" required="true"
+                                                 filterMatchMode="contains" scrollHeight="50"
+                                                 converter="locationConverter">
+                                    <f:facet name="prepend">
+                                        <b:iconAwesome name="map-marker" title="form of address"/>
+                                    </f:facet>
                                     <f:selectItems value="#{registerBean.allPracticeAreas}" var="area"
                                                    itemLabel="#{area.postalCode} - #{area.city}"
-                                                   itemValue="#{area}" />
+                                                   itemValue="#{area}"/>
 
                                     <p:column>
                                         <h:outputText value="#{p.postalCode} - #{p.city}"/>
