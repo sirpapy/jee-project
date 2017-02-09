@@ -2,6 +2,7 @@ package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import fr.upem.jee.allodoc.service.LocationService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
@@ -192,6 +193,7 @@ public class RegisterBean implements Serializable {
      */
     private void loadData() {
         fieldOfActivities = FieldOfActivityService.getAll();
+        allPracticeAreas = LocationService.getAll();
     }
 
     private void loadFakeData() {

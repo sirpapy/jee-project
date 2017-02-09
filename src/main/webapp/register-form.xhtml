@@ -86,7 +86,8 @@
                             <label>Email Address
                                 <small>(this will be used as login)</small>
                             </label>
-                            <p:inputText label="Email" type="email" value="#{registerBean.email}" placeholder="Enter your email"
+                            <p:inputText label="Email" type="email" value="#{registerBean.email}"
+                                         placeholder="Enter your email"
                                          required="true" styleClass="form-control"/>
                         </div>
                         <div class="row">
@@ -108,59 +109,70 @@
                             </div>
                         </div>
                         <p:separator/>
-                        <div class="form-group">
-                            <label>Website</label>
-                            <input type="text" placeholder="Enter Website Name Here.." class="form-control"/>
-                        </div>
 
                         <!--FOR PHYSICIAN-->
                         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PHYSICIAN'}">
                             <!-- LIST BOX : fieldOfActivity-->
-                            <p:selectOneListbox id="fieldOfActivity" label="Field of activity"
-                                                value="#{registerBean.selectedFieldOfActivity}" var="f" filter="true"
-                                                filterMatchMode="contains" scrollHeight="50"
-                                                converter="fieldOfActivityConverter" required="true">
-                                <f:selectItems value="#{registerBean.fieldOfActivities}" var="field"
-                                               itemLabel="#{field.name}"
-                                               itemValue="#{field}"/>
-                                <p:column>
-                                    <h:outputText value="#{f.name}"/>
-                                </p:column>
-                            </p:selectOneListbox>
+                            <div class="row">
+                                <div class="col-sm-6 form-group">
+                                    <label>Define your field of activity</label>
+                                    <b:selectOneMenu id="fieldOfActivity"
+                                                     value="#{registerBean.selectedFieldOfActivity}" var="f"
+                                                     filter="true"
+                                                     filterMatchMode="contains" scrollHeight="50"
+                                                     converter="fieldOfActivityConverter" required="true">
+                                        <f:selectItems value="#{registerBean.fieldOfActivities}" var="field"
+                                                       itemLabel="#{field.name}"
+                                                       itemValue="#{field}"/>
+                                        <p:column>
+                                            <h:outputText value="#{f.name}"/>
+                                        </p:column>
+                                    </b:selectOneMenu>
+                                </div>
 
-                            <!--LISTBOX : status-->
-                            <p:selectOneListbox id="status" value="#{registerBean.status}">
-                                <f:selectItem itemLabel="Private" itemValue="Private"/>
-                                <f:selectItem itemLabel="Public" itemValue="Public"/>
-                            </p:selectOneListbox>
+                                <div class="col-sm-6 form-group">
+                                    <label>Choose your status</label>
+                                    <!--LISTBOX : status-->
+                                    <b:selectOneMenu id="status" value="#{registerBean.status}"
+                                                     tooltip="Choose beetwen Private and Public" required="true">
+                                        <f:facet name="prepend">
+                                            <b:iconAwesome name="comment" title="form of address"/>
+                                        </f:facet>
+                                        <f:selectItem itemLabel="(Please select)" itemDisabled="true"/>
+                                        <f:selectItem itemLabel="Private" itemValue="Private"/>
+                                        <f:selectItem itemLabel="Public" itemValue="Public"/>
+                                    </b:selectOneMenu>
 
-                            <!--LISTBOX : practiceArea-->
-                            <p:selectOneListbox id="practiceArea" label="Practice area"
-                                                value="#{registerBean.selectedPracticeArea}"
-                                                var="p" filter="true" required="true"
-                                                filterMatchMode="contains" scrollHeight="50"
-                                                converter="locationConverter">
-                                <f:selectItems value="#{registerBean.allPracticeAreas}" var="area"
-                                               itemLabel="#{area.postalCode}"
-                                               itemValue="#{area}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <!--LISTBOX : practiceArea-->
+                                <b:selectOneMenu id="practiceArea" label="Practice area"
+                                                    value="#{registerBean.selectedPracticeArea}"
+                                                    var="p" filter="true" required="true"
+                                                    filterMatchMode="contains" scrollHeight="50"
+                                                    converter="locationConverter">
+                                    <f:selectItems value="#{registerBean.allPracticeAreas}" var="area"
+                                                   itemLabel="#{area.postalCode} - #{area.city}"
+                                                   itemValue="#{area}" />
 
-                                <p:column>
-                                    <h:outputText value="#{p.postalCode}-#{p.city}"/>
-                                </p:column>
-                            </p:selectOneListbox>
+                                    <p:column>
+                                        <h:outputText value="#{p.postalCode} - #{p.city}"/>
+                                    </p:column>
+                                </b:selectOneMenu>
 
+                            </div>
                             <b:commandButton update="registration-form-grid" value="Confirm physician registration"
                                              action="#{registerBean.registerAsPhysician()}" icon="ui-icon-disk"
                                              styleClass="ui-priority-primary"/>
                         </h:panelGroup>
+
 
                         <!--FOR PATIENT-->
                         <h:panelGroup layout="block" rendered="#{registerBean.type == 'PATIENT'}">
                             <b:commandButton update="registration-form-grid" value="Confirm user registration"
                                              action="#{registerBean.registerAsPatient()}"/>
                         </h:panelGroup>
-
-                        <button type="button" class="btn btn-lg btn-info">Submit</button>
                     </h:panelGroup>
                 </h:form>
             </div>
