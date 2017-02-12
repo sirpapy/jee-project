@@ -14,6 +14,7 @@
 </h:head>
 
 <h:body>
+    <div id="divForBackground"></div>
     <div id="container">
         <div id="headerBanner" class="row">
             <div id="logoAlloDoc" class="col col-md-8">
@@ -23,24 +24,35 @@
         </div>
         <div id="SearchPhysicienContainer" class="row">
             <h:form id="form">
-                <p:growl id="msgs" showDetail="true"/>
-                <div class="col-6 col-md-4">--<p:inputText value="#{searchBean.name}" id="physicianName"/>--</div>
-                <div class="col-6 col-md-4">--PostalCode
+                <div id="formSearch">
+                    <p:growl id="msgs" showDetail="true"/>
+                    <div id="searchQueryInput"><p:inputText
+                            style="width: 100%; font-weight: 900;border-bottom-left-radius: 18px; border-top-left-radius: 18px; height: 40px;"
+                            value="#{searchBean.name}"
+                            id="physicianName"/></div>
+                    <div id="postalCodeSearchInput">
+                        <h:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
+                                         value="#{searchBean.postalCode}">
+                            <f:selectItems value="#{searchBean.postalCodeList}"/>
+                        </h:selectOneMenu>
 
-                    <h:selectOneMenu id="postalCode" value="#{searchBean.postalCode}">
-                        <f:selectItems value="#{searchBean.postalCodeList}"/>
-                    </h:selectOneMenu>
+                    </div>
+                    <div id="fieldOfActivitySearchInput">
+                        <h:selectOneMenu id="fieldOfActivity"
+                                         style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
+                                         value="#{searchBean.fieldOfActivity}">
+                            <f:selectItems value="#{navigationBean.fieldOfActivity}"/>
+                        </h:selectOneMenu>
+                    </div>
 
                 </div>
-                <div class="col-6 col-md-4">
-                    <h:selectOneMenu id="fieldOfActivity" value="#{searchBean.fieldOfActivity}">
-                        <f:selectItems value="#{navigationBean.fieldOfActivity}"/>
-                    </h:selectOneMenu>
+                <div id="divButtonContainer">
+                    <p:commandButton value="Search" id="search" action="#{searchBean.startSearch}" class="btn btn-secondary btn-lg"/>
+                    <p:commandButton value="Show profil" id="showProfil" action="#{connectedUserBean.showPatientProfil(loginBean.connectedUserBean.user.id)}"/>
                 </div>
-                <p:commandButton value="Search" id="search" action="#{searchBean.startSearch}"/>
-                <p:commandButton value="Show profil" id="showProfil" action="#{connectedUserBean.showPatientProfil(loginBean.connectedUserBean.user.id)}"/>
             </h:form>
         </div>
+
     </div>
 </h:body>
 </html>

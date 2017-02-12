@@ -1,5 +1,10 @@
+
+html, body {
+    height:100%;
+}
+
 #SearchPhysicienContainer {
-    text-align: center;
+    /*text-align: center;*/
     width: 70%;
     margin-left: auto;
     margin-right: auto;
@@ -13,10 +18,60 @@ div#aPhysician {
     width: 315px;
 }
 
-#container {
-    background-color: #d2d2d2;
+#divForBackground {
+    background-image: url(/resources/img/background.jpg) !important;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    position: absolute;
+    background-size:cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }
 
-body{
-    background: rgba(234, 234, 234, 0.46) !important;
+#container {
+    z-index: 99999;
+    position: relative;
+}
+
+select[multiple], select[size] {
+    height: auto;
+    height: 40px !important;
+}
+
+#container {
+    height: 100%;
+}
+
+div#formSearch {
+    height: 70px;
+}
+
+div#searchQueryInput {
+    width: 80%;
+    float: left;
+}
+
+div#postalCodeSearchInput {
+    width: 10%;
+    float: left;
+}
+
+div#fieldOfActivitySearchInput {
+    width: 10%;
+    float: left;
+}
+
+.ui-inputfield, .ui-widget-content .ui-inputfield, .ui-widget-header .ui-inputfield {
+    font-weight: bold !important;
+    font-size: 20px;
+    text-align: center;
+}
+
+div#divButtonContainer {
+    text-align: center;
 }
