@@ -13,6 +13,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.Optional;
 
 /**
@@ -20,7 +21,7 @@ import java.util.Optional;
  */
 @ManagedBean
 @RequestScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     @ManagedProperty("#{connectedUserBean}")
     private ConnectedUserBean connectedUserBean;

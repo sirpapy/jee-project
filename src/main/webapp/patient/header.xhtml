@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition>
+    <div id="headerBanner" class="row">
+        <img id="logoAlloDoc" class="col col-md-8" src="/resources/img/logo.png" alt=""/>
+
+        <div id="userFrame">
+            <h:form id="formShowProfil">
+
+                <h:commandButton value="Show profil" id="showProfil"
+                                 action="#{connectedUserBean.showPatientProfil(loginBean.connectedUserBean.user.id)}">
+                    <img id="UserLogo" src="/resources/img/icon-user-default.png" alt=""/>
+                    <div id="userInfo">
+                        <label>Name :</label> Pape NDIAYE<br/>
+                        <label>Type :</label> Patient
+                    </div>
+                </h:commandButton>
+            </h:form>
+        </div>
+    </div>
+
+
+</ui:composition>
+</html>
+

@@ -5,13 +5,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
 
 /**
  * Created by raptao on 1/21/2017.
  */
 @ManagedBean
 @SessionScoped
-public class ConnectedUserBean {
+public class ConnectedUserBean implements Serializable {
 
     private String connectedUsername;
 
