@@ -113,9 +113,11 @@ To make it possible, you have to configure your tomcat, by adding these lines in
    connectionPassword="allodocPassword"
        userTable="account" userNameCol="username" userCredCol="password"
    userRoleTable="account_role" roleNameCol="role_name"/>
-      </Realm>
 ```
 
+**You need to download postgres driver** : [download link](https://jdbc.postgresql.org/download.html)
+
+Then put it in the **/lib** folder of your tomcat installation.
 
 **Now, you should be able to deploy**:
 
