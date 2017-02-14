@@ -5,6 +5,8 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -43,11 +45,15 @@ public class Patient extends User implements Serializable {
     public void removeAppointment(Appointment a) {
         appointments.remove(a);
     }
+    SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
-    public Collection<Appointment> getAppointments() {
+    public Collection<Appointment> getAppointments() throws ParseException {
         if (appointments == null) {
             appointments = new ArrayList<>();
         }
+        appointments.add( new Appointment(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
+        appointments.add( new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
+
         return appointments;
     }
 

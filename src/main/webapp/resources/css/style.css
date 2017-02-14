@@ -85,3 +85,52 @@ div#fieldOfActivitySearchInput {
 div#divButtonContainer {
     text-align: center;
 }
+
+div.appointmentList {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+ol#j_idt13\:j_idt14_list {
+    list-style-type: none;
+}
+
+div#j_idt13\:j_idt21\:j_idt22_content {
+    height: 360px;
+    overflow-y: scroll;
+}
+
+.hourAppointment {
+    width: 476px;
+}
+
+input.appointmentDelete {
+    float: right;
+}
+
+.doctorForAppointment {
+    max-width: 200px;
+}
+
+.appointmentDetails {
+    float: left;
+    width: 90%;
+}
+.anAppointment {
+    padding-top: 1em;
+    padding-bottom: 2em;
+}
+
+div#j_idt13\:j_idt14_content {
+    padding-bottom: 2em;
+    padding-right: 1em;
+}
+
+input#formShowProfil\:showProfil {
+    width: 127px;
+}
+
+div#headerBanner {
+    padding-bottom: 3em;
+}
