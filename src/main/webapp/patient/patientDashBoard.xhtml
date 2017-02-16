@@ -12,39 +12,39 @@
     <h:outputStylesheet library="css" name="bootstrap/bootstrap-theme.min.css"/>
     <h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>
     <h:outputScript library="js" name="bootstrap/bootstrap.min.js"/>
-    <!--<h:outputScript library="js" name="twiceClickFix.js" target="head"/>-->
-
 </h:head>
 
 <h:body>
+    <div id="divForBackground"></div>
     <div id="container">
-        <div id="headerBanner" class="row">
-            <div id="logoAlloDoc" class="col col-md-8">
-                <img src="/resources/img/logo.png" alt=""/>
-            </div>
-            <div id="UserLogo" class="col-6 col-md-4">UserLogo</div>
-        </div>
+        <ui:insert name="header">
+            <ui:include src="header.xhtml"/>
+        </ui:insert>
         <div class="row">
-            <h:form id="form">
-                <div id="listOfPhysician">
-                    <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
-                        <div>
-                            <h:commandLink id="aPhysician_#{value.id}" ajax="false" actionListener="#{patientDashboadBean.selectAPhysician(value.id)}" action="physicianPage">
-                                <p:panelGrid columns="2">
-                                    <f:facet name="header">
-                                        <!--<p:graphicImage name="" />-->
-                                    </f:facet>
-                                    <h:outputText value="Nom:"/>
-                                    <h:outputText value="#{value.firstName}"/>
-                                    <h:outputText value="Domaine d'activité:"/>
-                                    <h:outputText value="#{value.fieldOfActivity.name}"/>
-                                    <h:outputText value="Région:"/>
-                                    <h:outputText value="#{value.practiceArea.city}"/>
-                                </p:panelGrid>
-                            </h:commandLink>
+            <h:form id="form" action="physicianPage">
+                <div class="resultContainer">
+                    <div id="listOfPhysician">
+                        <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
+                            <h:commandButton id="aPhysician_#{value.id}" ajax="false"
+                                           actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
+                                           action="physicianPage">
+                                <div class="aPhysician"><img class="physicianResultPhoto"
+                                                             src="/resources/img/icon-user-default.png" alt=""/>
+                                    <div class="physicianResultDetails">
+                                        <h:outputText value="Nom:"/><br/>
+                                        <h:outputText value="#{value.firstName}"/><br/>
+                                        <h:outputText value="Domaine d'activité:"/>
+                                        <h:outputText value="#{value.fieldOfActivity.name}"/><br/>
+                                        <h:outputText value="Région:"/>
+                                        <h:outputText value="#{value.practiceArea.city}"/>
+                                    </div>
+                                    <div class="chooseAPhysician"><p:commandButton value=""/></div>
+                                </div>
+                            </h:commandButton>
 
-                        </div>
-                    </ui:repeat>
+                        </ui:repeat>
+                    </div>
+                    <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" /></div>
                 </div>
             </h:form>
         </div>
