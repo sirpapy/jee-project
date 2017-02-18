@@ -3,6 +3,7 @@ package fr.upem.jee.allodoc.faces;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
+import fr.upem.jee.allodoc.service.AppointmentService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
@@ -91,6 +92,14 @@ public class ConnectedUserBean implements Serializable {
     public void setPatient(boolean patient) {
         isPatient = patient;
     }
+
+    public String removeAppointment(long appointmentID ){
+        AppointmentService appointmentService = new AppointmentService();
+        appointmentService.removeAppointment(connectedUser.getId(),appointmentID);
+        return "patientProfil";
+    }
+
+
 
     @PostConstruct
     public void load() {

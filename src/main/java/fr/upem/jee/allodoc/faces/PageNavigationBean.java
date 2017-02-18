@@ -5,6 +5,7 @@ import fr.upem.jee.allodoc.utilities.Resources;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  */
 @ManagedBean(name = "navigationBean", eager = true)
 @RequestScoped
+@SessionScoped
 public class PageNavigationBean implements Serializable {
 
 

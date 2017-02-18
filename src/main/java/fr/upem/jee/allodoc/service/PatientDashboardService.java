@@ -1,4 +1,4 @@
-package fr.upem.jee.allodoc.faces;
+package fr.upem.jee.allodoc.service;
 
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.service.PatientService;
@@ -8,6 +8,7 @@ import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Physician;
 
+import javax.faces.bean.ManagedProperty;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,8 +19,9 @@ import java.util.List;
  */
 
 
+public class PatientDashboardService {
 
-class PatientDashboardService {
+
     SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
     private PhysicianService physicianService = new PhysicianService();
     private PatientService patientService = new PatientService();

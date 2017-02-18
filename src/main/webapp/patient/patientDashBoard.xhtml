@@ -25,9 +25,9 @@
                 <div class="resultContainer">
                     <div id="listOfPhysician">
                         <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
-                            <h:commandButton id="aPhysician_#{value.id}" ajax="false"
+                            <h:commandLink id="aPhysician_#{value.id}" ajax="false"
                                            actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
-                                           action="physicianPage">
+                                           action="physicianPage?faces-redirect=true">
                                 <div class="aPhysician"><img class="physicianResultPhoto"
                                                              src="/resources/img/icon-user-default.png" alt=""/>
                                     <div class="physicianResultDetails">
@@ -38,9 +38,8 @@
                                         <h:outputText value="Région:"/>
                                         <h:outputText value="#{value.practiceArea.city}"/>
                                     </div>
-                                    <div class="chooseAPhysician"><p:commandButton value=""/></div>
                                 </div>
-                            </h:commandButton>
+                            </h:commandLink>
 
                         </ui:repeat>
                     </div>

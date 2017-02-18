@@ -28,10 +28,10 @@
                     <f:facet name="header"> list of appointment </f:facet>
                     <div class="anAppointment">
                         <div class="appointmentDetails">
-                            <div class="doctorForAppointment"> DOCTEUR X</div>
+                            <div class="doctorForAppointment"> #{appointment.physicianName}</div>
                             <div class="hourAppointment"> #{appointment.beginHour}, #{appointment.endHour} </div>
                         </div>
-                        <h:commandButton styleClass="appointmentDelete" value="X"/>
+                        <h:commandButton styleClass="appointmentDelete" value="X" action="#{connectedUserBean.removeAppointment(appointment.id)}"/>
 
                     </div>
                 </p:dataList>

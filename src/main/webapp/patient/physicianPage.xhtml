@@ -23,32 +23,25 @@
                 <div class="physicianInfo">
 
                     <label class="physicianLabel"> Nom: </label>
-                    <label class="physicianValue">#{patientDashboadBean.getSelectedPhysician.firstName}</label><br/>
+                    <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.firstName}</label><br/>
                     <label class="physicianLabel"> Domaine d'activité:</label>
-                    <label class="physicianValue">#{patientDashboadBean.getSelectedPhysician.fieldOfActivity.name}</label><br/>
+                    <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.fieldOfActivity.name}</label><br/>
                     <label class="physicianLabel"> Région:</label>
-                    <label class="physicianValue">#{patientDashboadBean.getSelectedPhysician.address.location.city}</label><br/>
+                    <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.address.location.city}</label><br/>
                 </div>
                 <f:facet name="header"> Availabilities: </f:facet>
 
                 <h:selectOneRadio id="availabilityRadio" layout="pageDirection"
-                                  value="#{patientDashboadBean.selectAvailabilityID}">
+                                  value="#{patient_physicianAppointement.patientDashboardBean.selectAvailabilityID}">
                     <f:selectItems styleClass="aRadio"
-                                   value="#{patientDashboadBean.getSelectedPhysician.availabilities}" var="avail"
+                                   value="#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.availabilities}" var="avail"
                                    itemLabel="Begin : #{avail.beginAvailability} ---- End #{avail.endAvailability}"
                                    itemValue="#{avail.id}"/>
                 </h:selectOneRadio>
                 <div class="validateAppointment">
-                    <p:commandButton style="margin-left: auto; margin-right: auto;" value="Validate appointment" id="validateAppointment"
-                                     ajax="false" action="#{patientDashboadBean.validateAppointment(connectedUserBean.connectedPatient.id)}"/>
+                        <p:commandButton style="margin-left: auto; margin-right: auto;" value="Validate appointment" id="validateAppointment"
+                                     ajax="false" action="#{patient_physicianAppointement.validateAppointment(connectedUserBean.connectedPatient.id)}"/>
 
-                    <h:commandButton value="Show profil" id="showProfil" action="}"/>
-
-                    <p:commandButton styleClass="ui-priority-primary"
-                                     action="#{patientDashboadBean.validateAppointment(connectedUserBean.connectedPatient.id)}"
-                                     id="signInAsPatient"
-                                     value="Sign in"
-                                     icon="ui-icon-star"/>
                 </div>
             </h:form>
         </div>

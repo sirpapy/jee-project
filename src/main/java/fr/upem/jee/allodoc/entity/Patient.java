@@ -42,18 +42,18 @@ public class Patient extends User implements Serializable {
         appointments.add(newAppointment);
     }
 
-    public void removeAppointment(Appointment a) {
-        appointments.remove(a);
+    public void removeAppointment(long id) {
+        Appointment toRemove = null;
+        for (Appointment ap:appointments){
+            if(ap.getId()==id){
+                toRemove = ap;
+            }
+        }
+        if(toRemove!=null)
+            appointments.remove(toRemove);
     }
-    SimpleDateFormat f = new SimpleDateFormat("dd-mm-yyyy hh:mm");
 
     public Collection<Appointment> getAppointments() throws ParseException {
-        if (appointments == null) {
-            appointments = new ArrayList<>();
-        }
-        appointments.add( new Appointment(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
-        appointments.add( new Appointment(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-
         return appointments;
     }
 

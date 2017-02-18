@@ -17,7 +17,10 @@ public class Appointment {
     private Long id;
     private Date beginHour;
     private Date endHour;
-//    private Long appointment;
+
+
+    //    private Long appointment;
+    private String physicianName;
 
     @ManyToOne
     private Patient patient;
@@ -32,6 +35,12 @@ public class Appointment {
     public Appointment(Date beginHour, Date endHour) {
         this.beginHour = Objects.requireNonNull(beginHour);
         this.endHour = Objects.requireNonNull(endHour);
+    }
+
+    public Appointment(Date beginHour, Date endHour, String physicianName) {
+        this.beginHour = Objects.requireNonNull(beginHour);
+        this.endHour = Objects.requireNonNull(endHour);
+        this.physicianName = physicianName;
     }
 
     public Long getId() {
@@ -66,11 +75,11 @@ public class Appointment {
         this.patient = patient;
     }
 
-//    public void setAppointment(Long appointment) {
-//        this.appointment = appointment;
-//    }
+    public String getPhysicianName() {
+        return physicianName;
+    }
 
-//    public void removeAppointment() {
-//
-//    }
+    public void setPhysicianName(String doctorName) {
+        this.physicianName = doctorName;
+    }
 }

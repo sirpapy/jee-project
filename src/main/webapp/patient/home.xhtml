@@ -23,7 +23,7 @@
             <ui:include src="header.xhtml"/>
         </ui:insert>
         <div id="SearchPhysicienContainer" class="row">
-            <h:form id="form" action="patientDashBoard.jsf">
+            <h:form id="form">
                 <div id="formSearch">
                     <p:growl id="msgs" showDetail="true"/>
                     <div id="searchQueryInput"><p:inputText
@@ -31,7 +31,8 @@
                             value="#{searchBean.name}"
                             id="physicianName"/></div>
                     <div id="postalCodeSearchInput">
-                        <h:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;" value="#{searchBean.postalCode}">
+                        <h:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
+                                         value="#{searchBean.postalCode}">
                             <f:selectItems value="#{searchBean.postalCodeList}"/>
                         </h:selectOneMenu>
                     </div>
@@ -45,7 +46,7 @@
 
                 </div>
                 <div id="divButtonContainer">
-                    <h:commandButton value="Search" id="search" action="#{searchBean.startSearch()}"/>
+                    <h:commandButton value="Search" id="search" type="submit" action="#{searchBean.startSearch()}" />
                 </div>
             </h:form>
         </div>
