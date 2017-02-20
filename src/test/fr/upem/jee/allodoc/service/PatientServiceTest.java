@@ -44,13 +44,14 @@ public class PatientServiceTest {
 
     @Test
     public void setAppointmentTest() throws ParseException {
-        PhysicianService phController = new PhysicianService();
         Physician physician = new Physician();
         physician.setLastName("raptao");
         physician.setFirstName("thierry");
+        PhysicianService phController = new PhysicianService();
+        phController.takeControl(physician);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
-        phController.save(physician);
+        phController.save();
         Patient patient = SampleUsers.patient();
         PatientService patientService = new PatientService(patient);
         assertTrue(patient.getAppointments().size() == 0);

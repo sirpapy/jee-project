@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc.entity;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +28,8 @@ public class Account {
     }
 
     public Account(String userName, String password) {
-        this.userName = userName;
-        this.password = password;
+        this.userName = Preconditions.checkNotNull(userName, "username shouldn't be null");
+        this.password = Preconditions.checkNotNull(password, "password shouldn't be null");
     }
 
     public List<Role> getRoles() {

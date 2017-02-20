@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.Location;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.service.PatientDashboardService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Parser;
@@ -12,7 +13,7 @@ import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -24,9 +25,8 @@ import java.util.Map;
  * Created by Sirpapy on 19/01/2017.
  */
 
-
+@SessionScoped
 @ManagedBean(name = "patientDashboadBean", eager = true)
-@RequestScoped
 public class PatientDashboardBean {
 
 
@@ -71,6 +71,7 @@ public class PatientDashboardBean {
         Preconditions.checkArgument(selectedPhysicianAfterSearch > 0, "You didn't selected a physician");
         PhysicianService physicianService = new PhysicianService();
         getSelectedPhysician = physicianService.findByLongId(Physician.class, selectedPhysicianAfterSearch);
+
     }
 
     public int getSelectedPhysicianAfterSearch() {
@@ -89,15 +90,7 @@ public class PatientDashboardBean {
         this.getSelectedPhysician = getSelectedPhysician;
     }
 
-    public String validateAppointment(int id) {
-        Preconditions.checkArgument(id>=0, "The user ID sent by search is not valid");
-        this.patientID = id;
-        Patient patient = PatientService.getById(id);
-        PatientService patientService = new PatientService(patient);
-        patientService.setNewAppointment(getSelectedPhysician, selectAvailabilityID, selectAvailabilityID);
-        patientService.save(patient);
-        return Resources.PAGE_INDEX;
-    }
+
 
     public int getSelectAvailabilityID() {
         return selectAvailabilityID;

@@ -2,6 +2,7 @@ package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import fr.upem.jee.allodoc.service.LocationService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
@@ -11,7 +12,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +23,7 @@ import java.util.Optional;
 public class RegisterBean implements Serializable {
 
     private String type;
+
     private String firstName;
     private String lastName;
     private String email;
@@ -40,9 +41,8 @@ public class RegisterBean implements Serializable {
     public RegisterBean() {
         patientService = new PatientService();
         physicianService = new PhysicianService();
-        address = new Address.Builder().setLocation(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build()).setLocation(new Location.Builder().setCity("PARIS").setPostalCode(75000).build()).setLocation(new Location.Builder().setCity("NICE").setPostalCode(234234).build()).build();
-//        fieldOfActivities = FieldOfActivityService.getAll();
-        loadFakeData();
+        address = new Address();
+        loadData();
     }
 
     public Date getBirthDate() {
@@ -158,16 +158,14 @@ public class RegisterBean implements Serializable {
         Patient p = new Patient.Builder()
                 .setFirstName(firstName)
                 .setLastName(lastName)
-                .setEmail(email)
                 .setBirthDate(birthDate)
                 .setAddress(address)
-                .setPassword(password)
                 .setAccount(new Account(email, password))
                 .setRole(UserType.PATIENT.name())
                 .build();
         patientService.takeControl(p);
         patientService.save();
-        return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
+        return Resources.PAGE_PATIENT_HOME + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
     public String registerAsPhysician() {
@@ -184,7 +182,7 @@ public class RegisterBean implements Serializable {
                 .build();
         physicianService.takeControl(physician);
         physicianService.save();
-        return Resources.PAGE_LOGIN_FORM + Resources.TAG_AVOIDING_EXPIRED_VIEW;
+        return Resources.PAGE_PHYSICIAN_HOME + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 
@@ -193,19 +191,6 @@ public class RegisterBean implements Serializable {
      */
     private void loadData() {
         fieldOfActivities = FieldOfActivityService.getAll();
-    }
-
-    private void loadFakeData() {
-        fieldOfActivities = new ArrayList<>();
-        fieldOfActivities.add(new FieldOfActivity("science field"));
-        fieldOfActivities.add(new FieldOfActivity("dentist field"));
-        fieldOfActivities.add(new FieldOfActivity("orthopedist field"));
-        fieldOfActivities.add(new FieldOfActivity("sexophonist lol  field"));
-        allPracticeAreas = new ArrayList<>();
-        allPracticeAreas.add(new Location.Builder().setCity("MONTFERMEIL").setPostalCode(93370).build());
-        allPracticeAreas.add(new Location.Builder().setCity("PARIS").setPostalCode(75000).build());
-        allPracticeAreas.add(new Location.Builder().setCity("NICE").setPostalCode(234234).build());
-        allPracticeAreas.add(new Location.Builder().setCity("LONDRE").setPostalCode(23423).build());
-        allPracticeAreas.add(new Location.Builder().setCity("MARSEILLE").setPostalCode(01000).build());
+        allPracticeAreas = LocationService.getAll();
     }
 }

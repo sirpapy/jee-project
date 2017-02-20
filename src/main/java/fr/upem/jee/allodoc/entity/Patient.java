@@ -5,6 +5,8 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,26 +29,31 @@ public class Patient extends User implements Serializable {
         super();
     }
 
-    public Patient(String firstName, String lastName, String email, String phoneNumber, Address address, String password) {
-        super(firstName, lastName, phoneNumber, email, password, address);
+    public Patient(String firstName, String lastName, Address address, Account account) {
+        super(firstName, lastName, address, account);
     }
+
 
     public void addAppointment(Appointment newAppointment) {
         Preconditions.checkNotNull(newAppointment, "newAppointment should not be null");
-        if( appointments==null){
+        if (appointments == null) {
             appointments = new ArrayList<>();
         }
         appointments.add(newAppointment);
     }
 
-    public void removeAppointment(Appointment a) {
-        appointments.remove(a);
+    public void removeAppointment(long id) {
+        Appointment toRemove = null;
+        for (Appointment ap:appointments){
+            if(ap.getId()==id){
+                toRemove = ap;
+            }
+        }
+        if(toRemove!=null)
+            appointments.remove(toRemove);
     }
 
-    public Collection<Appointment> getAppointments() {
-        if( appointments == null ){
-            appointments = new ArrayList<>();
-        }
+    public Collection<Appointment> getAppointments() throws ParseException {
         return appointments;
     }
 
@@ -57,9 +64,6 @@ public class Patient extends User implements Serializable {
     public static class Builder {
         private String firstName;
         private String lastName;
-        private String phoneNumber;
-        private String email;
-        private String password;
         private Address address;
         private Date birthDate;
         private Account account;
@@ -79,25 +83,12 @@ public class Patient extends User implements Serializable {
             return this;
         }
 
-        public Builder setEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        public Builder setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber;
-            return this;
-        }
 
         public Builder setAddress(Address address) {
             this.address = address;
             return this;
         }
 
-        public Builder setPassword(String password) {
-            this.password = password;
-            return this;
-        }
 
         public Builder setBirthDate(Date birthDate) {
             this.birthDate = birthDate;
@@ -105,14 +96,13 @@ public class Patient extends User implements Serializable {
         }
 
         public Patient build() {
-            Patient patient = new Patient(firstName, lastName, email, phoneNumber, address, password);
+            Patient patient = new Patient(firstName, lastName, address, account);
             patient.setBirthDate(birthDate);
-            patient.setAccount(account);
             return patient;
         }
 
         public Builder setRole(String role) {
-            if( account == null){
+            if (account == null) {
                 throw new IllegalStateException("an account has to be set before role");
             }
             this.account.addRole(new Role(role));

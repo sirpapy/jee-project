@@ -53,7 +53,7 @@ public class Physician extends User implements Serializable {
     }
 
     private Physician(String firstName, String lastName, String status, FieldOfActivity fieldOfActivity, Location practiceArea) {
-        super(firstName, lastName, null, null, null, null);
+        super(firstName, lastName, null, null);
         this.fieldOfActivity = Objects.requireNonNull(fieldOfActivity);
         this.status = Objects.requireNonNull(status);
         this.practiceArea = Objects.requireNonNull(practiceArea);

@@ -40,7 +40,7 @@ public class PatientService extends UserServiceImpl<Patient> {
             Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
             query.getFirstResult();
             Availability appointment = manager().getEntityManager().find(Availability.class, appointmentId);
-            getControlledUser().addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability()));
+            getControlledUser().addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability(), physician.getFirstName()+" "+physician.getLastName()));
             return true;
         }
         return false;

@@ -54,5 +54,14 @@ public class AppointmentService extends Service<Appointment> {
         return false;
     }
 
+    public void removeAppointment(long idPatient, long idAppointment){
+        Preconditions.checkArgument(idAppointment >= 0);
+        Preconditions.checkArgument(idPatient >= 0);
+        Patient lePatient = PatientService.getById(idPatient);
+        lePatient.removeAppointment(idAppointment);
+        PatientService patientService = new PatientService(lePatient);
+        patientService.save();
+    }
+
 
 }

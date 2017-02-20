@@ -59,7 +59,7 @@ public class SearchBean implements Serializable{
         System.out.println(name);
         System.out.println(fieldOfActivity);
         System.out.println(postalCode);
-        return "patientDashBoard";
+        return "patientDashBoard?faces-redirect=true";
     }
 
         public Set<Integer> getPostalCodeList() {
