@@ -50,7 +50,6 @@ abstract class UserServiceImpl<U extends User> extends Service<U> implements Use
     }
 
     public void save() {
-        System.out.println("LOGIN "+user.getAccount().getUserName());
         manager().saveOrUpdate(user);
     }
 
