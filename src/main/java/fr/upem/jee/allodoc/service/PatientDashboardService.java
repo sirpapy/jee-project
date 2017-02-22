@@ -49,6 +49,8 @@ public class PatientDashboardService {
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
+        Location location = new Location(91000,"Evry", "France");
+        physician.setPracticeArea(location);
         controller.save(physician);
 
 
@@ -59,6 +61,8 @@ public class PatientDashboardService {
         physician.setFieldOfActivity(fieldOfActivity);
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30")));
         physician.setAvailability(new Availability(f.parse("07-06-2013 12:30"), f.parse("07-06-2013 12:45")));
+        location = new Location(75020,"Paris", "France");
+        physician.setPracticeArea(location);
         controller.save(physician);
     }
 

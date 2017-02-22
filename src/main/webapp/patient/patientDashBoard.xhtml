@@ -12,6 +12,10 @@
     <h:outputStylesheet library="css" name="bootstrap/bootstrap-theme.min.css"/>
     <h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>
     <h:outputScript library="js" name="bootstrap/bootstrap.min.js"/>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyBnEvpK6QuKAClUMPU-gA4DY1rc7qkkh0k" type="text/javascript"></script>
+
+
+
 </h:head>
 
 <h:body>
@@ -43,10 +47,14 @@
 
                         </ui:repeat>
                     </div>
-                    <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" /></div>
+                    <div class="googleMapContainer">
+                        <p:gmap center="48.853, 2.35" zoom="15" type="ROADMAP" style="width:600px;height:400px" model="#{patientDashboadBean.model}"/>
+                    </div>
                 </div>
             </h:form>
         </div>
     </div>
+
 </h:body>
+
 </html>
