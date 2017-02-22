@@ -30,6 +30,16 @@ public class LocationService extends Service<Location> {
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
 
+    public static void fillDatabaseWithLocations(long dataLimit) throws IOException {
+        LocationService locationService = new LocationService();
+        try (InputStream locationsStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {
+            List<Location> locations = Parser.parseCSVPostCode(locationsStream, dataLimit);
+            locations.forEach(l ->
+                    locationService.save(l)
+            );
+        }
+    }
+
     public static void fillDatabaseWithLocations() throws IOException {
         LocationService locationService = new LocationService();
         try (InputStream locationsStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_LAPOSTE_HEXASMAL_CSV)) {

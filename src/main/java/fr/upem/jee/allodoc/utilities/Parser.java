@@ -54,8 +54,14 @@ public class Parser {
             physicians.add(physician);
         }
         return physicians
-                // TODO : delete the line below for prod
-                .stream().limit(100).collect(Collectors.toList());
+                .stream().collect(Collectors.toList());
+    }
+
+    public static List<Physician> parseCSVPhysicians(InputStream csvInputStream, long limit) throws IOException {
+        List<Physician> physicians = parseCSVPhysicians(csvInputStream);
+        return physicians.stream()
+                .limit(limit)
+                .collect(Collectors.toList());
     }
 
     private static String buildDefaultEmail(String firstName, String lastName) {
@@ -73,12 +79,18 @@ public class Parser {
      * @return the list of location
      * @throws IOException in case of I/O error
      */
+    public static List<Location> parseCSVPostCode(InputStream csvInputStream, long dataLimit) throws IOException {
+        List<Location> locations = parseCSVPostCode(csvInputStream);
+        return locations.stream()
+                .limit(dataLimit)
+                .collect(Collectors.toList());
+    }
+
     public static List<Location> parseCSVPostCode(InputStream csvInputStream) throws IOException {
         List<String> dataOnPostCodeCSV = IOUtils.readLines(csvInputStream, StandardCharsets.UTF_8);
         dataOnPostCodeCSV.remove(0);
         return dataOnPostCodeCSV.stream()
                 .skip(1)
-                .limit(100) // TODO : delete line this for prod
                 .map(line -> line.split(";"))
                 .map(tokens -> {
                     String name = tokens[1];
@@ -89,5 +101,4 @@ public class Parser {
                 })
                 .distinct().collect(Collectors.toList());
     }
-
 }

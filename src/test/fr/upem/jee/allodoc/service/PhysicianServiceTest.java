@@ -136,7 +136,7 @@ public class PhysicianServiceTest {
 
     @Test
     public void fillWithPhysicians() throws IOException {
-        PhysicianService.fillDatabaseWithPhysicians();
+        PhysicianService.fillDatabaseWithPhysicians(12);
         List<Physician> all = PhysicianService.getAll();
         assertFalse(all.isEmpty());
     }

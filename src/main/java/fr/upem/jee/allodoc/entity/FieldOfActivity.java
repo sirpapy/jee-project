@@ -1,7 +1,6 @@
 package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +24,7 @@ public class FieldOfActivity implements Serializable {
     public FieldOfActivity(String fieldOfActivityName) {
         Objects.requireNonNull(fieldOfActivityName);
         Preconditions.checkArgument(!fieldOfActivityName.isEmpty(), "the field of activity name should not be empty");
-        this.name = StringUtils.capitalize(fieldOfActivityName);
+        this.name = fieldOfActivityName;
     }
 
     public FieldOfActivity() {
