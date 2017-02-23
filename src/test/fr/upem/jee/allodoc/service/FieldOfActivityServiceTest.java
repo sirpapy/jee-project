@@ -1,27 +1,34 @@
 package fr.upem.jee.allodoc.service;
 
+import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by raptao on 1/17/2017.
  */
 public class FieldOfActivityServiceTest {
 
+    @Before
+    public void clearFieldOfActivityTable() {
+        DatabaseManager.getDatabaseManager().clear(FieldOfActivity.class);
+    }
+
     @Test
     public void getByName() throws Exception {
         FieldOfActivity fieldOfActivity = new FieldOfActivity("scienceField");
         FieldOfActivityService.distinctSave(fieldOfActivity);
-        Service<FieldOfActivity> service = new Service<>();
-        FieldOfActivity retrievedFieldOfActivity = service.findByLongId(FieldOfActivity.class, 1L);
-        assertNotNull(retrievedFieldOfActivity);
-        assertEquals(fieldOfActivity.getName(), retrievedFieldOfActivity.getName());
-        service.remove(retrievedFieldOfActivity);
+        Optional<FieldOfActivity> retrievedFieldOfActivity = FieldOfActivityService.getByName("scienceField");
+        assertTrue(retrievedFieldOfActivity.isPresent());
+        assertEquals(fieldOfActivity.getName(), retrievedFieldOfActivity.get().getName());
+        DatabaseManager.getDatabaseManager().clear(FieldOfActivity.class);
     }
 
     @Test
@@ -35,7 +42,7 @@ public class FieldOfActivityServiceTest {
     }
 
     @Test
-    public void distinctSave(){
+    public void distinctSave() {
         FieldOfActivity scienceField = new FieldOfActivity("scienceField");
         FieldOfActivity scienceField2 = new FieldOfActivity("scienceField");
         FieldOfActivityService.distinctSave(scienceField);

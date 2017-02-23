@@ -99,13 +99,8 @@ public class PhysicianServiceTest {
 
     @Test
     public void searchByFieldOfActivity() throws ParseException {
-        Physician physician = new Physician();
+        Physician physician = SampleUsers.physician();
         PhysicianService physicianService = new PhysicianService(physician);
-        physician.setLastName("raptao");
-        physician.setFirstName("thierry");
-        Location paris = new Location.Builder().setCity("paris").build();
-        physician.setPracticeArea(paris);
-        physician.setAddress(new Address.Builder().setLocation(paris).build());
         FieldOfActivity fieldOfActivity = new FieldOfActivity("GENERALISTE");
         FieldOfActivityService.distinctSave(fieldOfActivity);
         physician.setFieldOfActivity(fieldOfActivity);
@@ -135,13 +130,13 @@ public class PhysicianServiceTest {
         physicianService.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, "GENERALISTE", location).size(), 1);
+        assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, physician.getLastName(), location).size(), 1);
 
     }
 
     @Test
     public void fillWithPhysicians() throws IOException {
-        PhysicianService.fillDatabaseWithPhysicians();
+        PhysicianService.fillDatabaseWithPhysicians(12);
         List<Physician> all = PhysicianService.getAll();
         assertFalse(all.isEmpty());
     }

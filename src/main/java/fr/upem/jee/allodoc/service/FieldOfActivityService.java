@@ -13,23 +13,23 @@ import java.util.Optional;
  */
 public class FieldOfActivityService extends Service<FieldOfActivity> {
 
-    public static Optional<FieldOfActivity> getByName(String name){
+    public static Optional<FieldOfActivity> getByName(String name) {
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
         TypedQuery<FieldOfActivity> findFAByName = databaseManager.getEntityManager().createNamedQuery("findFAByName", FieldOfActivity.class);
         findFAByName.setParameter("fa_name", name);
         List<FieldOfActivity> resultList = findFAByName.getResultList();
-        return resultList.isEmpty()? Optional.empty() : Optional.of(resultList.get(0));
+        return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
 
-    public static List<FieldOfActivity> getAll(){
+    public static List<FieldOfActivity> getAll() {
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
         return databaseManager.findAll(FieldOfActivity.class);
     }
 
-    public static void distinctSave(FieldOfActivity fieldOfActivity){
+    public static void distinctSave(FieldOfActivity fieldOfActivity) {
         Objects.requireNonNull(fieldOfActivity);
         Optional<FieldOfActivity> byName = getByName(fieldOfActivity.getName());
-        if( !byName.isPresent()){
+        if (!byName.isPresent()) {
             DatabaseManager.getDatabaseManager().saveOrUpdate(fieldOfActivity);
         }
     }

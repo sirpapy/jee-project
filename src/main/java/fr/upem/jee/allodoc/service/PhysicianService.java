@@ -158,6 +158,18 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         super.save();
     }
 
+    public static void fillDatabaseWithPhysicians(long limit) throws IOException {
+        Preconditions.checkArgument(limit > 0, "limit has to be a positive value");
+        PhysicianService physicianService = new PhysicianService();
+        try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
+            List<Physician> physicians = Parser.parseCSVPhysicians(physiciansStream, limit);
+            physicians.forEach(p->{
+                physicianService.takeControl(p);
+                physicianService.save();
+            });
+        }
+    }
+
     public static void fillDatabaseWithPhysicians() throws IOException {
         PhysicianService physicianService = new PhysicianService();
         try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
@@ -168,6 +180,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
             });
         }
     }
+
 
     public static List<Physician> getAll(){
         return DatabaseManager.getDatabaseManager().findAll(Physician.class);

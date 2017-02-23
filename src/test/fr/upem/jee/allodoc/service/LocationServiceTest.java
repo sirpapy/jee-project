@@ -14,7 +14,7 @@ import static junit.framework.TestCase.assertFalse;
 public class LocationServiceTest {
     @Test
     public void fillWithLocations() throws IOException {
-        LocationService.fillDatabaseWithLocations();
+        LocationService.fillDatabaseWithLocations(12);
         List<Location> all = LocationService.getAll();
         assertFalse(all.isEmpty());
     }
