@@ -59,7 +59,24 @@
                         </a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#contact">Sign in</a>
+
+                        <h:form>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><p:commandLink styleClass="ui-priority-primary"
+                                                     action="#{navigationBean.goToHome()}"
+                                                     id="goToHome"
+                                                     value="Go to Patient Home"/>
+                                </li>
+                                <li><p:commandLink styleClass="ui-priority-primary"
+                                                     action="#{navigationBean.goToPhysicianHome()}"
+                                                     id="goToPhysicianHome"
+                                                     value="Go to Physician Home"/></li>
+                            </ul>
+                        </div>
+                        </h:form>
                     </li>
                 </ul>
             </div>
@@ -134,7 +151,8 @@
                         <h:commandLink action="#{welcomeBean.registerPhysician()}"
                                        id="signupPhysician"
                                        value="Register as doctor"
-                                       icon="ui-icon-star"/>
+                                       icon="ui-icon-star"
+                                       class="btn btn-default btn-lg"/>
                     </div>
                 </div>
             </div>
@@ -191,16 +209,7 @@
                          icon="ui-icon-star"/>
         <p:separator/>
 
-        <p:commandButton styleClass="ui-priority-primary"
-                         action="#{navigationBean.goToHome()}"
-                         id="goToHome"
-                         value="Go to Patient Home"/>
 
-
-        <p:commandButton styleClass="ui-priority-primary"
-                         action="#{navigationBean.goToPhysicianHome()}"
-                         id="goToPhysicianHome"
-                         value="Go to Physician Home"/>
     </h:form>
 </h:body>
 
