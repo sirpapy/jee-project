@@ -3,7 +3,6 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui"
 >
 <h:outputStylesheet library="css" name="style.css"/>
@@ -35,7 +34,7 @@
                     Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i> <span class="light">Welcome to</span> Allo-doc
+                    <i class="fa fa-play-circle"></i> <span class="light">Welcome to</span> <b>Allo-doc</b>
                 </a>
             </div>
 
@@ -97,7 +96,8 @@
                         page</a>.
                     Every functionality offered by Allo-doc is free.</p>
                 <p>Are you a certified doctor ? You can register too ! You can use Allo-doc so that people can get
-                    appointments with you. Just <a href="http://gratisography.com/">sign in</a> and you will have a special
+                    appointments with you. Just <a
+                            href="http://gratisography.com/">sign in</a> and you will have a special
                     account.</p>
             </div>
         </div>
@@ -105,28 +105,40 @@
 
     <!-- Download Section -->
     <section id="patient-register" class="content-section text-center">
-        <div class="patient-register-section">
-            <div class="container">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Register as patient</h2>
-                    <p>You can register as a <b>simple user</b> in Allo-doc by clicking the link below.</p>
-                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Register as patient</a>
+        <h:form>
+            <div class="patient-register-section">
+                <div class="container">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h2>Register as patient</h2>
+                        <p>You can register as a <b>simple user</b> in Allo-doc by clicking the link below.</p>
+                        <h:commandLink href="http://startbootstrap.com/template-overviews/grayscale/"
+                                       class="btn btn-default btn-lg"
+                                       action="#{welcomeBean.registerPatient()}"
+                                       id="signupPatient"
+                                       value="Register as patient"
+                                       icon="ui-icon-star"/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </h:form>
     </section>
 
     <!-- Download Section -->
     <section id="doctor-register" class="content-section text-center">
-        <div class="doctor-register-section">
-            <div class="container">
-                <div class="col-lg-8 col-lg-offset-2">
-                    <h2>Register as doctor</h2>
-                    <p>You can register as a <b>doctor</b> in Allo-doc by clicking the link below.</p>
-                    <a href="http://startbootstrap.com/template-overviews/grayscale/" class="btn btn-default btn-lg">Register as doctor</a>
+        <h:form>
+            <div class="doctor-register-section">
+                <div class="container">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <h2>Register as doctor</h2>
+                        <p>You can register as a <b>doctor</b> in Allo-doc by clicking the link below.</p>
+                        <h:commandLink action="#{welcomeBean.registerPhysician()}"
+                                       id="signupPhysician"
+                                       value="Register as doctor"
+                                       icon="ui-icon-star"/>
+                    </div>
                 </div>
             </div>
-        </div>
+        </h:form>
     </section>
 
     <!-- Contact Section -->
@@ -166,8 +178,9 @@
         </div>
     </footer>
 
-    <h:link outcome="login">go to login page</h:link>
     <h:form>
+
+        <h:link outcome="login">go to login page</h:link>
 
         <p:inputText value="#{loginBean.email}" placeholder="Enter your email"/>
         <p:password value="#{loginBean.password}" placeholder="Enter your password"/>
@@ -177,18 +190,6 @@
                          value="Sign in"
                          icon="ui-icon-star"/>
         <p:separator/>
-
-        <p:commandButton styleClass="ui-priority-primary"
-                         action="#{welcomeBean.registerPhysician()}"
-                         id="signupPhysician"
-                         value="Sign up as Physician"
-                         icon="ui-icon-star"/>
-
-        <p:commandButton styleClass="ui-priority-primary"
-                         action="#{welcomeBean.registerPatient()}"
-                         id="signupPatient"
-                         value="Sign up as Patient"
-                         icon="ui-icon-star"/>
 
         <p:commandButton styleClass="ui-priority-primary"
                          action="#{navigationBean.goToHome()}"

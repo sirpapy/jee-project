@@ -120,7 +120,7 @@ a:focus {
     padding: 100px 0;
     text-align: center;
     color: white;
-    background: url(#{resource['img:color.jpg']}) no-repeat bottom center scroll;
+    background: url("#{resource['img:color.jpg']}") no-repeat bottom center scroll;
     background: linear-gradient(to bottom right, #0a318b, #478956); /* Standard syntax */
     -webkit-background-size: cover;
     -moz-background-size: cover;
