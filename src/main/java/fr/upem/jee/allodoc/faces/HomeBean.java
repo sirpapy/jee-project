@@ -1,10 +1,8 @@
-package fr.upem.jee.allodoc.faces.converter;
+package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.faces.ConnectedUserBean;
 import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.spi.Bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -29,6 +27,11 @@ public class HomeBean {
         if (!bean.isPatient())
             return Resources.PAGE_PHYSICIAN_PROFIL;
         return Resources.PAGE_PATIENT_PROFIL;
+    }
+
+    public String logOut(){
+        // TODO invalidate user session
+        return Resources.PAGE_INDEX;
     }
 
 }

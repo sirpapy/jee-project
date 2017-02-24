@@ -28,16 +28,15 @@ public class ConnectedUserBean implements Serializable {
     private User connectedUser;
 
     public User getConnectedUser() throws IOException {
-        if( connectedUser ==null ){
+        if (connectedUser == null) {
             HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             String userName = req.getUserPrincipal().getName();
             String userRole = req.isUserInRole(UserType.PATIENT.name()) ? UserType.PATIENT.name() : UserType.PHYSICIAN.name();
             PatientService patientService = new PatientService();
             Optional<User> byLogin = patientService.findByLogin(userName);
-            if( byLogin.isPresent()){
+            if (byLogin.isPresent()) {
                 connectedUser = byLogin.get();
-            }
-            else{
+            } else {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.jsf");
             }
         }
@@ -63,7 +62,7 @@ public class ConnectedUserBean implements Serializable {
 
     public Optional<User> getConnected() {
         String username = getConnectedUsername();
-        Optional<User> connectedUserOptional = Optional.empty();
+        Optional<User> connectedUserOptional;
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         if (req.isUserInRole(UserType.PATIENT.name())) {
             isPatient = true;

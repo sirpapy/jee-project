@@ -2,27 +2,45 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:b="http://bootsfaces.net/ui"
+>
 <ui:composition>
-    <div id="headerBanner" class="row">
-        <h:link outcome="home">
-            <img id="logoAlloDoc" class="col col-md-8" src="/resources/img/logo.png" alt=""/>
-        </h:link>
-
-        <div id="userFrame">
-            <h:form id="formShowProfil">
-                <img id="UserLogo" src="/resources/img/icon-user-default.png" alt=""/>
-                <div id="userInfo">
-                    <label>Name :</label> <h:outputLabel value="#{connectedUserBean.connectedUser.account.userName}"/> <br/>
-                    <label>Type :</label> <h:outputLabel value="#{connectedUserBean.connectedUser.account.getRole().getName()}"/>
-                </div>
-                <h:commandButton value="Show profil" id="showProfil" action="#{homeBean.showProfil()}"/>
-            </h:form>
+    <h:outputStylesheet library="css" name="grayscale.css"/>
+    <!-- Navigation -->
+    <nav class="navbar navbar-custom navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">
+                    <i class="fa fa-heartbeat"></i> <span class="light">Welcome , </span> <b><h:outputLabel
+                        value="#{connectedUserBean.connectedUser.account.userName}"/></b>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li>
+                        <h:form>
+                            <b:commandButton iconAwesome="user-circle" iconAlign="left" action="#{homeBean.showProfil()}" value="Profile"/>
+                        </h:form>
+                    </li>
+                    <li>
+                        <h:form>
+                            <b:commandButton iconAwesome="sign-out" iconAlign="left" class="page-scroll" action="#{homeBean.logOut()}" value="Log out"/>
+                        </h:form>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </div>
-
-
+        <!-- /.container -->
+    </nav>
 </ui:composition>
 </html>
 
