@@ -29,7 +29,7 @@ div#aPhysician {
 }
 
 #divForBackground {
-    background-image: url(/resources/img/background.jpg) !important;
+    background-image: url(/resources/images/background.jpg) !important;
     background-repeat: no-repeat;
     width: 100%;
     height: 1920px;

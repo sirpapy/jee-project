@@ -44,9 +44,6 @@ public class WelcomeBean implements Serializable {
         return Resources.PAGE_REGISTER + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
-    public String loginPage() {
-        return Resources.PAGE_LOGIN_FORM;
-    }
 
     private void initializeRegisterBean() {
         Map<String, Object> sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
