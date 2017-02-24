@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 @SessionScoped
 @ManagedBean(name = "searchBean", eager = true)
-public class SearchBean implements Serializable{
+public class SearchBean implements Serializable {
 
     private String name;
     private String fieldOfActivity;
@@ -53,28 +53,23 @@ public class SearchBean implements Serializable{
     }
 
 
-
-
-    public String startSearch(){
-        System.out.println(name);
-        System.out.println(fieldOfActivity);
-        System.out.println(postalCode);
+    public String startSearch() {
         return "patientDashBoard?faces-redirect=true";
     }
 
-        public Set<Integer> getPostalCodeList() {
-            return postalCodeList;
-        }
+    public Set<Integer> getPostalCodeList() {
+        return postalCodeList;
+    }
 
-        public void setPostalCodeList(Set<Integer> postalCodeList) {
-            this.postalCodeList = postalCodeList;
-        }
+    public void setPostalCodeList(Set<Integer> postalCodeList) {
+        this.postalCodeList = postalCodeList;
+    }
 
-        public List<String> getRegionList() {
-            return RegionList;
-        }
+    public List<String> getRegionList() {
+        return RegionList;
+    }
 
-        public void setRegionList(List<String> regionList) {
-            RegionList = regionList;
-        }
+    public void setRegionList(List<String> regionList) {
+        RegionList = regionList;
+    }
 }

@@ -43,11 +43,16 @@
                             </h:selectOneMenu>
                         </div>
                         <div id="fieldOfActivitySearchInput">
-                            <h:selectOneMenu id="fieldOfActivity"
+                            <b:selectOneMenu id="fieldOfActivity" filter="true" var="f"
                                              style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
-                                             value="#{searchBean.fieldOfActivity}">
-                                <f:selectItems value="#{navigationBean.fieldOfActivity}"/>
-                            </h:selectOneMenu>
+                                             value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter">
+                                <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
+                                               itemLabel="#{field.name}"
+                                               itemValue="#{field}"/>
+                                <p:column>
+                                    <h:outputText value="#{f.name}"/>
+                                </p:column>
+                            </b:selectOneMenu>
                         </div>
 
                     </div>

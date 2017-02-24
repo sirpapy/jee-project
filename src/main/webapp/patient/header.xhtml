@@ -13,7 +13,7 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
+                <a class="navbar-brand page-scroll">
                     <i class="fa fa-heartbeat"></i> <span class="light">Welcome , </span> <b><h:outputLabel
                         value="#{connectedUserBean.connectedUser.account.userName}"/></b>
                 </a>
@@ -27,12 +27,14 @@
                     </li>
                     <li>
                         <h:form>
-                            <b:commandButton iconAwesome="user-circle" iconAlign="left" action="#{homeBean.showProfil()}" value="Profile"/>
+                            <b:commandButton iconAwesome="user-circle" iconAlign="left"
+                                             action="#{homeBean.showProfil()}" value="Profile"/>
                         </h:form>
                     </li>
                     <li>
                         <h:form>
-                            <b:commandButton iconAwesome="sign-out" iconAlign="left" class="page-scroll" action="#{homeBean.logOut()}" value="Log out"/>
+                            <b:commandButton iconAwesome="sign-out" iconAlign="left" class="page-scroll"
+                                             action="#{homeBean.logOut()}" value="Log out"/>
                         </h:form>
                     </li>
                 </ul>

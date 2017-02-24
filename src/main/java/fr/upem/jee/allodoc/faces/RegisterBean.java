@@ -35,7 +35,7 @@ public class RegisterBean implements Serializable {
     private List<Location> allPracticeAreas;
     private String status;
     private FieldOfActivity selectedFieldOfActivity;
-    private List<FieldOfActivity> fieldOfActivities;
+
 
     public RegisterBean() {
         patientService = new PatientService();
@@ -76,13 +76,6 @@ public class RegisterBean implements Serializable {
         this.status = status;
     }
 
-    public List<FieldOfActivity> getFieldOfActivities() {
-        return fieldOfActivities;
-    }
-
-    public void setFieldOfActivities(List<FieldOfActivity> fieldOfActivities) {
-        this.fieldOfActivities = fieldOfActivities;
-    }
 
     public FieldOfActivity getSelectedFieldOfActivity() {
         return selectedFieldOfActivity;
@@ -187,7 +180,7 @@ public class RegisterBean implements Serializable {
      * loads data from database
      */
     private void loadData() {
-        fieldOfActivities = FieldOfActivityService.getAll();
+
         allPracticeAreas = LocationService.getAll();
     }
 }
