@@ -1,12 +1,12 @@
 package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
+import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -98,15 +98,8 @@ public class Patient extends User implements Serializable {
         public Patient build() {
             Patient patient = new Patient(firstName, lastName, address, account);
             patient.setBirthDate(birthDate);
+            patient.account.addRole(new Role(UserType.PATIENT.name()));
             return patient;
-        }
-
-        public Builder setRole(String role) {
-            if (account == null) {
-                throw new IllegalStateException("an account has to be set before role");
-            }
-            this.account.addRole(new Role(role));
-            return this;
         }
     }
 }

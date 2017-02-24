@@ -2,6 +2,7 @@ package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
+import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -122,14 +123,6 @@ public class Physician extends User implements Serializable {
             return this;
         }
 
-        public Builder setRole(String role) {
-            if (account == null) {
-                throw new IllegalStateException("an account has to be set before role");
-            }
-            this.account.addRole(new Role(role));
-            return this;
-        }
-
         public Builder setPracticeArea(Location practiceArea) {
             this.practiceArea = practiceArea;
             return this;
@@ -146,7 +139,6 @@ public class Physician extends User implements Serializable {
         }
 
         public Builder setFieldOfActivity(FieldOfActivity fieldOfActivity) {
-            Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(fieldOfActivity.getName());
             this.fieldOfActivity = fieldOfActivity;
             return this;
         }
@@ -161,6 +153,7 @@ public class Physician extends User implements Serializable {
             physician.setBirthDate(birthDate);
             physician.setAddress(address);
             physician.setAccount(account);
+            physician.setRole(new Role(UserType.PHYSICIAN.name()));
             return physician;
         }
 

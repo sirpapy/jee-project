@@ -6,7 +6,6 @@ import fr.upem.jee.allodoc.service.LocationService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
-import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -161,7 +160,6 @@ public class RegisterBean implements Serializable {
                 .setBirthDate(birthDate)
                 .setAddress(address)
                 .setAccount(new Account(email, password))
-                .setRole(UserType.PATIENT.name())
                 .build();
         patientService.takeControl(p);
         patientService.save();
@@ -174,7 +172,6 @@ public class RegisterBean implements Serializable {
                 .setLastName(lastName)
                 .setBirthDate(birthDate)
                 .setAccount(new Account(email, password))
-                .setRole(UserType.PHYSICIAN.name())
                 .setAddress(address)
                 .setFieldOfActivity(selectedFieldOfActivity)
                 .setPracticeArea(selectedPracticeArea)
