@@ -1,7 +1,6 @@
 package fr.upem.jee.allodoc.entity;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.service.FieldOfActivityService;
 import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.persistence.*;
@@ -10,7 +9,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * Created by raptao on 12/14/2016.

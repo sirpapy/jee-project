@@ -3,10 +3,8 @@ package fr.upem.jee.allodoc.faces;
 
 import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.service.PatientDashboardService;
-import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Parser;
 import fr.upem.jee.allodoc.utilities.Resources;
@@ -28,7 +26,6 @@ import java.util.Map;
 @SessionScoped
 @ManagedBean(name = "patientDashboadBean", eager = true)
 public class PatientDashboardBean {
-
 
 
     PatientDashboardService patientDashboardService = new PatientDashboardService();
@@ -89,7 +86,6 @@ public class PatientDashboardBean {
     public void setGetSelectedPhysician(Physician getSelectedPhysician) {
         this.getSelectedPhysician = getSelectedPhysician;
     }
-
 
 
     public int getSelectAvailabilityID() {

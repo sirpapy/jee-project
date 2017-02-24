@@ -32,6 +32,13 @@ public class Account {
         this.password = Preconditions.checkNotNull(password, "password shouldn't be null");
     }
 
+    public Role getRole(){
+        if( roles == null || roles.size() <= 0){
+            throw new IllegalStateException("there is no role for this user");
+        }
+        return roles.get(0);
+    }
+
     public List<Role> getRoles() {
         return roles;
     }

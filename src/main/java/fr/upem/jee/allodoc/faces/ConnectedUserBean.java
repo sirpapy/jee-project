@@ -1,12 +1,10 @@
 package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.entity.Patient;
-import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
 import fr.upem.jee.allodoc.service.AppointmentService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
-import fr.upem.jee.allodoc.utilities.Resources;
 import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Optional;
 
@@ -25,12 +24,29 @@ import java.util.Optional;
 public class ConnectedUserBean implements Serializable {
 
     private String connectedUsername;
-
-
     private boolean isPatient = true;
-
-
     private User connectedUser;
+
+    public User getConnectedUser() throws IOException {
+        if( connectedUser ==null ){
+            HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            String userName = req.getUserPrincipal().getName();
+            String userRole = req.isUserInRole(UserType.PATIENT.name()) ? UserType.PATIENT.name() : UserType.PHYSICIAN.name();
+            PatientService patientService = new PatientService();
+            Optional<User> byLogin = patientService.findByLogin(userName);
+            if( byLogin.isPresent()){
+                connectedUser = byLogin.get();
+            }
+            else{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("index.jsf");
+            }
+        }
+        return connectedUser;
+    }
+
+    public void setConnectedUser(User connectedUser) {
+        this.connectedUser = connectedUser;
+    }
 
     public String getConnectedUsername() {
         if (connectedUsername == null) {
@@ -41,6 +57,9 @@ public class ConnectedUserBean implements Serializable {
         return connectedUsername;
     }
 
+    public void setConnectedUsername(String connectedUsername) {
+        this.connectedUsername = connectedUsername;
+    }
 
     public Optional<User> getConnected() {
         String username = getConnectedUsername();
@@ -74,17 +93,6 @@ public class ConnectedUserBean implements Serializable {
         return null;
     }
 
-
-
-    public void setConnectedUser(User connectedUser) {
-        this.connectedUser = connectedUser;
-    }
-
-
-    public void setConnectedUsername(String connectedUsername) {
-        this.connectedUsername = connectedUsername;
-    }
-
     public boolean isPatient() {
         return isPatient;
     }
@@ -93,12 +101,11 @@ public class ConnectedUserBean implements Serializable {
         isPatient = patient;
     }
 
-    public String removeAppointment(long appointmentID ){
+    public String removeAppointment(long appointmentID) {
         AppointmentService appointmentService = new AppointmentService();
-        appointmentService.removeAppointment(connectedUser.getId(),appointmentID);
+        appointmentService.removeAppointment(connectedUser.getId(), appointmentID);
         return "patientProfil";
     }
-
 
 
     @PostConstruct

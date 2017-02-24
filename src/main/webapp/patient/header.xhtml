@@ -14,8 +14,8 @@
             <h:form id="formShowProfil">
                 <img id="UserLogo" src="/resources/img/icon-user-default.png" alt=""/>
                 <div id="userInfo">
-                    <label>Name :</label> Pape NDIAYE<br/>
-                    <label>Type :</label> Patient
+                    <label>Name :</label> <h:outputLabel value="#{connectedUserBean.connectedUser.account.userName}"/> <br/>
+                    <label>Type :</label> <h:outputLabel value="#{connectedUserBean.connectedUser.account.getRole().getName()}"/>
                 </div>
                 <h:commandButton value="Show profil" id="showProfil" action="#{homeBean.showProfil()}"/>
             </h:form>

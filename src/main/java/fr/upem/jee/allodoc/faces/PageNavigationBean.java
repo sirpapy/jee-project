@@ -23,12 +23,12 @@ public class PageNavigationBean implements Serializable {
     SearchBean searchBean;
 
     public String goToHome() {
-        return Resources.PAGE_PATIENT_HOME;
+        return Resources.PAGE_PATIENT_HOME + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 
     public String goToPhysicianHome() {
-        return Resources.PAGE_PHYSICIAN_HOME;
+        return Resources.PAGE_PHYSICIAN_HOME + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 
