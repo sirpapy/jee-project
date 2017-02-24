@@ -3,7 +3,7 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
+      xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui"
 >
 <h:outputStylesheet library="css" name="style.css"/>
 <h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>
@@ -95,7 +95,7 @@
                         <p class="intro-text">Your new way to get an appointment with any doctor.
                             <br/>Get it right now.</p>
                         <a href="#about" class="btn btn-circle page-scroll">
-                            <i class="fa fa-angle-double-down animated"></i>
+                            <b:iconAwesome name="angle-double-down" size="4x"/>
                         </a>
                     </div>
                 </div>
@@ -105,19 +105,20 @@
 
     <!-- About Section -->
     <section id="about" class="container content-section text-center">
+        <h:form>
+
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <h2>About allo-doc</h2>
                 <p>Allo-doc is a free service used to get an appointment with a doctor around you. Register and you can use
-                    it right now, simply go to the <a href="http://startbootstrap.com/template-overviews/grayscale/">register
-                        page</a>.
+                    it right now, simply go to the <p:commandLink styleClass="about-link" action="#{welcomeBean.registerPatient()}" value="register page"/>.
                     Every functionality offered by Allo-doc is free.</p>
-                <p>Are you a certified doctor ? You can register too ! You can use Allo-doc so that people can get
-                    appointments with you. Just <a
-                            href="http://gratisography.com/">sign in</a> and you will have a special
+                <p>Are you a <b>certified doctor</b> ? You can register too ! You can use Allo-doc so that people can get
+                    appointments with you. Just <p:commandLink styleClass="about-link" action="#{welcomeBean.registerPhysician()}" value="sign up"/> and we will provide you a special
                     account.</p>
             </div>
         </div>
+        </h:form>
     </section>
 
     <!-- Download Section -->
@@ -163,25 +164,11 @@
     <section id="contact" class="container content-section text-center">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <h2>Contact Start Bootstrap</h2>
-                <p>Feel free to email us to provide some feedback on our templates, give us suggestions for new templates
-                    and themes, or to just say hello!</p>
-                <p><a href="mailto:feedback@startbootstrap.com">feedback@startbootstrap.com</a>
-                </p>
-                <ul class="list-inline banner-social-buttons">
-                    <li>
-                        <a href="https://twitter.com/SBootstrap" class="btn btn-default btn-lg"><i
-                                class="fa fa-twitter fa-fw"></i> <span class="network-name">Twitter</span></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/IronSummitMedia/startbootstrap" class="btn btn-default btn-lg"><i
-                                class="fa fa-github fa-fw"></i> <span class="network-name">Github</span></a>
-                    </li>
-                    <li>
-                        <a href="https://plus.google.com/+Startbootstrap/posts" class="btn btn-default btn-lg"><i
-                                class="fa fa-google-plus fa-fw"></i> <span class="network-name">Google+</span></a>
-                    </li>
-                </ul>
+                <h2>Contact allo-doc team</h2>
+                <p>Feel free to email us to provide some feedback on our tservices, give us suggestions for new functionnality
+                    and improvments, or to just say hello!</p>
+                <p><a class="about-link" href="mailto:mrabea01@etud.u-pem.com">mrabea01@etud.u-pem.com</a></p>
+                <p><a class="about-link" href="mailto:pndiaye@etud.u-pem.com">pndiaye@etud.u-pem.com</a></p>
             </div>
         </div>
     </section>
@@ -192,25 +179,10 @@
     <!-- Footer -->
     <footer>
         <div class="container text-center">
-            <p>Copyright &copy; Your Website 2016</p>
+            <p>Copyright &copy; Allo-doc 2017</p>
         </div>
     </footer>
 
-    <h:form>
-
-        <h:link outcome="login">go to login page</h:link>
-
-        <p:inputText value="#{loginBean.email}" placeholder="Enter your email"/>
-        <p:password value="#{loginBean.password}" placeholder="Enter your password"/>
-        <p:commandButton styleClass="ui-priority-primary"
-                         action="#{loginBean.signIn()}"
-                         id="signInAsPatient"
-                         value="Sign in"
-                         icon="ui-icon-star"/>
-        <p:separator/>
-
-
-    </h:form>
 </h:body>
 
 </html>
