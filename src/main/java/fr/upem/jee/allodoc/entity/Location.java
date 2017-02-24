@@ -47,11 +47,6 @@ public class Location implements Serializable {
         return city.replace("-", " ").toUpperCase();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(postalCode, city, country);
-    }
-
     public long getId() {
         return id;
     }
@@ -76,25 +71,27 @@ public class Location implements Serializable {
         this.city = city;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Location location = (Location) o;
+        return Objects.equals(postalCode, location.postalCode) &&
+                Objects.equals(city, location.city) &&
+                Objects.equals(country, location.country);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(city, country);
+    }
+
     public String getCountry() {
         return country;
     }
 
     public void setCountry(String country) {
         this.country = country;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || !(o instanceof Location)) return false;
-
-        Location location = (Location) o;
-
-        return postalCode.equals(location.postalCode) &&
-                cleanCityString(city).equals(cleanCityString(location.city)) &&
-                country.equals(location.country);
     }
 
     public static class Builder {
