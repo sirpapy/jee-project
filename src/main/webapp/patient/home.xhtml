@@ -38,7 +38,7 @@
                                 id="physicianName" placeholder="Enter the name of the doctor..."/></div>
                         <div id="postalCodeSearchInput">
                             <b:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
-                                             value="#{searchBean.postalCode}" converter="locationConverter">
+                                             value="#{searchBean.postalCode}" converter="locationConverter" tooltip="Select a postal code">
                                 <f:selectItems value="#{dataContainerBean.locations}" var="area"
                                                itemLabel="#{area.postalCode}"
                                                itemValue="#{area}"/>
@@ -47,7 +47,8 @@
                         <div id="fieldOfActivitySearchInput">
                             <b:selectOneMenu id="fieldOfActivity" filter="true" var="f"
                                              style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
-                                             value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter">
+                                             value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter"
+                            tooltip="The field of activity of the doctor">
                                 <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
                                                itemLabel="#{field.name}"
                                                itemValue="#{field}"/>
