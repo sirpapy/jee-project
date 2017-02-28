@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
+import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
 import org.apache.commons.lang3.StringUtils;
 
@@ -61,4 +62,6 @@ abstract class UserServiceImpl<U extends User> extends Service<U> implements Use
         List<User> resultList = getUserByLogin.getResultList();
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
+
+
 }

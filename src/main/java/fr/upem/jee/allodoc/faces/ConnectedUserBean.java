@@ -26,6 +26,17 @@ public class ConnectedUserBean implements Serializable {
     private String connectedUsername;
     private boolean isPatient = true;
     private User connectedUser;
+    private String badgeLabel;
+
+    public String getBadgeLabel() {
+        return getConnectedPatient().getAppointments().isEmpty() ?
+                "No appointment" :
+                "You have " + getConnectedPatient().getAppointments().size() + " appointment(s)";
+    }
+
+    public void setBadgeLabel(String badgeLabel) {
+        this.badgeLabel = badgeLabel;
+    }
 
     public User getConnectedUser() throws IOException {
         if (connectedUser == null) {
@@ -85,8 +96,7 @@ public class ConnectedUserBean implements Serializable {
         if (getConnected().isPresent()) {
             connectedUser = getConnected().get();
             if (connectedUser != null) {
-                PatientService patientService = new PatientService();
-                return patientService.getById(connectedUser.getId());
+                return PatientService.getById(connectedUser.getId());
             }
         }
         return null;

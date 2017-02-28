@@ -16,21 +16,26 @@ import javax.servlet.http.HttpServletRequest;
 public class HomeBean {
 
     private ConnectedUserBean bean;
+
     @PostConstruct
     public void load() {
         HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
         bean = (ConnectedUserBean) req.getSession().getAttribute("connectedUserBean");
-
     }
 
-    public String showProfil() {
+    public String showProfile() {
         if (!bean.isPatient())
             return Resources.PAGE_PHYSICIAN_PROFIL;
         return Resources.PAGE_PATIENT_PROFIL;
     }
 
-    public String logOut(){
-        // TODO invalidate user session
+    /**
+     * Invalidates all sessions
+     * @return redirects the user to the application homescreen
+     */
+    public String logOut() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.getExternalContext().invalidateSession();
         return Resources.PAGE_INDEX;
     }
 

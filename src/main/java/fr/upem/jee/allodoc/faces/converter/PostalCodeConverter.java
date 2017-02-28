@@ -11,32 +11,28 @@ import javax.faces.convert.FacesConverter;
 import java.util.Optional;
 
 /**
- * Created by raptao on 1/21/2017.
+ * Created by raptao on 2/28/2017.
  */
-@FacesConverter("locationConverter")
-public class LocationConverter implements Converter {
+@FacesConverter("postalCodeConverter")
+public class PostalCodeConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Preconditions.checkNotNull(value, "locationString should not be null");
-        String[] splitValue = value.split("-");
-        int postalCode = Integer.parseInt(splitValue[0]);
-        String city = splitValue[1];
+        Preconditions.checkNotNull(value, "postalCodeString should not be null");
         LocationService locationService = new LocationService();
+        int postalCode = Integer.parseInt(value);
         Optional<Location> byPostalCode = locationService.getByPostalCode(postalCode);
         if (byPostalCode.isPresent()) {
             return byPostalCode.get();
         }
-        Location location = new Location(postalCode, city);
+        Location location = new Location.Builder().setPostalCode(postalCode).build();
         locationService.save(location);
         return location;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if( value == null){
-            return null;
-        }
-        Location valueAsLocation = (Location) value;
-        return valueAsLocation.getPostalCode() + "-" + valueAsLocation.getCity();
+        Preconditions.checkNotNull(value, "postalCode should not be null");
+        Location asLocation = (Location)value;
+        return asLocation.getPostalCode().toString();
     }
 }

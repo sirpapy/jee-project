@@ -6,7 +6,6 @@ import fr.upem.jee.allodoc.utilities.UserType;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -53,7 +52,7 @@ public class Patient extends User implements Serializable {
             appointments.remove(toRemove);
     }
 
-    public Collection<Appointment> getAppointments() throws ParseException {
+    public Collection<Appointment> getAppointments(){
         return appointments;
     }
 

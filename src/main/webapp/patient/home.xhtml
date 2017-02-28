@@ -5,60 +5,127 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
 <h:head>
     <title>Patient home</title>
-    <h:outputStylesheet library="css" name="style.css"/>
     <h:outputStylesheet library="css" name="bootstrap/bootstrap-theme.min.css"/>
     <h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
 
 </h:head>
 
-<h:body>
+<h:body styleClass="with-image-background">
+    <div id="container">
 
-    <div id="divForBackground">
-        <div id="container">
-
-            <ui:insert name="header">
-                <ui:include src="header.xhtml"/>
-            </ui:insert>
-            <div class="center">
-                <h:link outcome="home">
-                    <h:graphicImage library="img" name="logo.png"
-                                    width="350" height="75"/>
-                </h:link>
-            </div>
-            <div id="SearchPhysicienContainer" class="row">
-                <h:form id="form">
-                    <div id="formSearch">
-                        <p:growl id="msgs" showDetail="true"/>
-                        <div id="searchQueryInput"><p:inputText
-                                style="width: 100%; font-weight: 900;border-bottom-left-radius: 18px; border-top-left-radius: 18px; height: 40px;"
-                                value="#{searchBean.name}"
-                                id="physicianName" placeholder="Enter the name of the doctor..."/></div>
-                        <div id="postalCodeSearchInput">
-                            <h:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
-                                             value="#{searchBean.postalCode}">
-                                <f:selectItems value="#{searchBean.postalCodeList}"/>
-                            </h:selectOneMenu>
-                        </div>
-                        <div id="fieldOfActivitySearchInput">
-                            <h:selectOneMenu id="fieldOfActivity"
-                                             style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
-                                             value="#{searchBean.fieldOfActivity}">
-                                <f:selectItems value="#{navigationBean.fieldOfActivity}"/>
-                            </h:selectOneMenu>
-                        </div>
-
+        <ui:insert name="header">
+            <ui:include src="header.xhtml"/>
+        </ui:insert>
+        <div class="center">
+            <h:link outcome="home">
+                <h:graphicImage library="img" name="logo.png"
+                                width="350" height="75"/>
+            </h:link>
+        </div>
+        <div id="SearchPhysicienContainer" class="row">
+            <h:form>
+                <div id="formSearch">
+                    <p:growl id="msgs" showDetail="true"/>
+                    <div id="searchQueryInput"><b:inputText
+                            style="width: 100%; font-weight: 900;border-bottom-left-radius: 18px; border-top-left-radius: 18px; height: 40px;"
+                            value="#{searchBean.name}"
+                            id="physicianName" placeholder="Enter the name of the doctor..."/></div>
+                    <div id="postalCodeSearchInput">
+                        <b:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
+                                         value="#{searchBean.postalCode}" converter="postalCodeConverter"
+                                         tooltip="Select a postal code">
+                            <f:selectItem itemLabel="Postal code"/>
+                            <f:selectItems value="#{dataContainerBean.locations}" var="area"
+                                           itemLabel="#{area.postalCode}"
+                                           itemValue="#{area}"/>
+                        </b:selectOneMenu>
                     </div>
-                    <div id="divButtonContainer">
-                        <b:commandButton value="Search" iconAwesome="search" size="2x" iconAlign="right" id="search"
-                                         type="submit" action="#{searchBean.startSearch()}"/>
+                    <div id="fieldOfActivitySearchInput">
+                        <b:selectOneMenu id="fieldOfActivity" filter="true" var="f"
+                                         style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
+                                         value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter"
+                                         tooltip="The field of activity of the doctor">
+                            <f:selectItem itemLabel="Field of activity"/>
+                            <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
+                                           itemLabel="#{field.name}"
+                                           itemValue="#{field}"/>
+                            <p:column>
+                                <h:outputText value="#{f.name}"/>
+                            </p:column>
+                        </b:selectOneMenu>
+                    </div>
+                </div>
+                <div id="divButtonContainer">
+                    <b:commandButton value="Search" iconAwesome="search" size="2x" iconAlign="right" id="search"
+                                     type="submit" action="#{searchBean.startSearch()}"/>
+                </div>
+            </h:form>
+        </div>
+
+        <div class="search-result-container">
+            <h:form>
+                <div class="appointment-container">
+                    <b:panel look="primary">
+                        <f:facet name="heading">
+                            <b:iconAwesome name="stethoscope" style="padding-right:20px;color:whitesmoke" size="3x"/>
+                            <h:outputText value="Search result" style="color:whitesmoke"/>
+                            <b:badge style="margin-left:10px; background-color:#5cb85c"
+                                     value="#{connectedUserBean.badgeLabel}"/>
+                        </f:facet>
+                        <b:panel>
+                            <c:forEach var="physician" items="#{searchBean.physicianResultList}">
+                                <!--<b:panel look="info" title="#{physician.lastName}">-->
+                                    <!--<div>-->
+                                        <!-- - Begin hour : <h:outputLabel value="#{appointment.beginHour}"/> <br/>-->
+                                        <!-- - End hour : <h:outputLabel value="#{appointment.endHour}"/>-->
+                                    <!--</div>-->
+                                    <!--<f:facet name="footer">-->
+                                        <!--<b:commandButton iconAwesome="remove" iconAlign="left"-->
+                                                         <!--value="Remove" look="danger" size="xs"-->
+                                                         <!--style="align:right"-->
+                                                         <!--action="#{connectedUserBean.removeAppointment(appointment.id)}"/>-->
+                                    <!--</f:facet>-->
+                                <!--</b:panel>-->
+                            </c:forEach>
+                        </b:panel>
+                    </b:panel>
+                </div>
+            </h:form>
+
+            <div class="row">
+                <h:form id="form" action="physicianPage">
+                    <div class="resultContainer">
+                        <div id="listOfPhysician">
+                            <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
+                                <h:commandLink id="aPhysician_#{value.id}" ajax="false"
+                                               actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
+                                               action="physicianPage?faces-redirect=true">
+                                    <div class="aPhysician"><img class="physicianResultPhoto"
+                                                                 src="/resources/img/icon-user-default.png" alt=""/>
+                                        <div class="physicianResultDetails">
+                                            <h:outputText value="Nom:"/><br/>
+                                            <h:outputText value="#{value.firstName}"/><br/>
+                                            <h:outputText value="Domaine d'activité:"/>
+                                            <h:outputText value="#{value.fieldOfActivity.name}"/><br/>
+                                            <h:outputText value="Région:"/>
+                                            <h:outputText value="#{value.practiceArea.city}"/>
+                                        </div>
+                                    </div>
+                                </h:commandLink>
+
+                            </ui:repeat>
+                        </div>
+                        <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" /></div>
                     </div>
                 </h:form>
             </div>
-
         </div>
+
     </div>
 </h:body>
 </html>

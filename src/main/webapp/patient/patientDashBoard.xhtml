@@ -16,38 +16,39 @@
 
 <h:body>
     <div id="divForBackground">
-    <div id="container">
-        <ui:insert name="header">
-            <ui:include src="header.xhtml"/>
-        </ui:insert>
-        <div class="row">
-            <h:form id="form" action="physicianPage">
-                <div class="resultContainer">
-                    <div id="listOfPhysician">
-                        <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
-                            <h:commandLink id="aPhysician_#{value.id}" ajax="false"
-                                           actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
-                                           action="physicianPage?faces-redirect=true">
-                                <div class="aPhysician"><img class="physicianResultPhoto"
-                                                             src="/resources/img/icon-user-default.png" alt=""/>
-                                    <div class="physicianResultDetails">
-                                        <h:outputText value="Nom:"/><br/>
-                                        <h:outputText value="#{value.firstName}"/><br/>
-                                        <h:outputText value="Domaine d'activité:"/>
-                                        <h:outputText value="#{value.fieldOfActivity.name}"/><br/>
-                                        <h:outputText value="Région:"/>
-                                        <h:outputText value="#{value.practiceArea.city}"/>
+        <div id="container">
+            <ui:insert name="header">
+                <ui:include src="header.xhtml"/>
+            </ui:insert>
+            <div class="row">
+                <h:form id="form" action="physicianPage">
+                    <div class="resultContainer">
+                        <div id="listOfPhysician">
+                            <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
+                                <h:commandLink id="aPhysician_#{value.id}" ajax="false"
+                                               actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
+                                               action="physicianPage?faces-redirect=true">
+                                    <div class="aPhysician"><img class="physicianResultPhoto"
+                                                                 src="/resources/img/icon-user-default.png" alt=""/>
+                                        <div class="physicianResultDetails">
+                                            <h:outputText value="Nom:"/><br/>
+                                            <h:outputText value="#{value.firstName}"/><br/>
+                                            <h:outputText value="Domaine d'activité:"/>
+                                            <h:outputText value="#{value.fieldOfActivity.name}"/><br/>
+                                            <h:outputText value="Région:"/>
+                                            <h:outputText value="#{value.practiceArea.city}"/>
+                                        </div>
                                     </div>
-                                </div>
-                            </h:commandLink>
+                                </h:commandLink>
 
-                        </ui:repeat>
+                            </ui:repeat>
+                        </div>
+                        <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID"
+                                                                style="width:100%;height:400px"/></div>
                     </div>
-                    <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" /></div>
-                </div>
-            </h:form>
+                </h:form>
+            </div>
         </div>
-    </div>
     </div>
 </h:body>
 </html>
