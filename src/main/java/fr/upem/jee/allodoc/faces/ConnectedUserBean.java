@@ -102,6 +102,7 @@ public class ConnectedUserBean implements Serializable {
                 PatientService patientService = new PatientService();
                 Patient byId = patientService.getById(connectedUser.getId());
 
+                //TODO remove appointments below
                 Appointment nicolas = new Appointment(Date.from(Instant.now()), Date.from(Instant.now().plusSeconds(360)), "Nicolas");
                 byId.addAppointment(nicolas);
                 Appointment karim = new Appointment(Date.from(Instant.now()), Date.from(Instant.now().plusSeconds(360)), "Karim");
