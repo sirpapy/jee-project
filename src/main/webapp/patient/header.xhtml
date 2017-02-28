@@ -6,6 +6,13 @@
 >
 <ui:composition>
     <h:outputStylesheet library="css" name="grayscale.css"/>
+    <h:outputStylesheet library="css" name="bootstrap/bootstrap.min.css"/>
+    <h:outputStylesheet library="css" name="grayscale.css"/>
+    <h:outputStylesheet library="css" name="scrolling-nav.css"/>
+    <h:outputScript library="js" name="jquery/jquery.js"/>
+    <h:outputScript library="js" name="bootstrap/bootstrap.min.js"/>
+    <h:outputScript library="js" name="jquery/jquery.easing.min.js"/>
+    <h:outputScript library="js" name="grayscale.js"/>
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-static-top" role="navigation">
         <div class="container">
@@ -13,10 +20,10 @@
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
                     Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll">
+                <h:link class="navbar-brand page-scroll" outcome="/patient/home">
                     <i class="fa fa-heartbeat"></i> <span class="light">Welcome , </span> <b><h:outputLabel
                         value="#{connectedUserBean.connectedUser.account.userName}"/></b>
-                </a>
+                </h:link>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-right navbar-main-collapse">

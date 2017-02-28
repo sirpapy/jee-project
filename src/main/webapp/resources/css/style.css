@@ -21,7 +21,7 @@ img#UserLogo {
     width: 70%;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 10%;
+    margin-top: 1%;
 }
 
 div#aPhysician {
@@ -38,12 +38,6 @@ div#aPhysician {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
-    /*background-size: cover;*/
-    /*-webkit-filter: blur(9px);*/
-    /*-moz-filter: blur(9px);*/
-    /*-o-filter: blur(9px);*/
-    /*-ms-filter: blur(9px);*/
-    /*filter: blur(9px);*/
 }
 
 #container {

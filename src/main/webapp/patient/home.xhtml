@@ -38,6 +38,7 @@
                         <b:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
                                          value="#{searchBean.postalCode}" converter="locationConverter"
                                          tooltip="Select a postal code">
+                            <f:selectItem itemLabel="Postal code"/>
                             <f:selectItems value="#{dataContainerBean.locations}" var="area"
                                            itemLabel="#{area.postalCode}"
                                            itemValue="#{area}"/>
@@ -48,6 +49,7 @@
                                          style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
                                          value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter"
                                          tooltip="The field of activity of the doctor">
+                            <f:selectItem itemLabel="Field of activity"/>
                             <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
                                            itemLabel="#{field.name}"
                                            itemValue="#{field}"/>

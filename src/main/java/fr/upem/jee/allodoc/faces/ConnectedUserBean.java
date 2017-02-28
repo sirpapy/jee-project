@@ -1,6 +1,5 @@
 package fr.upem.jee.allodoc.faces;
 
-import fr.upem.jee.allodoc.entity.Appointment;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.User;
 import fr.upem.jee.allodoc.service.AppointmentService;
@@ -15,8 +14,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
-import java.time.Instant;
-import java.util.Date;
 import java.util.Optional;
 
 /**
@@ -99,16 +96,7 @@ public class ConnectedUserBean implements Serializable {
         if (getConnected().isPresent()) {
             connectedUser = getConnected().get();
             if (connectedUser != null) {
-                PatientService patientService = new PatientService();
-                Patient byId = patientService.getById(connectedUser.getId());
-
-                //TODO remove appointments below
-                Appointment nicolas = new Appointment(Date.from(Instant.now()), Date.from(Instant.now().plusSeconds(360)), "Nicolas");
-                byId.addAppointment(nicolas);
-                Appointment karim = new Appointment(Date.from(Instant.now()), Date.from(Instant.now().plusSeconds(360)), "Karim");
-
-                byId.addAppointment(karim);
-                return byId;
+                return PatientService.getById(connectedUser.getId());
             }
         }
         return null;

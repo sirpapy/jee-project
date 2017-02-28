@@ -187,4 +187,28 @@ public class PhysicianService extends UserServiceImpl<Physician> {
     }
 
 
+    public List<Physician> searchByNameAndLocation(String name, Location location) {
+        Preconditions.checkNotNull(name, "The name should not be null");
+        Preconditions.checkNotNull(location, "The location should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByNameAndLocation", Physician.class);
+        query.setParameter("pName", '%'+name+'%');
+        query.setParameter("pPostalCode", location.getPostalCode());
+        return query.getResultList();
+    }
+
+    public List<Physician> searchByFieldOfActivityAndLocation(FieldOfActivity fieldOfActivity, Location location) {
+        Preconditions.checkNotNull(fieldOfActivity, "field of activity should not be null");
+        Preconditions.checkNotNull(location, "The location should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByFieldAndLocation", Physician.class);
+        query.setParameter("pField", '%'+fieldOfActivity.getName()+'%');
+        query.setParameter("pPostalCode", location.getPostalCode());
+        return query.getResultList();
+    }
+
+    public List<Physician> searchByLocation(Location postalCode) {
+        Preconditions.checkNotNull(postalCode, "The location should not be null");
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByFieldAndLocation", Physician.class);
+        query.setParameter("pPostalCode", postalCode.getPostalCode());
+        return query.getResultList();
+    }
 }
