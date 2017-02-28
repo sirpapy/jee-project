@@ -37,7 +37,7 @@
                             id="physicianName" placeholder="Enter the name of the doctor..."/></div>
                     <div id="postalCodeSearchInput">
                         <b:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
-                                         value="#{searchBean.postalCode}" converter="locationConverter"
+                                         value="#{searchBean.postalCode}" converter="postalCodeConverter"
                                          tooltip="Select a postal code">
                             <f:selectItem itemLabel="Postal code"/>
                             <f:selectItems value="#{dataContainerBean.locations}" var="area"
