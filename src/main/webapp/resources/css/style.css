@@ -28,13 +28,12 @@ div#aPhysician {
     width: 315px;
 }
 
-#divForBackground {
+.with-image-background {
     display: table;
     width: 100%;
     height: 100%;
     text-align: center;
     background: url(#{resource['img:homescreen-bg.jpg']}) no-repeat center center scroll ;
-    background-color: black; /* Standard syntax */
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -220,4 +219,10 @@ button#j_idt16\:validateAppointment {
     background-color: rgba(198, 221, 238, 0.45);
     border : 1px solid white;
     text-align: center;
+}
+
+.appointment-container{
+    width:75%;
+    text-align:left;
+    margin: 0 auto;
 }

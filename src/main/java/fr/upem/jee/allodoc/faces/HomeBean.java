@@ -23,7 +23,7 @@ public class HomeBean {
         bean = (ConnectedUserBean) req.getSession().getAttribute("connectedUserBean");
     }
 
-    public String showProfil() {
+    public String showProfile() {
         if (!bean.isPatient())
             return Resources.PAGE_PHYSICIAN_PROFIL;
         return Resources.PAGE_PATIENT_PROFIL;
