@@ -18,8 +18,8 @@ import java.util.Objects;
 })
 public class Location implements Serializable {
 
-    private static final String DEFAULT_COUNTRY_NAME = "France";
     public static final int DEFAULT_NO_POSTAL_CODE = 999999;
+    private static final String DEFAULT_COUNTRY_NAME = "France";
     @Id
     @GeneratedValue
 
@@ -94,6 +94,16 @@ public class Location implements Serializable {
         this.country = country;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", postalCode=" + postalCode +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
+
     public static class Builder {
         private int postalCode;
         private String city;
@@ -116,7 +126,7 @@ public class Location implements Serializable {
         }
 
         public Location build() {
-            if( postalCode == 0){
+            if (postalCode == 0) {
                 postalCode = DEFAULT_NO_POSTAL_CODE;
             }
             if (country == null) {

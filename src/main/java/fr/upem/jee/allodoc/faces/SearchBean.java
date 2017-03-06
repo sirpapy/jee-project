@@ -23,10 +23,11 @@ import java.util.stream.Collectors;
 @ManagedBean(eager = true)
 public class SearchBean implements Serializable {
 
+    public static final String VALUE_NOT_SET = "<not set";
     private String name;
     private FieldOfActivity fieldOfActivity;
     private Location postalCode;
-    private List<Physician> physicianResultList = new ArrayList<>();
+    private List<Physician> physicianResultList;
     private Set<Integer> postalCodeList = PatientDashboardBean.getPostalCodeList().keySet();
     private List<String> RegionList = PatientDashboardBean.getPostalCodeList().values().stream().collect(Collectors.toList());
     private Map<Integer, String> Location = PatientDashboardBean.getPostalCodeList();
@@ -41,6 +42,9 @@ public class SearchBean implements Serializable {
     }
 
     public void setPhysicianResultList(List<Physician> physicianResultList) {
+        if (this.physicianResultList == null) {
+            this.physicianResultList = new ArrayList<>();
+        }
         this.physicianResultList = physicianResultList;
     }
 
@@ -113,11 +117,11 @@ public class SearchBean implements Serializable {
     }
 
     private boolean isSet(FieldOfActivity fieldOfActivity) {
-        return fieldOfActivity != null;
+        return fieldOfActivity.getName().equals(VALUE_NOT_SET);
     }
 
     private boolean isSet(Location location) {
-        return location != null;
+        return location.getCity().equals(VALUE_NOT_SET) && location.getCountry().equals(VALUE_NOT_SET);
     }
 
 }

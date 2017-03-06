@@ -39,7 +39,7 @@
                         <b:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
                                          value="#{searchBean.postalCode}" converter="postalCodeConverter"
                                          tooltip="Select a postal code">
-                            <f:selectItem itemLabel="Postal code"/>
+                            <f:selectItem itemLabel="Postal Code" itemValue="#{null}"/>
                             <f:selectItems value="#{dataContainerBean.locations}" var="area"
                                            itemLabel="#{area.postalCode}"
                                            itemValue="#{area}"/>
@@ -50,7 +50,7 @@
                                          style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
                                          value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter"
                                          tooltip="The field of activity of the doctor">
-                            <f:selectItem itemLabel="Field of activity"/>
+                            <f:selectItem itemLabel="Field of activity" itemValue="#{null}"/>
                             <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
                                            itemLabel="#{field.name}"
                                            itemValue="#{field}"/>
@@ -67,7 +67,7 @@
             </h:form>
         </div>
 
-        <div class="search-result-container">
+        <h:panelGroup layout="block" class="search-result-container" rendered="#{searchBean.physicianResultList != null}">
             <h:form>
                 <div class="appointment-container">
                     <b:panel look="primary">
@@ -80,16 +80,16 @@
                         <b:panel>
                             <c:forEach var="physician" items="#{searchBean.physicianResultList}">
                                 <!--<b:panel look="info" title="#{physician.lastName}">-->
-                                    <!--<div>-->
-                                        <!-- - Begin hour : <h:outputLabel value="#{appointment.beginHour}"/> <br/>-->
-                                        <!-- - End hour : <h:outputLabel value="#{appointment.endHour}"/>-->
-                                    <!--</div>-->
-                                    <!--<f:facet name="footer">-->
-                                        <!--<b:commandButton iconAwesome="remove" iconAlign="left"-->
-                                                         <!--value="Remove" look="danger" size="xs"-->
-                                                         <!--style="align:right"-->
-                                                         <!--action="#{connectedUserBean.removeAppointment(appointment.id)}"/>-->
-                                    <!--</f:facet>-->
+                                <!--<div>-->
+                                <!-- - Begin hour : <h:outputLabel value="#{appointment.beginHour}"/> <br/>-->
+                                <!-- - End hour : <h:outputLabel value="#{appointment.endHour}"/>-->
+                                <!--</div>-->
+                                <!--<f:facet name="footer">-->
+                                <!--<b:commandButton iconAwesome="remove" iconAlign="left"-->
+                                <!--value="Remove" look="danger" size="xs"-->
+                                <!--style="align:right"-->
+                                <!--action="#{connectedUserBean.removeAppointment(appointment.id)}"/>-->
+                                <!--</f:facet>-->
                                 <!--</b:panel>-->
                             </c:forEach>
                         </b:panel>
@@ -120,11 +120,12 @@
 
                             </ui:repeat>
                         </div>
-                        <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" /></div>
+                        <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID"
+                                                                style="width:100%;height:400px"/></div>
                     </div>
                 </h:form>
             </div>
-        </div>
+        </h:panelGroup>
 
     </div>
 </h:body>
