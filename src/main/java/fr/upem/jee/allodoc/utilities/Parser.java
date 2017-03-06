@@ -43,7 +43,6 @@ public class Parser {
                     .setFirstName(firstName)
                     .setLastName(lastName)
                     .setAccount(new Account(buildDefaultEmail(firstName, lastName), DEFAULT_PHYSICIAN_PASSWORD))
-                    .setRole(UserType.PHYSICIAN.name())
                     .setFieldOfActivity(new FieldOfActivity(fieldOfActivity))
                     .setPracticeArea(new Location.Builder().setCity(practiceAreaRegion).build())
                     .setStatus(status).build();

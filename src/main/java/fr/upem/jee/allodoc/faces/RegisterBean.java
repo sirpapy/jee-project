@@ -2,17 +2,14 @@ package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
-import fr.upem.jee.allodoc.service.LocationService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
-import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -33,10 +30,10 @@ public class RegisterBean implements Serializable {
     private PatientService patientService;
     private PhysicianService physicianService;
     private Location selectedPracticeArea;
-    private List<Location> allPracticeAreas;
+
     private String status;
     private FieldOfActivity selectedFieldOfActivity;
-    private List<FieldOfActivity> fieldOfActivities;
+
 
     public RegisterBean() {
         patientService = new PatientService();
@@ -61,13 +58,7 @@ public class RegisterBean implements Serializable {
         this.selectedPracticeArea = selectedPracticeArea;
     }
 
-    public List<Location> getAllPracticeAreas() {
-        return allPracticeAreas;
-    }
 
-    public void setAllPracticeAreas(List<Location> allPracticeAreas) {
-        this.allPracticeAreas = allPracticeAreas;
-    }
 
     public String getStatus() {
         return status;
@@ -77,13 +68,6 @@ public class RegisterBean implements Serializable {
         this.status = status;
     }
 
-    public List<FieldOfActivity> getFieldOfActivities() {
-        return fieldOfActivities;
-    }
-
-    public void setFieldOfActivities(List<FieldOfActivity> fieldOfActivities) {
-        this.fieldOfActivities = fieldOfActivities;
-    }
 
     public FieldOfActivity getSelectedFieldOfActivity() {
         return selectedFieldOfActivity;
@@ -161,7 +145,6 @@ public class RegisterBean implements Serializable {
                 .setBirthDate(birthDate)
                 .setAddress(address)
                 .setAccount(new Account(email, password))
-                .setRole(UserType.PATIENT.name())
                 .build();
         patientService.takeControl(p);
         patientService.save();
@@ -174,7 +157,6 @@ public class RegisterBean implements Serializable {
                 .setLastName(lastName)
                 .setBirthDate(birthDate)
                 .setAccount(new Account(email, password))
-                .setRole(UserType.PHYSICIAN.name())
                 .setAddress(address)
                 .setFieldOfActivity(selectedFieldOfActivity)
                 .setPracticeArea(selectedPracticeArea)
@@ -190,7 +172,7 @@ public class RegisterBean implements Serializable {
      * loads data from database
      */
     private void loadData() {
-        fieldOfActivities = FieldOfActivityService.getAll();
-        allPracticeAreas = LocationService.getAll();
+
+
     }
 }

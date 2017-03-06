@@ -135,7 +135,7 @@
                                         <f:facet name="prepend">
                                             <b:iconAwesome name="mortar-board" title="form of address"/>
                                         </f:facet>
-                                        <f:selectItems value="#{registerBean.fieldOfActivities}" var="field"
+                                        <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
                                                        itemLabel="#{field.name}"
                                                        itemValue="#{field}"/>
                                         <p:column>
@@ -170,7 +170,7 @@
                                     <f:facet name="prepend">
                                         <b:iconAwesome name="map-marker" title="form of address"/>
                                     </f:facet>
-                                    <f:selectItems value="#{registerBean.allPracticeAreas}" var="area"
+                                    <f:selectItems value="#{dataContainerBean.locations}" var="area"
                                                    itemLabel="#{area.postalCode} - #{area.city}"
                                                    itemValue="#{area}"/>
 

@@ -1,5 +1,7 @@
 package fr.upem.jee.allodoc.entity;
 
+import com.google.common.base.Preconditions;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -45,6 +47,7 @@ public class User implements Serializable {
     }
 
     public void setAccount(Account account) {
+        Preconditions.checkNotNull(account, "account shouldn't be null");
         this.account = account;
     }
 

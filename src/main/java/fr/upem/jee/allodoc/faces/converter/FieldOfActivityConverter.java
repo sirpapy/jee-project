@@ -7,7 +7,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -17,10 +16,12 @@ import java.util.Optional;
 public class FieldOfActivityConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Objects.requireNonNull(value);
+        if (value == null) {
+            return null;
+        }
         Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(value);
         // returning field of activity from database
-        if(byName.isPresent()){
+        if (byName.isPresent()) {
             return byName.get();
         }
         // saving the new field of activity if not in database

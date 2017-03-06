@@ -11,7 +11,7 @@ import java.util.Objects;
  * Created by raptao on 1/21/2017.
  */
 @FacesConverter("dateConverter")
-public class DateConverter implements Converter{
+public class SQLDateConverter implements Converter{
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         Objects.requireNonNull(value);
