@@ -31,7 +31,9 @@ public class PostalCodeConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        Preconditions.checkNotNull(value, "postalCode should not be null");
+        if( value == null ){
+            return null;
+        }
         Location asLocation = (Location)value;
         return asLocation.getPostalCode().toString();
     }
