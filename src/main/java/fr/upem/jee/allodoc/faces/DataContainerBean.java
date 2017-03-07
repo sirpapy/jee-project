@@ -16,6 +16,9 @@ import java.util.stream.Collectors;
 @ManagedBean
 @ApplicationScoped
 public class DataContainerBean {
+    public static final String VALUE_NOT_SET = "<not set>";
+    public static final int NOT_SET = 0;
+
     private List<FieldOfActivity> fieldOfActivities;
     private List<Location> locations;
 
@@ -40,4 +43,16 @@ public class DataContainerBean {
         this.fieldOfActivities = fieldOfActivities;
     }
 
+    public FieldOfActivity getUnSetFieldOfActivity() {
+        return new FieldOfActivity(VALUE_NOT_SET);
+    }
+
+    public Location getUnSetPostalCode() {
+        return new Location.Builder()
+                .setCity(VALUE_NOT_SET)
+                .setCountry(VALUE_NOT_SET)
+                .setPostalCode(0)
+                .build();
+
+    }
 }

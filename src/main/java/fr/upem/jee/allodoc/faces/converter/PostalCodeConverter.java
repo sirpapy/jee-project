@@ -1,7 +1,7 @@
 package fr.upem.jee.allodoc.faces.converter;
 
+import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.faces.SearchBean;
 import fr.upem.jee.allodoc.service.LocationService;
 
 import javax.faces.component.UIComponent;
@@ -20,10 +20,7 @@ public class PostalCodeConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value.equals(DEFAULT_POSTAL_CODE)) {
-            return new Location.Builder()
-                    .setCity(SearchBean.VALUE_NOT_SET).setCountry(SearchBean.VALUE_NOT_SET).build();
-        }
+        Preconditions.checkNotNull(value);
         LocationService locationService = new LocationService();
         int postalCode = Integer.parseInt(value);
         Optional<Location> byPostalCode = locationService.getByPostalCode(postalCode);
@@ -37,9 +34,7 @@ public class PostalCodeConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value == null) {
-            return null;
-        }
+        Preconditions.checkNotNull(value);
         Location asLocation = (Location) value;
         return asLocation.getPostalCode().toString();
     }

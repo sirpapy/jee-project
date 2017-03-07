@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @ManagedBean(eager = true)
 public class SearchBean implements Serializable {
 
-    public static final String VALUE_NOT_SET = "<not set";
+
     private String name;
     private FieldOfActivity fieldOfActivity;
     private Location postalCode;
@@ -72,24 +72,26 @@ public class SearchBean implements Serializable {
         this.fieldOfActivity = fieldOfActivity;
     }
 
-    public fr.upem.jee.allodoc.entity.Location getPostalCode() {
+    public Location getPostalCode() {
         return postalCode;
     }
 
 
-    public void setPostalCode(fr.upem.jee.allodoc.entity.Location postalCode) {
+    public void setPostalCode(Location postalCode) {
         this.postalCode = postalCode;
     }
 
     public String startSearch() {
         PhysicianService physicianService = new PhysicianService();
-        if (isSet(name) && isSet(postalCode) && isSet(fieldOfActivity)) { // everything is set
+        if (!isSet(name) && !postalCode.isSet() && !fieldOfActivity.isSet()) { // no value set
+            physicianResultList = PhysicianService.getAll();
+        } else if (isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // everything is set
             physicianResultList = physicianService.searchByNameFieldOfActivityLocation(fieldOfActivity, name, postalCode);
-        } else if (isSet(name) && isSet(postalCode) && !isSet(fieldOfActivity)) { // only fieldOfActivity not set
+        } else if (isSet(name) && postalCode.isSet() && !fieldOfActivity.isSet()) { // only fieldOfActivity not set
             physicianResultList = physicianService.searchByNameAndLocation(name, postalCode);
-        } else if (!isSet(name) && isSet(postalCode) && isSet(fieldOfActivity)) { // only name not set
+        } else if (!isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // only name not set
             physicianResultList = physicianService.searchByFieldOfActivityAndLocation(fieldOfActivity, postalCode);
-        } else if (isSet(postalCode) && !isSet(name) && !isSet(fieldOfActivity)) { // only cp
+        } else if (postalCode.isSet() && !isSet(name) && !fieldOfActivity.isSet()) { // only cp
             physicianResultList = physicianService.searchByLocation(postalCode);
         }
         return Resources.PAGE_PATIENT_HOME;
@@ -111,17 +113,9 @@ public class SearchBean implements Serializable {
         RegionList = regionList;
     }
 
-
     private boolean isSet(String s) {
         return s != null && !s.isEmpty();
     }
 
-    private boolean isSet(FieldOfActivity fieldOfActivity) {
-        return fieldOfActivity.getName().equals(VALUE_NOT_SET);
-    }
-
-    private boolean isSet(Location location) {
-        return location.getCity().equals(VALUE_NOT_SET) && location.getCountry().equals(VALUE_NOT_SET);
-    }
 
 }

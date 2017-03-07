@@ -39,7 +39,7 @@
                         <b:selectOneMenu id="postalCode" style="width: 100%; font-weight: 900;"
                                          value="#{searchBean.postalCode}" converter="postalCodeConverter"
                                          tooltip="Select a postal code">
-                            <f:selectItem itemLabel="Postal Code" itemValue="#{null}"/>
+                            <f:selectItem itemLabel="Postal code" itemValue="#{dataContainerBean.unSetPostalCode}"/>
                             <f:selectItems value="#{dataContainerBean.locations}" var="area"
                                            itemLabel="#{area.postalCode}"
                                            itemValue="#{area}"/>
@@ -50,7 +50,8 @@
                                          style="font-weight: 900;width: 100%;border-bottom-right-radius: 18px; border-top-right-radius: 18px;"
                                          value="#{searchBean.fieldOfActivity}" converter="fieldOfActivityConverter"
                                          tooltip="The field of activity of the doctor">
-                            <f:selectItem itemLabel="Field of activity" itemValue="#{null}"/>
+                            <f:selectItem itemLabel="Field of activity"
+                                          itemValue="#{dataContainerBean.unSetFieldOfActivity}"/>
                             <f:selectItems value="#{dataContainerBean.fieldOfActivities}" var="field"
                                            itemLabel="#{field.name}"
                                            itemValue="#{field}"/>
@@ -67,33 +68,26 @@
             </h:form>
         </div>
 
-        <h:panelGroup layout="block" class="search-result-container" rendered="#{searchBean.physicianResultList != null}">
+        <h:panelGroup layout="block" class="search-result-container"
+                      rendered="#{searchBean.physicianResultList != null}">
             <h:form>
                 <div class="appointment-container">
-                    <b:panel look="primary">
-                        <f:facet name="heading">
+                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" look="primary" chunkSize="10">
+                        <f:facet name="header">
                             <b:iconAwesome name="stethoscope" style="padding-right:20px;color:whitesmoke" size="3x"/>
                             <h:outputText value="Search result" style="color:whitesmoke"/>
                             <b:badge style="margin-left:10px; background-color:#5cb85c"
                                      value="#{connectedUserBean.badgeLabel}"/>
                         </f:facet>
+
                         <b:panel>
-                            <c:forEach var="physician" items="#{searchBean.physicianResultList}">
-                                <!--<b:panel look="info" title="#{physician.lastName}">-->
-                                <!--<div>-->
-                                <!-- - Begin hour : <h:outputLabel value="#{appointment.beginHour}"/> <br/>-->
-                                <!-- - End hour : <h:outputLabel value="#{appointment.endHour}"/>-->
-                                <!--</div>-->
-                                <!--<f:facet name="footer">-->
-                                <!--<b:commandButton iconAwesome="remove" iconAlign="left"-->
-                                <!--value="Remove" look="danger" size="xs"-->
-                                <!--style="align:right"-->
-                                <!--action="#{connectedUserBean.removeAppointment(appointment.id)}"/>-->
-                                <!--</f:facet>-->
-                                <!--</b:panel>-->
-                            </c:forEach>
+                            Firstname :
+                            <h:outputLabel value="#{physician.firstName}"/>
                         </b:panel>
-                    </b:panel>
+                        <f:facet name="loader">
+                            <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
+                        </f:facet>
+                    </p:dataScroller>
                 </div>
             </h:form>
 
@@ -101,7 +95,7 @@
                 <h:form id="form" action="physicianPage">
                     <div class="resultContainer">
                         <div id="listOfPhysician">
-                            <ui:repeat value="#{patientDashboadBean.doctorResult}" var="value"> <br/>
+                            <ui:repeat value="#{searchBean.physicianResultList}" var="value"> <br/>
                                 <h:commandLink id="aPhysician_#{value.id}" ajax="false"
                                                actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
                                                action="physicianPage?faces-redirect=true">

@@ -16,6 +16,7 @@ import java.util.Objects;
 })
 public class FieldOfActivity implements Serializable {
 
+    private static final String VALUE_NOT_SET = "<not set>";
     @Id
     @GeneratedValue
     private Long id;
@@ -28,6 +29,10 @@ public class FieldOfActivity implements Serializable {
     }
 
     public FieldOfActivity() {
+    }
+
+    public boolean isSet() {
+        return !name.equals(VALUE_NOT_SET);
     }
 
     public String getName() {
