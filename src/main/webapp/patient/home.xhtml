@@ -5,7 +5,6 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:b="http://bootsfaces.net/ui"
-      xmlns:c="http://java.sun.com/jsp/jstl/core"
 >
 <h:head>
     <title>Patient home</title>
@@ -72,18 +71,30 @@
                       rendered="#{searchBean.physicianResultList != null}">
             <h:form>
                 <div class="appointment-container">
-                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" look="primary" chunkSize="10">
+                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" look="primary">
                         <f:facet name="header">
-                            <b:iconAwesome name="stethoscope" style="padding-right:20px;color:whitesmoke" size="3x"/>
-                            <h:outputText value="Search result" style="color:whitesmoke"/>
+                            <b:iconAwesome name="stethoscope" style="padding-right:20px;color:black" size="3x"/>
+                            <h:outputText value="Search result" style="color:black"/>
                             <b:badge style="margin-left:10px; background-color:#5cb85c"
                                      value="#{connectedUserBean.badgeLabel}"/>
                         </f:facet>
 
-                        <b:panel>
-                            Firstname :
-                            <h:outputLabel value="#{physician.firstName}"/>
-                        </b:panel>
+                        <h:commandLink ajax="false"
+                                       actionListener="#{patientDashboadBean.selectAPhysician(physician.id)}"
+                                       action="physicianPage?faces-redirect=true">
+                            <b:panel>
+                                <h:outputText value="Nom:"/><br/>
+                                <h:outputText value="#{physician.firstName}"/><br/>
+                                <h:outputText value="Domaine d'activité:"/>
+                                <h:outputText value="#{physician.fieldOfActivity.name}"/><br/>
+                                <h:outputText value="Région:"/>
+                                <h:outputText value="#{physician.practiceArea.city}"/>
+                                <h:commandLink id="aPhysician_#{physician.id}" ajax="false"
+                                               actionListener="#{patienftDashboadBean.selectAPhysician(physician.id)}"
+                                               action="physicianPage?faces-redirect=true"
+                                               value="Visit"/>
+                            </b:panel>
+                        </h:commandLink>
                         <f:facet name="loader">
                             <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
                         </f:facet>
