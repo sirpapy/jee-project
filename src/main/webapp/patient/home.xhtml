@@ -73,7 +73,7 @@
                       rendered="#{searchBean.physicianResultList != null}">
             <h:form>
                 <div class="appointment-container">
-                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" chunkSize="10">
+                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" chunkSize="5">
                         <f:facet name="header">
                             <b:iconAwesome name="stethoscope" style="padding-right:20px;color:black" size="3x"/>
                             <h:outputText value="Search result" style="color:black"/>
@@ -85,8 +85,9 @@
                                        action="#{patientDashboadBean.selectAPhysician(physician.id)}">
                         </h:commandLink>
                         <b:panel>
-                            <h:outputText value="Dr. "/> <h:outputLabel value="#{physician.firstName}"/>
-                            <h:outputLabel value="#{physician.lastName}"/> <br/>
+                            <h:outputText value="Dr. "/> <h:outputLabel
+                                value="#{physician.firstName} #{physician.lastName.toUpperCase()}"/>
+                            <br/>
                             <h:outputText value="Field of activity: "/>
                             <h:outputText value="#{physician.fieldOfActivity.name}"/><br/>
                             <h:outputText value="Région:"/>
@@ -100,20 +101,10 @@
                                     </f:facet>
                                     <div class="availabilitiesContainer">
                                         <h:form>
-                                            <div class="physicianInfo">
-                                                <label class="physicianLabel"> Nom: </label>
-                                                <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.firstName}</label><br/>
-                                                <label class="physicianLabel"> Domaine d'activité:</label>
-                                                <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.fieldOfActivity.name}</label><br/>
-                                                <label class="physicianLabel"> Région:</label>
-                                                <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.address.location.city}</label><br/>
-                                            </div>
-                                            <f:facet name="header"> Availabilities: </f:facet>
-
                                             <h:selectOneRadio id="availabilityRadio" layout="pageDirection"
                                                               value="#{patient_physicianAppointement.patientDashboardBean.selectAvailabilityID}">
                                                 <f:selectItems styleClass="aRadio"
-                                                               value="#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.availabilities}"
+                                                               value="#{physician.availabilities}"
                                                                var="avail"
                                                                itemLabel="Begin : #{avail.beginAvailability} ---- End #{avail.endAvailability}"
                                                                itemValue="#{avail.id}"/>
@@ -124,7 +115,7 @@
                                                                  id="validateAppointment"
                                                                  ajax="false"
                                                                  action="#{patient_physicianAppointement.validateAppointment(connectedUserBean.connectedPatient.id)}"
-                                                                 disabled="#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.availabilities.isEmpty()}"/>
+                                                                 disabled="#{physician.availabilities.isEmpty()}"/>
 
                                             </div>
                                         </h:form>
