@@ -19,4 +19,5 @@ public class Resources {
 
     public static final String TAG_AVOIDING_EXPIRED_VIEW = "?faces-redirect=true";
 
+    public static final String PAGE_PATIENT_ABOUT_PHYSICIAN = "/patient/physicianPage";
 }

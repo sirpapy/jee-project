@@ -63,7 +63,6 @@ public class PatientDashboardBean {
     public void selectAPhysician(int id) {
         Preconditions.checkArgument(id > 0, "The selected physician ID is incorrect");
         this.selectedPhysicianAfterSearch = id;
-        Preconditions.checkArgument(selectedPhysicianAfterSearch > 0, "You didn't selected a physician");
         PhysicianService physicianService = new PhysicianService();
         getSelectedPhysician = physicianService.findByLongId(Physician.class, selectedPhysicianAfterSearch);
     }

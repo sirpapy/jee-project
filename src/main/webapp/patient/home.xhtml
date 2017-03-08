@@ -67,11 +67,13 @@
             </h:form>
         </div>
 
+
+        <!-- SEARCH RESULT-->
         <h:panelGroup layout="block" class="search-result-container"
                       rendered="#{searchBean.physicianResultList != null}">
             <h:form>
                 <div class="appointment-container">
-                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" look="primary">
+                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" chunkSize="10">
                         <f:facet name="header">
                             <b:iconAwesome name="stethoscope" style="padding-right:20px;color:black" size="3x"/>
                             <h:outputText value="Search result" style="color:black"/>
@@ -80,58 +82,70 @@
                         </f:facet>
 
                         <h:commandLink ajax="false"
-                                       actionListener="#{patientDashboadBean.selectAPhysician(physician.id)}"
-                                       action="physicianPage?faces-redirect=true">
-                            <b:panel>
-                                <h:outputText value="Nom:"/><br/>
-                                <h:outputText value="#{physician.firstName}"/><br/>
-                                <h:outputText value="Domaine d'activité:"/>
-                                <h:outputText value="#{physician.fieldOfActivity.name}"/><br/>
-                                <h:outputText value="Région:"/>
-                                <h:outputText value="#{physician.practiceArea.city}"/>
-                                <h:commandLink id="aPhysician_#{physician.id}" ajax="false"
-                                               actionListener="#{patienftDashboadBean.selectAPhysician(physician.id)}"
-                                               action="physicianPage?faces-redirect=true"
-                                               value="Visit"/>
-                            </b:panel>
+                                       action="#{patientDashboadBean.selectAPhysician(physician.id)}">
                         </h:commandLink>
+                        <b:panel>
+                            <h:outputText value="Dr. "/> <h:outputLabel value="#{physician.firstName}"/>
+                            <h:outputLabel value="#{physician.lastName}"/> <br/>
+                            <h:outputText value="Field of activity: "/>
+                            <h:outputText value="#{physician.fieldOfActivity.name}"/><br/>
+                            <h:outputText value="Région:"/>
+                            <h:outputText value="#{physician.practiceArea.city}"/>
+
+                            <f:facet name="footer">
+                                <b:panel collapsed="true" look="info">
+                                    <f:facet name="heading">
+                                        <b:iconAwesome name="eye" style="padding-right:20px;color:black"/>
+                                        <h:outputText value="Details" style="color:black"/>
+                                    </f:facet>
+                                    <div class="availabilitiesContainer">
+                                        <h:form>
+                                            <div class="physicianInfo">
+                                                <label class="physicianLabel"> Nom: </label>
+                                                <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.firstName}</label><br/>
+                                                <label class="physicianLabel"> Domaine d'activité:</label>
+                                                <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.fieldOfActivity.name}</label><br/>
+                                                <label class="physicianLabel"> Région:</label>
+                                                <label class="physicianValue">#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.address.location.city}</label><br/>
+                                            </div>
+                                            <f:facet name="header"> Availabilities: </f:facet>
+
+                                            <h:selectOneRadio id="availabilityRadio" layout="pageDirection"
+                                                              value="#{patient_physicianAppointement.patientDashboardBean.selectAvailabilityID}">
+                                                <f:selectItems styleClass="aRadio"
+                                                               value="#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.availabilities}"
+                                                               var="avail"
+                                                               itemLabel="Begin : #{avail.beginAvailability} ---- End #{avail.endAvailability}"
+                                                               itemValue="#{avail.id}"/>
+                                            </h:selectOneRadio>
+                                            <div class="validateAppointment">
+                                                <p:commandButton style="margin-left: auto; margin-right: auto;"
+                                                                 value="Validate appointment"
+                                                                 id="validateAppointment"
+                                                                 ajax="false"
+                                                                 action="#{patient_physicianAppointement.validateAppointment(connectedUserBean.connectedPatient.id)}"
+                                                                 disabled="#{patient_physicianAppointement.patientDashboardBean.getSelectedPhysician.availabilities.isEmpty()}"/>
+
+                                            </div>
+                                        </h:form>
+                                    </div>
+                                </b:panel>
+                            </f:facet>
+                        </b:panel>
                         <f:facet name="loader">
                             <p:commandButton type="button" value="More" icon="ui-icon-circle-triangle-s"/>
                         </f:facet>
+
+
                     </p:dataScroller>
                 </div>
             </h:form>
 
-            <div class="row">
-                <h:form id="form" action="physicianPage">
-                    <div class="resultContainer">
-                        <div id="listOfPhysician">
-                            <ui:repeat value="#{searchBean.physicianResultList}" var="value"> <br/>
-                                <h:commandLink id="aPhysician_#{value.id}" ajax="false"
-                                               actionListener="#{patientDashboadBean.selectAPhysician(value.id)}"
-                                               action="physicianPage?faces-redirect=true">
-                                    <div class="aPhysician"><img class="physicianResultPhoto"
-                                                                 src="/resources/img/icon-user-default.png" alt=""/>
-                                        <div class="physicianResultDetails">
-                                            <h:outputText value="Nom:"/><br/>
-                                            <h:outputText value="#{value.firstName}"/><br/>
-                                            <h:outputText value="Domaine d'activité:"/>
-                                            <h:outputText value="#{value.fieldOfActivity.name}"/><br/>
-                                            <h:outputText value="Région:"/>
-                                            <h:outputText value="#{value.practiceArea.city}"/>
-                                        </div>
-                                    </div>
-                                </h:commandLink>
 
-                            </ui:repeat>
-                        </div>
-                        <div class="googleMapContainer"><p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID"
-                                                                style="width:100%;height:400px"/></div>
-                    </div>
-                </h:form>
-            </div>
         </h:panelGroup>
 
     </div>
+
+
 </h:body>
 </html>
