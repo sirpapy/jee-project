@@ -85,7 +85,7 @@
                             <b:badge style="margin-left:10px; background-color:#5cb85c"
                                      value="#{connectedUserBean.badgeLabel}"/>
                         </f:facet>
-                        
+
                         <b:panel>
                             <h:outputText value="Dr. "/> <h:outputLabel
                                 value="#{physician.firstName} #{physician.lastName.toUpperCase()}"/>
@@ -104,7 +104,7 @@
                                     <div class="availabilitiesContainer">
                                         <h:form>
                                             <h:selectOneRadio id="availabilityRadio" layout="pageDirection"
-                                                              value="#{patient_physicianAppointement.patientDashboardBean.selectAvailabilityID}">
+                                                              value="#{searchBean.selectAvailabilityID}">
                                                 <f:selectItems styleClass="aRadio"
                                                                value="#{physician.availabilities}"
                                                                var="avail"
@@ -117,7 +117,7 @@
                                                         value="Validate appointment"
                                                         id="validateAppointment"
                                                         ajax="false"
-                                                        action="#{patient_physicianAppointement.validateAppointment(connectedUserBean.connectedPatient.id)}"
+                                                        action="#{searchBean.validateAppointment(physician, avail.id)}"
                                                         disabled="#{physician.availabilities.isEmpty()}"/>
 
                                             </div>

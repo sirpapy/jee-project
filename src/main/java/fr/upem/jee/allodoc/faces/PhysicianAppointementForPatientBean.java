@@ -29,14 +29,7 @@ public class PhysicianAppointementForPatientBean {
 
 
 
-    public String validateAppointment(int id) {
-        Preconditions.checkArgument(id >= 0, "The user ID sent by search is not valid");
-        Patient patient = PatientService.getById(id);
-        PatientService patientService = new PatientService(patient);
-        patientService.setNewAppointment(patientDashboardBean.getGetSelectedPhysician(), patientDashboardBean.getSelectAvailabilityID(), patientDashboardBean.getSelectAvailabilityID());
-        patientService.save(patient);
-        return Resources.PAGE_PATIENT_PROFIL + "?faces-redirect=true";
-    }
+
 
     public PatientDashboardBean getPatientDashboardBean() {
         return patientDashboardBean;

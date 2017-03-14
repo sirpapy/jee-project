@@ -11,7 +11,6 @@ public class Resources {
     public static final String PAGE_REGISTER = "register-form";
     public static final String PAGE_LOGIN_FORM = "login";
     public static final String PAGE_PATIENT_HOME = "/patient/home";
-    public static final String PAGE_PATIENT_SEARCH_RESULT = "patient/search-results";
     public static final String PAGE_PHYSICIAN_HOME = "physician/home";
     public static final String PAGE_PHYSICIAN_PROFIL = "physicianProfil";
     public static final String PAGE_PATIENT_PROFIL = "/patient/patientProfil";

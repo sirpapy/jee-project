@@ -1,20 +1,21 @@
 package fr.upem.jee.allodoc.faces;
 
+import com.google.common.base.Preconditions;
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
 import fr.upem.jee.allodoc.entity.Location;
+import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by Sirpapy on 19/01/2017.
@@ -28,15 +29,21 @@ public class SearchBean implements Serializable {
     private FieldOfActivity fieldOfActivity;
     private Location postalCode;
 
+    private int selectAvailabilityID;
+    @ManagedProperty("#{connectedUserBean}")
+    private ConnectedUserBean connectedUserBean;
     private List<Physician> physicianResultList;
-    private Set<Integer> postalCodeList = PatientDashboardBean.getPostalCodeList().keySet();
-    private List<String> RegionList = PatientDashboardBean.getPostalCodeList().values().stream().collect(Collectors.toList());
-    private Map<Integer, String> Location = PatientDashboardBean.getPostalCodeList();
-
 
     public SearchBean() throws IOException {
     }
 
+    public int getSelectAvailabilityID() {
+        return selectAvailabilityID;
+    }
+
+    public void setSelectAvailabilityID(int selectAvailabilityID) {
+        this.selectAvailabilityID = selectAvailabilityID;
+    }
 
     public List<Physician> getPhysicianResultList() {
         return physicianResultList;
@@ -47,14 +54,6 @@ public class SearchBean implements Serializable {
             this.physicianResultList = new ArrayList<>();
         }
         this.physicianResultList = physicianResultList;
-    }
-
-    public Map<Integer, String> getLocation() {
-        return Location;
-    }
-
-    public void setLocation(Map<Integer, String> location) {
-        Location = location;
     }
 
     public String getName() {
@@ -100,24 +99,26 @@ public class SearchBean implements Serializable {
         return Resources.PAGE_PATIENT_HOME;
     }
 
-    public Set<Integer> getPostalCodeList() {
-        return postalCodeList;
+    public ConnectedUserBean getConnectedUserBean() {
+        return connectedUserBean;
     }
 
-    public void setPostalCodeList(Set<Integer> postalCodeList) {
-        this.postalCodeList = postalCodeList;
+    public void setConnectedUserBean(ConnectedUserBean connectedUserBean) {
+        this.connectedUserBean = connectedUserBean;
     }
 
-    public List<String> getRegionList() {
-        return RegionList;
-    }
-
-    public void setRegionList(List<String> regionList) {
-        RegionList = regionList;
-    }
 
     private boolean isSet(String s) {
         return s != null && !s.isEmpty();
+    }
+
+    public String validateAppointment(Physician selectedPhysician, int appointmentId) {
+        Preconditions.checkArgument(appointmentId >= 0, "The user ID sent by search is not valid");
+        Patient patient = connectedUserBean.getConnectedPatient();
+        PatientService patientService = new PatientService(patient);
+        patientService.setNewAppointment(selectedPhysician, selectAvailabilityID, appointmentId);
+        patientService.save(patient);
+        return Resources.PAGE_PATIENT_PROFIL + Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 
