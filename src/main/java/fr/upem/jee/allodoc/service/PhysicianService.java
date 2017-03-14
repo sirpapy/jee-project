@@ -217,10 +217,10 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         return query.getResultList();
     }
 
-    public List<Physician> searchByLocation(Location postalCode) {
+    public List<Physician> searchByPostalCode(int postalCode) {
         Preconditions.checkNotNull(postalCode, "The location should not be null");
-        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByLocation", Physician.class);
-        query.setParameter("pPostalCode", postalCode.getPostalCode());
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByPostalCode", Physician.class);
+        query.setParameter("pPostalCode", postalCode);
         return query.getResultList();
     }
 }

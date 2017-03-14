@@ -35,7 +35,7 @@ import java.util.Objects;
         @NamedQuery(name = "findPhysicianByFieldAndLocation",
                 query = "SELECT p from Physician p where p.practiceArea.postalCode = :pPostalCode and p.fieldOfActivity.name like :pField"),
 
-        @NamedQuery(name = "findPhysicianByLocation",
+        @NamedQuery(name = "findPhysicianByPostalCode",
                 query = "SELECT p from Physician p where p.practiceArea.postalCode = :pPostalCode "),
 
 
@@ -169,4 +169,8 @@ public class Physician extends User implements Serializable {
         }
     }
 
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + practiceArea.getPostalCode();
+    }
 }

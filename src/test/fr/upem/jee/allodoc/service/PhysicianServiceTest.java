@@ -27,7 +27,6 @@ public class PhysicianServiceTest {
         manager.clear(FieldOfActivity.class);
         manager.clear(Address.class);
         manager.clear(Location.class);
-
     }
     @Test
     public void searchByFieldOfActivity1() throws Exception {
@@ -113,6 +112,22 @@ public class PhysicianServiceTest {
 
     }
 
+    @Test
+    public void searchByLocation(){
+        Physician physician = SampleUsers.physician();
+        Physician thierry = SampleUsers.thierry();
+        PhysicianService physicianService = new PhysicianService(physician);
+        physicianService.save();
+        physicianService.takeControl(thierry);
+        physicianService.save();
+
+        List<Physician> all = PhysicianService.getAll();
+        assertEquals(2, all.size());
+
+        all.forEach(System.out::println);
+        List<Physician> physicians = physicianService.searchByPostalCode(thierry.getPracticeArea().getPostalCode());
+        assertEquals(1, physicians.size());
+    }
 
     @Test
     public void searchByFieldOfActivityNameLocation() throws ParseException {

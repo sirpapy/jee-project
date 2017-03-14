@@ -9,7 +9,6 @@ import fr.upem.jee.allodoc.utilities.Parser;
 import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,20 +25,12 @@ import java.util.Map;
 @ManagedBean(name = "patientDashboadBean", eager = true)
 public class PatientDashboardBean {
 
-
-    private String doctorName;
-    private long postalCode;
-    private String fieldOfActivity;
-    private long patientID;
     private Physician getSelectedPhysician;
     private int selectedPhysicianAfterSearch;
 
 
     private int selectAvailabilityID;
 
-
-    @ManagedProperty("#{searchBean}")
-    private SearchBean searchBean;
 
     public PatientDashboardBean() {
         selectedPhysicianAfterSearch = -1;
@@ -91,7 +82,4 @@ public class PatientDashboardBean {
         this.selectAvailabilityID = selectAvailabilityID;
     }
 
-    public void setSearchBean(SearchBean searchBean) {
-        this.searchBean = searchBean;
-    }
 }
