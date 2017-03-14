@@ -11,7 +11,7 @@ import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by Sirpapy on 19/01/2017.
  */
-@RequestScoped
+@SessionScoped
 @ManagedBean
 public class SearchBean implements Serializable {
 
@@ -88,13 +88,13 @@ public class SearchBean implements Serializable {
         } else if (isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // everything is set
             physicianResultList = physicianService.searchByNameFieldOfActivityLocation(fieldOfActivity, name, postalCode);
         } else if (isSet(name) && postalCode.isSet() && !fieldOfActivity.isSet()) { // only fieldOfActivity not set
-            physicianResultList = physicianService.searchByNameAndLocation(name, postalCode);
+            physicianResultList = physicianService.searchByNameAndLocation(name.toLowerCase(), postalCode);
         } else if (!isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // only name not set
             physicianResultList = physicianService.searchByFieldOfActivityAndLocation(fieldOfActivity, postalCode);
         } else if (postalCode.isSet() && !isSet(name) && !fieldOfActivity.isSet()) { // only postal code
             physicianResultList = physicianService.searchByPostalCode(postalCode.getPostalCode());
         } else if (isSet(name) && !postalCode.isSet() && !fieldOfActivity.isSet()) { // onyl
-            physicianResultList = physicianService.searchByName(name);
+            physicianResultList = physicianService.searchByName(name.toLowerCase());
         }
         return Resources.PAGE_PATIENT_HOME;
     }
@@ -113,6 +113,7 @@ public class SearchBean implements Serializable {
     }
 
     public String validateAppointment(Physician selectedPhysician, int appointmentId) {
+        Preconditions.checkNotNull(selectedPhysician, "the selected physician should not be null");
         Preconditions.checkArgument(appointmentId >= 0, "The user ID sent by search is not valid");
         Patient patient = connectedUserBean.getConnectedPatient();
         PatientService patientService = new PatientService(patient);

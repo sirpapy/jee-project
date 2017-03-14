@@ -7,6 +7,7 @@ import fr.upem.jee.allodoc.entity.Availability;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.Physician;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -25,9 +26,9 @@ public class PatientService extends UserServiceImpl<Patient> {
         super();
     }
 
-    public static Patient getById(long patientId){
+    public static Patient getById(long patientId) {
         DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
-        return  databaseManager.findByLongId(Patient.class, patientId);
+        return databaseManager.findByLongId(Patient.class, patientId);
     }
 
 
@@ -37,15 +38,18 @@ public class PatientService extends UserServiceImpl<Patient> {
         Preconditions.checkArgument(appointmentId >= 0);
         PhysicianService physicianService = new PhysicianService(physician);
         if (!physicianService.isAvailableAt(availabilityId)) {
-            Query query = manager().getEntityManager().createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
-            query.getFirstResult();
-            Availability appointment = manager().getEntityManager().find(Availability.class, appointmentId);
-            getControlledUser().addAppointment(new Appointment(appointment.getBeginAvailability(), appointment.getEndAvailability(), physician.getFirstName()+" "+physician.getLastName()));
+            EntityManager entityManager = manager().getEntityManager();
+            Query query = entityManager.createNativeQuery("update physician_availability set appointment_id = " + appointmentId + " WHERE physician_id =" + physician.getId() + " AND availability_id = " + availabilityId + "");
+            entityManager.getTransaction().begin();
+            query.executeUpdate();
+            entityManager.getTransaction().commit();
+            Availability availability = manager().findByLongId(Availability.class, availabilityId);
+            Preconditions.checkState(availability != null, "availability should be null");
+            getControlledUser().addAppointment(new Appointment(availability.getBeginAvailability(), availability.getEndAvailability(), physician.getFirstName() + " " + physician.getLastName()));
             return true;
         }
         return false;
     }
-
 
 
 //    public Patient getFromId(Long id) {
@@ -63,7 +67,6 @@ public class PatientService extends UserServiceImpl<Patient> {
         query.setParameter("pFirstName", firstName);
         return query.getResultList();
     }
-
 
 
 }

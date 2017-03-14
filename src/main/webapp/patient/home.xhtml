@@ -104,7 +104,7 @@
                                     <div class="availabilitiesContainer">
                                         <h:form>
                                             <h:selectOneRadio id="availabilityRadio" layout="pageDirection"
-                                                              value="#{searchBean.selectAvailabilityID}">
+                                                              value="#{searchBean.selectAvailabilityID}" required="true">
                                                 <f:selectItems styleClass="aRadio"
                                                                value="#{physician.availabilities}"
                                                                var="avail"
@@ -112,11 +112,10 @@
                                                                itemValue="#{avail.id}"/>
                                             </h:selectOneRadio>
                                             <div class="validateAppointment">
-                                                <p:commandButton
+                                                <b:commandButton
                                                         style="margin-left: auto; margin-right: auto;"
                                                         value="Validate appointment"
                                                         id="validateAppointment"
-                                                        ajax="false"
                                                         action="#{searchBean.validateAppointment(physician, avail.id)}"
                                                         disabled="#{physician.availabilities.isEmpty()}"/>
 
