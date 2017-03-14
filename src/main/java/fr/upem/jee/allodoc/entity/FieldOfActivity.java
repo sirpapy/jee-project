@@ -35,6 +35,10 @@ public class FieldOfActivity implements Serializable {
         return !name.equals(VALUE_NOT_SET);
     }
 
+    public void unset(){
+        name = VALUE_NOT_SET;
+    }
+
     public String getName() {
         return name;
     }

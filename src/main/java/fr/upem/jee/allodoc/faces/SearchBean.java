@@ -27,6 +27,11 @@ public class SearchBean implements Serializable {
     private String name;
     private FieldOfActivity fieldOfActivity;
     private Location postalCode;
+
+    private String searchName;
+    private FieldOfActivity searchFA;
+    private Location searchPostalCode;
+
     private List<Physician> physicianResultList;
     private Set<Integer> postalCodeList = PatientDashboardBean.getPostalCodeList().keySet();
     private List<String> RegionList = PatientDashboardBean.getPostalCodeList().values().stream().collect(Collectors.toList());
@@ -81,18 +86,42 @@ public class SearchBean implements Serializable {
         this.postalCode = postalCode;
     }
 
-    public String startSearch() {
+    public String startSearch() throws InterruptedException {
+        searchName = name;
+        searchFA = fieldOfActivity;
+        searchPostalCode = postalCode;
         PhysicianService physicianService = new PhysicianService();
-        if (!isSet(name) && !postalCode.isSet() && !fieldOfActivity.isSet()) { // no value set
+        if (!isSet(searchName) && !searchPostalCode.isSet() && !searchFA.isSet()) { // no value set
+            System.out.println("NONE");
+            Thread.sleep(5000);
             physicianResultList = PhysicianService.getAll();
-        } else if (isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // everything is set
-            physicianResultList = physicianService.searchByNameFieldOfActivityLocation(fieldOfActivity, name, postalCode);
-        } else if (isSet(name) && postalCode.isSet() && !fieldOfActivity.isSet()) { // only fieldOfActivity not set
-            physicianResultList = physicianService.searchByNameAndLocation(name, postalCode);
-        } else if (!isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // only name not set
-            physicianResultList = physicianService.searchByFieldOfActivityAndLocation(fieldOfActivity, postalCode);
-        } else if (postalCode.isSet() && !isSet(name) && !fieldOfActivity.isSet()) { // only cp
-            physicianResultList = physicianService.searchByLocation(postalCode);
+        } else if (isSet(searchName) && searchPostalCode.isSet() && searchFA.isSet()) { // everything is set
+            System.out.println("ALL");
+            Thread.sleep(5000);
+            physicianResultList = physicianService.searchByNameFieldOfActivityLocation(searchFA, searchName, searchPostalCode);
+        } else if (isSet(searchName) && searchPostalCode.isSet() && !searchFA.isSet()) { // only fieldOfActivity not set
+            System.out.println("NAME + POSTALCODE");
+            Thread.sleep(5000);
+            physicianResultList = physicianService.searchByNameAndLocation(searchName, searchPostalCode);
+        } else if (!isSet(searchName) && searchPostalCode.isSet() && searchFA.isSet()) { // only name not set
+            System.out.println("FIELD OF ACTIVITY + POSTALCODE");
+            Thread.sleep(5000);
+            physicianResultList = physicianService.searchByFieldOfActivityAndLocation(searchFA, searchPostalCode);
+        } else if (searchPostalCode.isSet() && !isSet(searchName) && !searchFA.isSet()) { // only cp
+            System.out.println(" POSTALCODE");
+            Thread.sleep(5000);
+            physicianResultList = physicianService.searchByLocation(searchPostalCode);
+        } else if( isSet(searchName) && !searchPostalCode.isSet() && !searchFA.isSet()){ // onyl
+            System.out.println("NAME");
+            physicianResultList = physicianService.searchByName(name);
+            Thread.sleep(5000);
+        }
+        searchName = null;
+        if (searchFA != null) {
+            searchFA.unset();
+        }
+        if (searchPostalCode != null) {
+            searchPostalCode.unset();
         }
         return Resources.PAGE_PATIENT_HOME;
     }

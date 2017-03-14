@@ -40,18 +40,18 @@ public class Location implements Serializable {
         this.country = Preconditions.checkNotNull(country, "country should not bet null");
     }
 
-    public boolean isSet(){
-        return postalCode != NOT_SET
-                && !city.equals(VALUE_NOT_SET.toUpperCase())
-                && !country.equals(VALUE_NOT_SET);
-    }
-
     public Location(Integer postalCode, String city) {
         this(postalCode, city, DEFAULT_COUNTRY_NAME);
     }
 
     private static String cleanCityString(String city) {
         return city.replace("-", " ").toUpperCase();
+    }
+
+    public boolean isSet() {
+        return postalCode != NOT_SET
+                && !city.equals(VALUE_NOT_SET.toUpperCase())
+                && !country.equals(VALUE_NOT_SET);
     }
 
     public long getId() {
@@ -109,6 +109,12 @@ public class Location implements Serializable {
                 ", city='" + city + '\'' +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+    public void unset() {
+        postalCode = NOT_SET;
+        city = VALUE_NOT_SET.toUpperCase();
+        country = VALUE_NOT_SET;
     }
 
     public static class Builder {

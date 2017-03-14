@@ -17,6 +17,7 @@
 <h:body styleClass="with-image-background">
     <div id="container">
 
+
         <ui:insert name="header">
             <ui:include src="header.xhtml"/>
         </ui:insert>
@@ -61,29 +62,30 @@
                     </div>
                 </div>
                 <div id="divButtonContainer">
-                    <b:commandButton value="Search" iconAwesome="search" size="2x" iconAlign="right" id="search"
-                                     type="submit" action="#{searchBean.startSearch()}"/>
+                    <b:commandButton value="Search" iconAwesome="search" size="2x"
+                                     iconAlign="right" id="search"
+                                     styleClass="ui-priority-primary"
+                                     type="submit" action="#{searchBean.startSearch()}"
+                    />
                 </div>
             </h:form>
         </div>
 
 
         <!-- SEARCH RESULT-->
-        <h:panelGroup layout="block" class="search-result-container"
+        <h:panelGroup id="search-result-container" layout="block" class="search-result-container"
                       rendered="#{searchBean.physicianResultList != null}">
             <h:form>
                 <div class="appointment-container">
-                    <p:dataScroller value="#{searchBean.physicianResultList}" var="physician" chunkSize="5">
+                    <p:dataScroller class="scroller" value="#{searchBean.physicianResultList}" var="physician"
+                                    chunkSize="5">
                         <f:facet name="header">
                             <b:iconAwesome name="stethoscope" style="padding-right:20px;color:black" size="3x"/>
                             <h:outputText value="Search result" style="color:black"/>
                             <b:badge style="margin-left:10px; background-color:#5cb85c"
                                      value="#{connectedUserBean.badgeLabel}"/>
                         </f:facet>
-
-                        <h:commandLink ajax="false"
-                                       action="#{patientDashboadBean.selectAPhysician(physician.id)}">
-                        </h:commandLink>
+                        
                         <b:panel>
                             <h:outputText value="Dr. "/> <h:outputLabel
                                 value="#{physician.firstName} #{physician.lastName.toUpperCase()}"/>
@@ -110,12 +112,13 @@
                                                                itemValue="#{avail.id}"/>
                                             </h:selectOneRadio>
                                             <div class="validateAppointment">
-                                                <p:commandButton style="margin-left: auto; margin-right: auto;"
-                                                                 value="Validate appointment"
-                                                                 id="validateAppointment"
-                                                                 ajax="false"
-                                                                 action="#{patient_physicianAppointement.validateAppointment(connectedUserBean.connectedPatient.id)}"
-                                                                 disabled="#{physician.availabilities.isEmpty()}"/>
+                                                <p:commandButton
+                                                        style="margin-left: auto; margin-right: auto;"
+                                                        value="Validate appointment"
+                                                        id="validateAppointment"
+                                                        ajax="false"
+                                                        action="#{patient_physicianAppointement.validateAppointment(connectedUserBean.connectedPatient.id)}"
+                                                        disabled="#{physician.availabilities.isEmpty()}"/>
 
                                             </div>
                                         </h:form>
@@ -134,6 +137,7 @@
 
 
         </h:panelGroup>
+
 
     </div>
 

@@ -83,7 +83,6 @@ public class PatientDashboardBean {
         this.getSelectedPhysician = getSelectedPhysician;
     }
 
-
     public int getSelectAvailabilityID() {
         return selectAvailabilityID;
     }
@@ -91,7 +90,6 @@ public class PatientDashboardBean {
     public void setSelectAvailabilityID(int selectAvailabilityID) {
         this.selectAvailabilityID = selectAvailabilityID;
     }
-
 
     public void setSearchBean(SearchBean searchBean) {
         this.searchBean = searchBean;
