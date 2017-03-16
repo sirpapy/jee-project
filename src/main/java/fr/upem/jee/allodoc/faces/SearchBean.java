@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by Sirpapy on 19/01/2017.
@@ -28,13 +29,18 @@ public class SearchBean implements Serializable {
     private String name;
     private FieldOfActivity fieldOfActivity;
     private Location postalCode;
-
     private int selectAvailabilityID;
     @ManagedProperty("#{connectedUserBean}")
     private ConnectedUserBean connectedUserBean;
     private List<Physician> physicianResultList;
-
     public SearchBean() throws IOException {
+    }
+
+    public String getBadgeLabel() {
+        if (physicianResultList.isEmpty()) {
+            return "Not found";
+        }
+        return physicianResultList.size() + " doctor(s) found";
     }
 
     public int getSelectAvailabilityID() {
@@ -46,7 +52,7 @@ public class SearchBean implements Serializable {
     }
 
     public List<Physician> getPhysicianResultList() {
-        return physicianResultList;
+        return physicianResultList == null ? null : physicianResultList.stream().distinct().collect(Collectors.toList());
     }
 
     public void setPhysicianResultList(List<Physician> physicianResultList) {

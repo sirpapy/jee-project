@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 /**
  * {@link User} is an {@link Entity} corresponding the one entry in the USER table of the AlloDoc database.
@@ -31,6 +32,24 @@ public class User implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     Address address;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(phoneNumber, user.phoneNumber) &&
+                Objects.equals(account, user.account) &&
+                Objects.equals(birthDate, user.birthDate) &&
+                Objects.equals(address, user.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, phoneNumber, account, birthDate, address);
+    }
 
     User(String firstName, String lastName, Address address, Account account) {
         this.firstName = firstName;

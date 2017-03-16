@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by raptao on 1/24/2017.
@@ -53,6 +54,21 @@ public class Account {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return Objects.equals(userName, account.userName) &&
+                Objects.equals(password, account.password) &&
+                Objects.equals(roles, account.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userName, password);
     }
 
     public String getPassword() {
