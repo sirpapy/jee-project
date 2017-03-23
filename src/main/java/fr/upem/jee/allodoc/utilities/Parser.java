@@ -36,6 +36,9 @@ public class Parser {
             String lastName = columns[0];
             String firstName = columns[1];
             String fieldOfActivity = columns[2];
+            if( fieldOfActivity.startsWith("\"")){
+                fieldOfActivity = fieldOfActivity.substring(1);
+            }
             String practiceAreaDepartment = columns[5];
             String practiceAreaRegion = columns[6];
             String status = columns[columns.length - 1];

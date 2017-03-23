@@ -38,6 +38,7 @@ div#aPhysician {
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+    background-color: #a4edf7;
 }
 
 #container {

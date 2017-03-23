@@ -15,9 +15,12 @@ import java.util.Optional;
  */
 @FacesConverter("postalCodeConverter")
 public class PostalCodeConverter implements Converter {
+
+    private static final String DEFAULT_POSTAL_CODE = "Postal code";
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Preconditions.checkNotNull(value, "postalCodeString should not be null");
+        Preconditions.checkNotNull(value);
         LocationService locationService = new LocationService();
         int postalCode = Integer.parseInt(value);
         Optional<Location> byPostalCode = locationService.getByPostalCode(postalCode);
@@ -31,10 +34,8 @@ public class PostalCodeConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if( value == null ){
-            return null;
-        }
-        Location asLocation = (Location)value;
+        Preconditions.checkNotNull(value);
+        Location asLocation = (Location) value;
         return asLocation.getPostalCode().toString();
     }
 }

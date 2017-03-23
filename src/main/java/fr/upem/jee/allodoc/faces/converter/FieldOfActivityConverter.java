@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.faces.converter;
 
 import fr.upem.jee.allodoc.entity.FieldOfActivity;
+import fr.upem.jee.allodoc.faces.DataContainerBean;
 import fr.upem.jee.allodoc.service.FieldOfActivityService;
 
 import javax.faces.component.UIComponent;
@@ -14,11 +15,10 @@ import java.util.Optional;
  */
 @FacesConverter("fieldOfActivityConverter")
 public class FieldOfActivityConverter implements Converter {
+    private static final String DEFAULT_FIELD_OF_ACTIVITY = "Field of activity";
+
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        if (value == null) {
-            return null;
-        }
         Optional<FieldOfActivity> byName = FieldOfActivityService.getByName(value);
         // returning field of activity from database
         if (byName.isPresent()) {
@@ -32,6 +32,7 @@ public class FieldOfActivityConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        return value == null ? "ERROR:VALUE" : ((FieldOfActivity) value).getName();
+        FieldOfActivity fieldOfActivity = (FieldOfActivity) value;
+        return fieldOfActivity.getName().equals(DataContainerBean.VALUE_NOT_SET) ? ((FieldOfActivity) value).getName() : "ERROR:VALUE";
     }
 }

@@ -35,7 +35,7 @@ import java.util.Objects;
         @NamedQuery(name = "findPhysicianByFieldAndLocation",
                 query = "SELECT p from Physician p where p.practiceArea.postalCode = :pPostalCode and p.fieldOfActivity.name like :pField"),
 
-        @NamedQuery(name = "findPhysicianByLocation",
+        @NamedQuery(name = "findPhysicianByPostalCode",
                 query = "SELECT p from Physician p where p.practiceArea.postalCode = :pPostalCode "),
 
 
@@ -108,6 +108,27 @@ public class Physician extends User implements Serializable {
         this.status = status;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        System.out.println("");
+        Physician physician = (Physician) o;
+        return Objects.equals(status, physician.status) &&
+                Objects.equals(fieldOfActivity, physician.fieldOfActivity) &&
+                Objects.equals(practiceArea, physician.practiceArea);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), status, fieldOfActivity, practiceArea);
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + practiceArea.getPostalCode();
+    }
 
     public static class Builder {
         private String firstName;
@@ -168,5 +189,4 @@ public class Physician extends User implements Serializable {
             return this;
         }
     }
-
 }

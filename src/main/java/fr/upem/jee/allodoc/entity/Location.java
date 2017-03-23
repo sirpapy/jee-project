@@ -18,8 +18,10 @@ import java.util.Objects;
 })
 public class Location implements Serializable {
 
-    private static final String DEFAULT_COUNTRY_NAME = "France";
     public static final int DEFAULT_NO_POSTAL_CODE = 999999;
+    private static final String DEFAULT_COUNTRY_NAME = "France";
+    private static final Integer NOT_SET = 0;
+    private static final String VALUE_NOT_SET = "<not set>";
     @Id
     @GeneratedValue
 
@@ -33,7 +35,6 @@ public class Location implements Serializable {
     }
 
     public Location(int postalCode, String city, String country) {
-        Preconditions.checkArgument(postalCode > 0, "postalCode must be > 0 : yours :" + postalCode);
         this.postalCode = postalCode;
         this.city = Preconditions.checkNotNull(city, "city should not be null");
         this.country = Preconditions.checkNotNull(country, "country should not bet null");
@@ -45,6 +46,12 @@ public class Location implements Serializable {
 
     private static String cleanCityString(String city) {
         return city.replace("-", " ").toUpperCase();
+    }
+
+    public boolean isSet() {
+        return postalCode != NOT_SET
+                && !city.equals(VALUE_NOT_SET.toUpperCase())
+                && !country.equals(VALUE_NOT_SET);
     }
 
     public long getId() {
@@ -94,13 +101,28 @@ public class Location implements Serializable {
         this.country = country;
     }
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", postalCode=" + postalCode +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
+
+    public void unset() {
+        postalCode = NOT_SET;
+        city = VALUE_NOT_SET.toUpperCase();
+        country = VALUE_NOT_SET;
+    }
+
     public static class Builder {
         private int postalCode;
         private String city;
         private String country;
 
         public Builder setPostalCode(int postalCode) {
-            Preconditions.checkArgument(postalCode > 0, "postal code is < 0 :: " + postalCode);
             this.postalCode = postalCode;
             return this;
         }
@@ -116,9 +138,6 @@ public class Location implements Serializable {
         }
 
         public Location build() {
-            if( postalCode == 0){
-                postalCode = DEFAULT_NO_POSTAL_CODE;
-            }
             if (country == null) {
                 return new Location(postalCode, city);
             }

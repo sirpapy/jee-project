@@ -1,9 +1,7 @@
 package fr.upem.jee.allodoc.service;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.entity.Physician;
 import fr.upem.jee.allodoc.entity.User;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -47,10 +45,14 @@ abstract class UserServiceImpl<U extends User> extends Service<U> implements Use
 
     @Override
     public void takeControl(U user) {
+        Preconditions.checkArgument(user != null);
         this.user = user;
     }
 
     public void save() {
+        Preconditions.checkState(user != null);
+        user.setFirstName(user.getFirstName().toLowerCase());
+        user.setLastName(user.getLastName().toLowerCase());
         manager().saveOrUpdate(user);
     }
 

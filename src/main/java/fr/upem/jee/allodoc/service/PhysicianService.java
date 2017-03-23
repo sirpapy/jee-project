@@ -11,9 +11,9 @@ import javax.persistence.TypedQuery;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -164,12 +164,24 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
             List<Physician> physicians = Parser.parseCSVPhysicians(physiciansStream, limit);
             physicians.forEach(p->{
+                p.setAvailabilities(defaultAvailabilities());
                 physicianService.takeControl(p);
                 physicianService.save();
             });
         }
     }
 
+    private static List<Availability> defaultAvailabilities(){
+        Instant tomorrow = Instant.now().plus(1, ChronoUnit.DAYS);
+        Instant afterTomorrow = Instant.now().plus(2, ChronoUnit.DAYS);
+
+        Availability one  = new Availability(Date.from(Instant.now()), Date.from(tomorrow));
+        Availability two  = new Availability(Date.from(tomorrow), Date.from(afterTomorrow));
+        List<Availability> availabilities = new ArrayList<>();
+        availabilities.add(one);
+        availabilities.add(two);
+        return availabilities;
+    }
     public static void fillDatabaseWithPhysicians() throws IOException {
         PhysicianService physicianService = new PhysicianService();
         try (InputStream physiciansStream = DatabaseManager.class.getResourceAsStream(Resources.RESOURCE_XLS_PHYSICIANS_CSV)) {
@@ -205,10 +217,10 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         return query.getResultList();
     }
 
-    public List<Physician> searchByLocation(Location postalCode) {
+    public List<Physician> searchByPostalCode(int postalCode) {
         Preconditions.checkNotNull(postalCode, "The location should not be null");
-        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByFieldAndLocation", Physician.class);
-        query.setParameter("pPostalCode", postalCode.getPostalCode());
+        TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByPostalCode", Physician.class);
+        query.setParameter("pPostalCode", postalCode);
         return query.getResultList();
     }
 }
