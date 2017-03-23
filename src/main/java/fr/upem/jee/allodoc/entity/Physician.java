@@ -22,7 +22,6 @@ import java.util.Objects;
         @NamedQuery(name = "findPhysicianFirstnameLastName",
                 query = "SELECT p from Physician p where p.firstName = :pFirstName and p.lastName = :pLastName"),
 
-
         @NamedQuery(name = "findPhysicianName",
                 query = "SELECT p from Physician p where ( p.firstName like :pName or p.lastName like :pName )"),
 
@@ -37,6 +36,10 @@ import java.util.Objects;
 
         @NamedQuery(name = "findPhysicianByPostalCode",
                 query = "SELECT p from Physician p where p.practiceArea.postalCode = :pPostalCode "),
+
+        @NamedQuery(name = "findPhysicianByNameFieldOfActivityLocation",
+                query = "SELECT p from Physician p where (p.firstName like :pName or p.lastName like :pName) and p.practiceArea.postalCode = :pPostalCode and p.fieldOfActivity.name like :pField"),
+
 
 
 })

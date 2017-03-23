@@ -2,18 +2,23 @@ package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.User;
+import fr.upem.jee.allodoc.faces.patient.SearchHistoryService;
+import fr.upem.jee.allodoc.faces.patient.SearchItem;
 import fr.upem.jee.allodoc.service.AppointmentService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
+import fr.upem.jee.allodoc.utilities.Resources;
 import fr.upem.jee.allodoc.utilities.UserType;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -27,6 +32,17 @@ public class ConnectedUserBean implements Serializable {
     private boolean isPatient = true;
     private User connectedUser;
     private String badgeLabel;
+
+    @ManagedProperty("#{searchHistoryService}")
+    private SearchHistoryService searchHistoryService;
+
+    public SearchHistoryService getSearchHistoryService() {
+        return searchHistoryService;
+    }
+
+    public void setSearchHistoryService(SearchHistoryService searchHistoryService) {
+        this.searchHistoryService = searchHistoryService;
+    }
 
     public String getBadgeLabel() {
         return getConnectedPatient().getAppointments().isEmpty() ?
@@ -113,9 +129,12 @@ public class ConnectedUserBean implements Serializable {
     public String removeAppointment(long appointmentID) {
         AppointmentService appointmentService = new AppointmentService();
         appointmentService.removeAppointment(connectedUser.getId(), appointmentID);
-        return "patientProfil";
+        return Resources.PAGE_PATIENT_PROFIL;
     }
 
+    public List<SearchItem> getSearchHistory() {
+        return searchHistoryService.searchItemsOf(getConnectedUsername());
+    }
 
     @PostConstruct
     public void load() {
