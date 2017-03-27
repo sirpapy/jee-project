@@ -1,10 +1,7 @@
 package fr.upem.jee.allodoc.faces.patient;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Patient;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
 import fr.upem.jee.allodoc.faces.ConnectedUserBean;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
@@ -25,7 +22,6 @@ import java.util.stream.Collectors;
 @SessionScoped
 @ManagedBean
 public class SearchBean implements Serializable {
-
 
     private String name;
     private FieldOfActivity fieldOfActivity;
@@ -137,7 +133,10 @@ public class SearchBean implements Serializable {
         } else {
             searchItem = SearchItem.builder().build();
         }
-        searchHistoryService.add(connectedUserBean.getConnectedUser().getAccount().getUserName(), searchItem);
+        Patient connectedPatient = connectedUserBean.getConnectedPatient();
+        connectedPatient.addSearchItem(searchItem);
+        PatientService patientService = new PatientService(connectedPatient);
+        patientService.save();
         return Resources.PAGE_PATIENT_HOME;
     }
 

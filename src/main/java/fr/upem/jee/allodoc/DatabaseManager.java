@@ -1,12 +1,7 @@
 package fr.upem.jee.allodoc;
 
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.utilities.Parser;
-import fr.upem.jee.allodoc.utilities.Resources;
-
 import javax.persistence.*;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -18,7 +13,8 @@ public class DatabaseManager {
 
     public static final String APPLICATION_PROPERTIES_RESOURCE = "/application.properties";
     private static EntityManagerFactory SINGLETON_FACTORY;
-    private final EntityManager em;
+    private EntityManager em;
+
 
     public DatabaseManager(String applicationMode) {
         this.em = getFactory(applicationMode).createEntityManager();
@@ -35,6 +31,7 @@ public class DatabaseManager {
             return SINGLETON_FACTORY;
         }
         return SINGLETON_FACTORY;
+//        return Persistence.createEntityManagerFactory(applicationMode);
     }
 
     /**
@@ -51,6 +48,9 @@ public class DatabaseManager {
         }
     }
 
+    private static EntityManager newEntityManager() {
+        return getFactory(getApplicationMode()).createEntityManager();
+    }
 
     /**
      * Saves or updates entities in the database
@@ -58,11 +58,15 @@ public class DatabaseManager {
      * @param entities entities to be saved or updated
      */
     public void saveOrUpdate(Object... entities) {
-        applyTransaction((entity) -> {
+        this.em = newEntityManager();
+        this.em.getTransaction().begin();
+        for (Object entity : entities) {
+
             em.merge(entity);
+        }
 //            Session session = em.unwrap(Session.class);
 //            session.saveOrUpdate(entity);
-        }, entities);
+        this.em.getTransaction().commit();
     }
 
     /**
@@ -70,9 +74,15 @@ public class DatabaseManager {
      *
      * @param entities entities to be saved
      */
-//    public void save(Object... entities) {
-//        applyTransaction(em::persist, entities);
-//    }
+    public void save(Object... entities) {
+        this.em = newEntityManager();
+        this.em.getTransaction().begin();
+        for (Object entity : entities) {
+            this.em.persist(entity);
+        }
+        this.em.getTransaction().commit();
+        this.em.close();
+    }
 
     /**
      * Removes entities from database
@@ -80,21 +90,25 @@ public class DatabaseManager {
      * @param entities
      */
     public void remove(Object... entities) {
-        applyTransaction((entity) -> {
+        this.em = newEntityManager();
+        em.getTransaction().begin();
+        for (Object entity : entities) {
             if (!em.contains(entity)) {
                 Object mergedEntity = em.merge(entity);
                 em.remove(mergedEntity);
             } else {
                 em.remove(entity);
             }
-        }, entities);
+        }
+        this.em.getTransaction().commit();
+        this.em.close();
     }
 
     /**
      * @return the entity manager of the database
      */
     public EntityManager getEntityManager() {
-        return em;
+        return newEntityManager();
     }
 
     private void applyTransaction(Consumer<Object> consumer, Object... entities) {
@@ -120,12 +134,18 @@ public class DatabaseManager {
     public <T> void clear(Class<T> className) {
         String name = className.getName();
         String deleteQuery = "DELETE from " + name;
+        this.em = newEntityManager();
         Query query = em.createQuery(deleteQuery);
         em.getTransaction().begin();
         query.executeUpdate();
         em.getTransaction().commit();
+        this.em.close();
     }
 
-
+    public <T> List<T> executeQuery(String qlString, Class<T> target) {
+        this.em = newEntityManager();
+        TypedQuery<T> typedQuery = em.createQuery(qlString, target);
+        return typedQuery.getResultList();
+    }
 
 }

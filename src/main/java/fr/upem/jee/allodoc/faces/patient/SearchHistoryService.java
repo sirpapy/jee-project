@@ -1,6 +1,7 @@
 package fr.upem.jee.allodoc.faces.patient;
 
 import com.google.common.base.Preconditions;
+import fr.upem.jee.allodoc.entity.SearchItem;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -22,8 +23,6 @@ public class SearchHistoryService {
     public void add(String login, SearchItem newSearch) {
         Preconditions.checkNotNull(login);
         Preconditions.checkNotNull(newSearch);
-        System.out.println(login);
-        System.out.println(newSearch);
         searchHistory.putIfAbsent(login, new ArrayList<>());
         searchHistory.compute(login, (s, searchItems) -> {
             searchItems.add(newSearch);

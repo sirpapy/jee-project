@@ -3,7 +3,6 @@ package fr.upem.jee.allodoc.faces;
 import fr.upem.jee.allodoc.entity.Patient;
 import fr.upem.jee.allodoc.entity.User;
 import fr.upem.jee.allodoc.faces.patient.SearchHistoryService;
-import fr.upem.jee.allodoc.faces.patient.SearchItem;
 import fr.upem.jee.allodoc.service.AppointmentService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
@@ -18,7 +17,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -111,9 +109,7 @@ public class ConnectedUserBean implements Serializable {
     public Patient getConnectedPatient() {
         if (getConnected().isPresent()) {
             connectedUser = getConnected().get();
-            if (connectedUser != null) {
-                return PatientService.getById(connectedUser.getId());
-            }
+            return PatientService.getById(connectedUser.getId());
         }
         return null;
     }
@@ -130,10 +126,6 @@ public class ConnectedUserBean implements Serializable {
         AppointmentService appointmentService = new AppointmentService();
         appointmentService.removeAppointment(connectedUser.getId(), appointmentID);
         return Resources.PAGE_PATIENT_PROFIL;
-    }
-
-    public List<SearchItem> getSearchHistory() {
-        return searchHistoryService.searchItemsOf(getConnectedUsername());
     }
 
     @PostConstruct

@@ -1,16 +1,28 @@
-package fr.upem.jee.allodoc.faces.patient;
+package fr.upem.jee.allodoc.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 /**
  * Created by raptao on 3/23/2017.
  */
+@Entity
 public class SearchItem {
+    private static String NO_VALUE = "-";
+
+    @Id
+    @GeneratedValue
+    private long id;
 
     private Integer postalCode;
     private String physicianName;
     private String fieldOfActivity;
     private LocalDateTime timeStamp;
+
+    public SearchItem(){
+    }
 
     private SearchItem(Integer postalCode, String physicianName, String fieldOfActivity, LocalDateTime timeStamp) {
         this.postalCode = postalCode;
@@ -23,20 +35,32 @@ public class SearchItem {
         return new Builder();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public Integer getPostalCode() {
         return postalCode;
     }
 
     public String getPhysicianName() {
-        return physicianName;
+        return physicianName == null ? NO_VALUE : physicianName;
     }
 
     public String getFieldOfActivity() {
-        return fieldOfActivity;
+        return fieldOfActivity == null ? NO_VALUE : physicianName;
     }
 
     public boolean isEmptySearch() {
         return postalCode == null && (physicianName == null || physicianName.isEmpty()) && fieldOfActivity == null;
+    }
+
+    public String getFormatedTimeStamp() {
+        return timeStamp.toString().replace("T", " at ");
     }
 
     public LocalDateTime getTimeStamp() {
@@ -53,8 +77,9 @@ public class SearchItem {
                 '}';
     }
 
-    static class Builder {
-        private int postalCode;
+    public static class Builder {
+
+        private Integer postalCode;
         private String physicianName;
         private String fieldOfActivity;
 

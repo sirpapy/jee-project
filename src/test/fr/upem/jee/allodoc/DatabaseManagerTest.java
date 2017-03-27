@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import javax.persistence.TypedQuery;
 
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
@@ -26,8 +28,9 @@ public class DatabaseManagerTest {
         u.setLastName("rabearijao");
         u.setAccount(new Account("thierryrabearijao@mail.com", "bla"));
         manager.saveOrUpdate(u);
-        TypedQuery<User> query = manager.getEntityManager().createQuery("Select u from User u where u.firstName='thierry' and u.lastName='rabearijao'", User.class);
-        User singleResult = query.getResultList().get(0);
+        List<User> resultList = manager.executeQuery("Select u from User u where u.firstName='thierry' and u.lastName='rabearijao'", User.class);
+        assertEquals(1, resultList.size());
+        User singleResult = resultList.get(0);
 
         // test saveOrUpdate
         assertEquals( u.getFirstName(), singleResult.getFirstName());
