@@ -19,7 +19,6 @@ public class Service<T> {
 
     public void save(T object) {
         manager.saveOrUpdate(object);
-        manager.getEntityManager().close();
     }
 
     public void remove(T object) {

@@ -25,13 +25,13 @@ public class DatabaseInitializerBean {
     public DatabaseInitializerBean() throws IOException {
         LocationService.fillDatabaseWithLocations(DATA_LIMIT);
         PhysicianService.fillDatabaseWithPhysicians(DATA_LIMIT);
-        fillWithDefaultUser();
+        addDefaultUser();
     }
 
     /**
      * Add a default user to the database at application initialization
      */
-    private static void fillWithDefaultUser() {
+    private static void addDefaultUser() {
         Address address = new Address.Builder()
                 .setStreetName("Avenue vauquelin")
                 .setStreetNumber("31 B")

@@ -43,8 +43,8 @@ public class SearchItem {
         this.id = id;
     }
 
-    public Integer getPostalCode() {
-        return postalCode;
+    public String getPostalCode() {
+        return postalCode == null ? NO_VALUE : postalCode.toString();
     }
 
     public String getPhysicianName() {
@@ -52,7 +52,7 @@ public class SearchItem {
     }
 
     public String getFieldOfActivity() {
-        return fieldOfActivity == null ? NO_VALUE : physicianName;
+        return fieldOfActivity == null ? NO_VALUE : fieldOfActivity;
     }
 
     public boolean isEmptySearch() {

@@ -7,10 +7,11 @@
     <properties>
         <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/allodoc?currentSchema=allodoc"/>
         <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
+        <property name="hibernate.connection.pool_size" value="1000"/>
         <property name="hibernate.connection.username" value="allodoc"/>
         <property name="hibernate.connection.password" value="allodocPassword"/>
         <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-        <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+        <property name="javax.persistence.schema-generation.database.action" value="none"/>
         <property name="hibernate.show_sql" value  ="true"/>
         <property name="javax.persistence.sql-load-script-source" value="database-configuration.sql"/>
     </properties>

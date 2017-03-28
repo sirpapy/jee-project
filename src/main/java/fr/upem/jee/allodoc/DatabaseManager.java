@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
-import java.util.function.Consumer;
 
 /**
  * Created by raptao on 12/13/2016.
@@ -28,7 +27,6 @@ public class DatabaseManager {
     private static EntityManagerFactory getFactory(String applicationMode) {
         if (SINGLETON_FACTORY == null) {
             SINGLETON_FACTORY = Persistence.createEntityManagerFactory(applicationMode);
-            return SINGLETON_FACTORY;
         }
         return SINGLETON_FACTORY;
 //        return Persistence.createEntityManagerFactory(applicationMode);
@@ -67,6 +65,8 @@ public class DatabaseManager {
 //            Session session = em.unwrap(Session.class);
 //            session.saveOrUpdate(entity);
         this.em.getTransaction().commit();
+        this.em.close();
+//        this.em.getEntityManagerFactory().close();
     }
 
     /**
@@ -82,6 +82,7 @@ public class DatabaseManager {
         }
         this.em.getTransaction().commit();
         this.em.close();
+//        this.em.getEntityManagerFactory().close();
     }
 
     /**
@@ -102,6 +103,7 @@ public class DatabaseManager {
         }
         this.em.getTransaction().commit();
         this.em.close();
+//        this.em.getEntityManagerFactory().close();
     }
 
     /**
@@ -109,14 +111,6 @@ public class DatabaseManager {
      */
     public EntityManager getEntityManager() {
         return newEntityManager();
-    }
-
-    private void applyTransaction(Consumer<Object> consumer, Object... entities) {
-        em.getTransaction().begin();
-        for (Object entity : entities) {
-            consumer.accept(entity);
-        }
-        em.getTransaction().commit();
     }
 
 
@@ -140,6 +134,7 @@ public class DatabaseManager {
         query.executeUpdate();
         em.getTransaction().commit();
         this.em.close();
+//        this.em.getEntityManagerFactory().close();
     }
 
     public <T> List<T> executeQuery(String qlString, Class<T> target) {
