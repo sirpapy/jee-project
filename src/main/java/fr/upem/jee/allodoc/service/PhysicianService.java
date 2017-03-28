@@ -102,7 +102,7 @@ public class PhysicianService extends UserServiceImpl<Physician> {
         Preconditions.checkNotNull(location, "The location should not be null");
         TypedQuery<Physician> query = manager().getEntityManager().createNamedQuery("findPhysicianByNameFieldOfActivityLocation", Physician.class);
         query.setParameter("pField", '%'+fieldOfActivity.getName()+'%');
-        query.setParameter("pCity", '%'+String.valueOf(location.getPostalCode())+'%');
+        query.setParameter("pPostalCode", location.getPostalCode());
         query.setParameter("pName", '%'+name+'%');
         return query.getResultList();
     }

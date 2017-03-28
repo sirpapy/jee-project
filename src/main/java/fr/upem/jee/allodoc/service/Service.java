@@ -25,7 +25,14 @@ public class Service<T> {
         manager.remove(object);
     }
 
-    public T findByLongId(Class<T> className, long id){
+    public T findByLongId(Class<T> className, long id) {
         return manager.findByLongId(className, id);
+    }
+
+    public void closeSession() {
+        if (!manager.getEntityManager().isOpen()) {
+            throw new IllegalStateException("Session is already closed");
+        }
+        manager.getEntityManager().close();
     }
 }

@@ -217,12 +217,16 @@ button#j_idt16\:validateAppointment {
 }
 
 .appointment-container{
-    width:75%;
+    width:95%;
     text-align:left;
-    margin: 0 auto;
 }
 
-
 .search-result-container{
+    width:90%;
+    text-align:left;
+    margin: 1% auto 0;
+}
+
+.modalPseudoClass{
 
 }

@@ -36,7 +36,7 @@ public class HomeBean {
     public String logOut() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.getExternalContext().invalidateSession();
-        return Resources.PAGE_INDEX;
+        return Resources.PAGE_INDEX+Resources.TAG_AVOIDING_EXPIRED_VIEW;
     }
 
 }

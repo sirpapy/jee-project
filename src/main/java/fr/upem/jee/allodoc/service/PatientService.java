@@ -31,6 +31,10 @@ public class PatientService extends UserServiceImpl<Patient> {
         return databaseManager.findByLongId(Patient.class, patientId);
     }
 
+    public static List<Patient> getAll(){
+        DatabaseManager databaseManager = DatabaseManager.getDatabaseManager();
+        return databaseManager.findAll(Patient.class);
+    }
 
     public boolean setNewAppointment(Physician physician, long availabilityId, long appointmentId) {
         Preconditions.checkNotNull(physician);
@@ -52,6 +56,7 @@ public class PatientService extends UserServiceImpl<Patient> {
     }
 
 
+
 //    public Patient getFromId(Long id) {
 //        Preconditions.checkArgument(id >= 0, "ID must be greater than 0");
 //        TypedQuery<Patient> query = manager().getEntityManager().createNamedQuery("getPatientFromId", Patient.class);
@@ -67,6 +72,4 @@ public class PatientService extends UserServiceImpl<Patient> {
         query.setParameter("pFirstName", firstName);
         return query.getResultList();
     }
-
-
 }

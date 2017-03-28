@@ -3,13 +3,17 @@ package fr.upem.jee.allodoc.service;
 import fr.upem.jee.allodoc.DatabaseManager;
 import fr.upem.jee.allodoc.entity.Appointment;
 import fr.upem.jee.allodoc.entity.Patient;
+import fr.upem.jee.allodoc.entity.SearchItem;
+import fr.upem.jee.allodoc.sample.SampleUsers;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
 
 /**
  * Created by raptao on 12/22/2016.
@@ -57,25 +61,35 @@ public class PatientServiceTest {
 
 
     @Test
-    public void isFreeAppointmentTest() throws Exception {
-//        assertTrue(a1.isFree());
+    public void getSearchItems() {
+        assertTrue(PatientService.getAll().isEmpty());
+        Patient p = SampleUsers.patient();
+        SearchItem build = SearchItem.builder()
+                .setFieldOfActivity("field")
+                .setPhysicianName("physician")
+                .setPostalCode(93)
+                .build();
+        p.addSearchItem(build);
+        PatientService patientService = new PatientService(p);
+        patientService.save();
+
+        List<Patient> all = PatientService.getAll();
+        assertEquals(1, all.size());
+
+        Patient gotten = all.get(0);
+        SearchItem item = SearchItem.builder()
+                .setFieldOfActivity("science")
+                .setPhysicianName("scientist")
+                .setPostalCode(93)
+                .build();
+        gotten.addSearchItem(item);
+        patientService.takeControl(gotten);
+        patientService.save();
+
+        assertEquals(1, PatientService.getAll().size());
+
+
     }
-//
-//    @Test
-//    public void setAppointmentTest() throws Exception {
-//        u.setId(1L);
-//        a1.setAppointment(u.getId());
-////        assertFalse(a1.isFree());
-//    }
-//
-//    @Test
-//    public void removeAppointmentTest() throws Exception {
-//        a1 = new Appointment(f.parse("07-06-2013 12:05"), f.parse("07-06-2013 12:30"));
-//        u.setId(1L);
-//        a1.setAppointment(u.getId());
-//        a1.removeAppointment();
-//        assertEquals(true, a1.isFree());
-//    }
 
 
 }

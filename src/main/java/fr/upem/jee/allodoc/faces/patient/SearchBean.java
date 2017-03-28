@@ -1,10 +1,8 @@
-package fr.upem.jee.allodoc.faces;
+package fr.upem.jee.allodoc.faces.patient;
 
 import com.google.common.base.Preconditions;
-import fr.upem.jee.allodoc.entity.FieldOfActivity;
-import fr.upem.jee.allodoc.entity.Location;
-import fr.upem.jee.allodoc.entity.Patient;
-import fr.upem.jee.allodoc.entity.Physician;
+import fr.upem.jee.allodoc.entity.*;
+import fr.upem.jee.allodoc.faces.ConnectedUserBean;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
 import fr.upem.jee.allodoc.utilities.Resources;
@@ -25,15 +23,27 @@ import java.util.stream.Collectors;
 @ManagedBean
 public class SearchBean implements Serializable {
 
-
     private String name;
     private FieldOfActivity fieldOfActivity;
     private Location postalCode;
     private int selectAvailabilityID;
     @ManagedProperty("#{connectedUserBean}")
     private ConnectedUserBean connectedUserBean;
+
+    @ManagedProperty("#{searchHistoryService}")
+    private SearchHistoryService searchHistoryService;
+
     private List<Physician> physicianResultList;
+
     public SearchBean() throws IOException {
+    }
+
+    public SearchHistoryService getSearchHistoryService() {
+        return searchHistoryService;
+    }
+
+    public void setSearchHistoryService(SearchHistoryService searchHistoryService) {
+        this.searchHistoryService = searchHistoryService;
     }
 
     public String getBadgeLabel() {
@@ -87,21 +97,46 @@ public class SearchBean implements Serializable {
         this.postalCode = postalCode;
     }
 
-    public String startSearch() {
+    public String startSearch() throws IOException {
         PhysicianService physicianService = new PhysicianService();
+        SearchItem searchItem;
         if (!isSet(name) && !postalCode.isSet() && !fieldOfActivity.isSet()) { // no value set
             physicianResultList = PhysicianService.getAll();
+            searchItem = SearchItem.builder().build();
         } else if (isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // everything is set
             physicianResultList = physicianService.searchByNameFieldOfActivityLocation(fieldOfActivity, name, postalCode);
+            searchItem = SearchItem.builder().setFieldOfActivity(fieldOfActivity.getName())
+                    .setPhysicianName(name)
+                    .setPostalCode(postalCode.getPostalCode())
+                    .build();
         } else if (isSet(name) && postalCode.isSet() && !fieldOfActivity.isSet()) { // only fieldOfActivity not set
             physicianResultList = physicianService.searchByNameAndLocation(name.toLowerCase(), postalCode);
+            searchItem = SearchItem.builder()
+                    .setPhysicianName(name)
+                    .setPostalCode(postalCode.getPostalCode())
+                    .build();
         } else if (!isSet(name) && postalCode.isSet() && fieldOfActivity.isSet()) { // only name not set
             physicianResultList = physicianService.searchByFieldOfActivityAndLocation(fieldOfActivity, postalCode);
+            searchItem = SearchItem.builder().setFieldOfActivity(fieldOfActivity.getName())
+                    .setPostalCode(postalCode.getPostalCode())
+                    .build();
         } else if (postalCode.isSet() && !isSet(name) && !fieldOfActivity.isSet()) { // only postal code
             physicianResultList = physicianService.searchByPostalCode(postalCode.getPostalCode());
+            searchItem = SearchItem.builder()
+                    .setPostalCode(postalCode.getPostalCode())
+                    .build();
         } else if (isSet(name) && !postalCode.isSet() && !fieldOfActivity.isSet()) { // onyl
             physicianResultList = physicianService.searchByName(name.toLowerCase());
+            searchItem = SearchItem.builder()
+                    .setPhysicianName(name)
+                    .build();
+        } else {
+            searchItem = SearchItem.builder().build();
         }
+        Patient connectedPatient = connectedUserBean.getConnectedPatient();
+        connectedPatient.addSearchItem(searchItem);
+        PatientService patientService = new PatientService(connectedPatient);
+        patientService.save();
         return Resources.PAGE_PATIENT_HOME;
     }
 

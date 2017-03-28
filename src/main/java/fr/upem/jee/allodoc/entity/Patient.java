@@ -24,6 +24,9 @@ public class Patient extends User implements Serializable {
     @OneToMany(cascade = {CascadeType.ALL})
     List<Appointment> appointments;
 
+    @OneToMany(cascade = {CascadeType.ALL})
+    List<SearchItem> searchItems;
+
     public Patient() {
         super();
     }
@@ -32,7 +35,21 @@ public class Patient extends User implements Serializable {
         super(firstName, lastName, address, account);
     }
 
+    public List<SearchItem> getSearchItems() {
+        return searchItems;
+    }
 
+    public void setSearchItems(List<SearchItem> searchItems) {
+        this.searchItems = searchItems;
+    }
+
+    public void addSearchItem(SearchItem item){
+        Preconditions.checkNotNull(item, "item should not be null");
+        if (searchItems == null) {
+            searchItems = new ArrayList<>();
+        }
+        searchItems.add(item);
+    }
     public void addAppointment(Appointment newAppointment) {
         Preconditions.checkNotNull(newAppointment, "newAppointment should not be null");
         if (appointments == null) {
@@ -43,16 +60,16 @@ public class Patient extends User implements Serializable {
 
     public void removeAppointment(long id) {
         Appointment toRemove = null;
-        for (Appointment ap:appointments){
-            if(ap.getId()==id){
+        for (Appointment ap : appointments) {
+            if (ap.getId() == id) {
                 toRemove = ap;
             }
         }
-        if(toRemove!=null)
+        if (toRemove != null)
             appointments.remove(toRemove);
     }
 
-    public Collection<Appointment> getAppointments(){
+    public Collection<Appointment> getAppointments() {
         return appointments;
     }
 

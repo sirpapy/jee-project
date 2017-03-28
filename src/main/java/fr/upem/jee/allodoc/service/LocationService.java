@@ -27,6 +27,7 @@ public class LocationService extends Service<Location> {
         TypedQuery<Location> findLocationByRegion = databaseManager.getEntityManager().createNamedQuery("findLocationByRegion", Location.class);
         findLocationByRegion.setParameter("region", regionName);
         List<Location> resultList = findLocationByRegion.getResultList();
+        databaseManager.getEntityManager().close();
         return resultList.isEmpty() ? Optional.empty() : Optional.of(resultList.get(0));
     }
 

@@ -1,5 +1,6 @@
 package fr.upem.jee.allodoc.faces;
 
+import fr.upem.jee.allodoc.faces.patient.SearchBean;
 import fr.upem.jee.allodoc.utilities.Resources;
 
 import javax.faces.bean.ManagedBean;

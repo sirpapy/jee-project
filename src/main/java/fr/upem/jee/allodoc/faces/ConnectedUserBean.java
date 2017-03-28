@@ -1,20 +1,28 @@
 package fr.upem.jee.allodoc.faces;
 
 import fr.upem.jee.allodoc.entity.Patient;
+import fr.upem.jee.allodoc.entity.SearchItem;
 import fr.upem.jee.allodoc.entity.User;
+import fr.upem.jee.allodoc.faces.patient.SearchHistoryService;
 import fr.upem.jee.allodoc.service.AppointmentService;
 import fr.upem.jee.allodoc.service.PatientService;
 import fr.upem.jee.allodoc.service.PhysicianService;
+import fr.upem.jee.allodoc.utilities.Resources;
 import fr.upem.jee.allodoc.utilities.UserType;
+import org.primefaces.model.chart.*;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Created by raptao on 1/21/2017.
@@ -27,6 +35,17 @@ public class ConnectedUserBean implements Serializable {
     private boolean isPatient = true;
     private User connectedUser;
     private String badgeLabel;
+
+    @ManagedProperty("#{searchHistoryService}")
+    private SearchHistoryService searchHistoryService;
+
+    public SearchHistoryService getSearchHistoryService() {
+        return searchHistoryService;
+    }
+
+    public void setSearchHistoryService(SearchHistoryService searchHistoryService) {
+        this.searchHistoryService = searchHistoryService;
+    }
 
     public String getBadgeLabel() {
         return getConnectedPatient().getAppointments().isEmpty() ?
@@ -95,11 +114,38 @@ public class ConnectedUserBean implements Serializable {
     public Patient getConnectedPatient() {
         if (getConnected().isPresent()) {
             connectedUser = getConnected().get();
-            if (connectedUser != null) {
-                return PatientService.getById(connectedUser.getId());
-            }
+            return PatientService.getById(connectedUser.getId());
         }
         return null;
+    }
+
+    public ChartModel getSearchChart() {
+        LineChartModel lineChartModel = initChartFromUserData(getConnectedPatient());
+        lineChartModel.setTitle("Number of physician/department");
+        lineChartModel.setLegendPosition("e");
+        Axis y = lineChartModel.getAxis(AxisType.Y);
+        y.setMin(0);
+        return lineChartModel;
+    }
+
+    private LineChartModel initChartFromUserData(Patient connectedPatient) {
+        LineChartModel lineChartModel = new LineChartModel();
+        List<SearchItem> searchItems = connectedPatient.getSearchItems();
+        LineChartSeries series = new LineChartSeries();
+        series.setLabel("Search chart");
+        Map<String, Long> collect = searchItems.stream()
+                .map(item -> {
+                    String postalCode = item.getPostalCode();
+                    String dep = postalCode.substring(0, 1) + "000";
+                    return SearchItem.builder()
+                            .setPostalCode(Integer.parseInt(dep))
+                            .setPhysicianName(item.getPhysicianName())
+                            .setFieldOfActivity(item.getFieldOfActivity()).build();
+                })
+                .collect(Collectors.groupingBy(SearchItem::getPostalCode, Collectors.counting()));
+        collect.forEach((key, value) -> series.set(key, value));
+        lineChartModel.addSeries(series);
+        return lineChartModel;
     }
 
     public boolean isPatient() {
@@ -113,9 +159,8 @@ public class ConnectedUserBean implements Serializable {
     public String removeAppointment(long appointmentID) {
         AppointmentService appointmentService = new AppointmentService();
         appointmentService.removeAppointment(connectedUser.getId(), appointmentID);
-        return "patientProfil";
+        return Resources.PAGE_PATIENT_PROFIL;
     }
-
 
     @PostConstruct
     public void load() {

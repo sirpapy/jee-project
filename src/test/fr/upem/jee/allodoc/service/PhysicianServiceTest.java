@@ -145,7 +145,7 @@ public class PhysicianServiceTest {
         physicianService.save();
 
         PhysicianService searchController = new PhysicianService();
-        assertEquals(searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, physician.getLastName(), location).size(), 1);
+        assertEquals(1, searchController.searchByNameFieldOfActivityLocation(fieldOfActivity, physician.getLastName(), location).size());
 
     }
 
