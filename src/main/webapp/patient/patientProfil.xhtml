@@ -37,13 +37,17 @@
                             </b:panelGrid>
                         </c:forEach>
                         <f:facet name="footer">
-                            <b:button value="Display chart" look="success" onclick="$('.modalPseudoClass').modal();return false;"/>
+                            <b:button value="Display chart" look="success"
+                                      onclick="$('.modalPseudoClass').modal();return false;"
+                            />
                         </f:facet>
                     </b:panel>
                 </b:column>
 
                 <b:modal title="Your search chart" widgetVar="chart" styleClass="modalPseudoClass" backdrop="false">
-                    <p:chart type="line" model="#{connectedUserBean.searchChart}" style="height: 300px;"/>
+                    <div>
+                        <p:chart type="line" model="#{connectedUserBean.searchChart}" style="height: 300px;"/>
+                    </div>
                     <f:facet name="footer">
                         <b:button value="close" dismiss="modal" onclick="return false;"/>
                         <b:button value="Ok" look="primary" dismiss="modal" onclick="return false;"/>
