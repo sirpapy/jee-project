@@ -35,6 +35,7 @@ public class ConnectedUserBean implements Serializable {
     private boolean isPatient = true;
     private User connectedUser;
     private String badgeLabel;
+    private LineChartModel searchChart;
 
     @ManagedProperty("#{searchHistoryService}")
     private SearchHistoryService searchHistoryService;
@@ -120,7 +121,7 @@ public class ConnectedUserBean implements Serializable {
     }
 
     public ChartModel getSearchChart() {
-        LineChartModel lineChartModel = initChartFromUserData(getConnectedPatient());
+        BarChartModel lineChartModel = initChartFromUserData(getConnectedPatient());
         lineChartModel.setTitle("Number of physician/department");
         lineChartModel.setLegendPosition("e");
         Axis y = lineChartModel.getAxis(AxisType.Y);
@@ -128,8 +129,8 @@ public class ConnectedUserBean implements Serializable {
         return lineChartModel;
     }
 
-    private LineChartModel initChartFromUserData(Patient connectedPatient) {
-        LineChartModel lineChartModel = new LineChartModel();
+    private BarChartModel initChartFromUserData(Patient connectedPatient) {
+        BarChartModel lineChartModel = new BarChartModel();
         List<SearchItem> searchItems = connectedPatient.getSearchItems();
         LineChartSeries series = new LineChartSeries();
         series.setLabel("Search chart");

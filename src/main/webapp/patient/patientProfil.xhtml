@@ -46,7 +46,7 @@
 
                 <b:modal title="Your search chart" widgetVar="chart" styleClass="modalPseudoClass" backdrop="false">
                     <div>
-                        <p:chart type="line" model="#{connectedUserBean.searchChart}" style="height: 300px;"/>
+                        <p:chart type="bar" model="#{connectedUserBean.searchChart}" style="height: 300px;width: 400px;"/>
                     </div>
                     <f:facet name="footer">
                         <b:button value="close" dismiss="modal" onclick="return false;"/>
